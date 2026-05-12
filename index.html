@@ -2604,26 +2604,33 @@
 
         <!-- Formulario derecho -->
         <div class="ls-form">
-          <div class="ls-form-eyebrow">Acceso corporativo</div>
+          <div class="ls-form-eyebrow">Demo · Portafolio</div>
           <div class="ls-form-title">Bienvenido</div>
           <div class="ls-form-sep"></div>
           <div class="ls-form-desc">
-            Exclusivo para cuentas <strong>@empresa-demo.co</strong>.<br>
-            Inicia sesión con tu cuenta Microsoft corporativa.
+            Ingresa cualquier nombre para explorar el dashboard.<br>
+            <strong>No se requiere cuenta real.</strong>
           </div>
           <div class="lerr" id="login-error"></div>
-          <button class="btn-ms" id="msLoginBtn" onclick="doMicrosoftLogin()">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23" style="width:20px;height:20px;flex-shrink:0;">
-              <rect x="1" y="1" width="10" height="10" fill="#f25022"/>
-              <rect x="12" y="1" width="10" height="10" fill="#7fba00"/>
-              <rect x="1" y="12" width="10" height="10" fill="#00a4ef"/>
-              <rect x="12" y="12" width="10" height="10" fill="#ffb900"/>
-            </svg>
-            Iniciar sesión con Microsoft
+          <div style="margin-bottom:14px">
+            <label style="font-size:11px;font-weight:600;color:#4a5568;letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:6px">Tu nombre</label>
+            <input id="demo-nombre" type="text" placeholder="Ej: Ana Torres"
+              style="width:100%;padding:12px 14px;border:1.5px solid #d1d9e6;border-radius:10px;font-family:'Outfit',sans-serif;font-size:14px;color:#1a202c;outline:none;transition:border .2s;background:#f8fafc;"
+              onfocus="this.style.borderColor='#001D62';this.style.background='#fff'"
+              onblur="this.style.borderColor='#d1d9e6';this.style.background='#f8fafc'"
+              onkeydown="if(event.key==='Enter') doDemoLogin()">
+          </div>
+          <button class="btn-ms" id="msLoginBtn" onclick="doDemoLogin()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:18px;height:18px;flex-shrink:0"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            Entrar al Dashboard
+          </button>
+          <div class="div-or">o</div>
+          <button class="btn-demo" onclick="doDemoLogin('Visitante')">
+            👤 Entrar como visitante
           </button>
           <div class="ls-form-footer">
-            Línea Comunicaciones · Confidencial · Solo uso interno<br>
-            <span style="opacity:.55">v3.0 · 2026</span>
+            Dashboard de Producción · Demo Portafolio<br>
+            <span style="opacity:.55">Los datos mostrados son sintéticos · v3.0 · 2026</span>
           </div>
         </div>
 
