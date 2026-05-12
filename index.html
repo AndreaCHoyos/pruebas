@@ -2604,33 +2604,21 @@
 
         <!-- Formulario derecho -->
         <div class="ls-form">
-          <div class="ls-form-eyebrow">Demo · Portafolio</div>
+          <div class="ls-form-eyebrow">Dashboard · Producción</div>
           <div class="ls-form-title">Bienvenido</div>
           <div class="ls-form-sep"></div>
           <div class="ls-form-desc">
-            Ingresa cualquier nombre para explorar el dashboard.<br>
-            <strong>No se requiere cuenta real.</strong>
+            Accede al dashboard de producción<br>
+            <strong>Línea Comunicaciones · 2026</strong>
           </div>
           <div class="lerr" id="login-error"></div>
-          <div style="margin-bottom:14px">
-            <label style="font-size:11px;font-weight:600;color:#4a5568;letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:6px">Tu nombre</label>
-            <input id="demo-nombre" type="text" placeholder="Ej: Ana Torres"
-              style="width:100%;padding:12px 14px;border:1.5px solid #d1d9e6;border-radius:10px;font-family:'Outfit',sans-serif;font-size:14px;color:#1a202c;outline:none;transition:border .2s;background:#f8fafc;"
-              onfocus="this.style.borderColor='#001D62';this.style.background='#fff'"
-              onblur="this.style.borderColor='#d1d9e6';this.style.background='#f8fafc'"
-              onkeydown="if(event.key==='Enter') doDemoLogin()">
-          </div>
-          <button class="btn-ms" id="msLoginBtn" onclick="doDemoLogin()">
+          <button class="btn-ms" id="msLoginBtn" onclick="_enterApp()" style="margin-top:8px">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:18px;height:18px;flex-shrink:0"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            Entrar al Dashboard
-          </button>
-          <div class="div-or">o</div>
-          <button class="btn-demo" onclick="doDemoLogin('Visitante')">
-            👤 Entrar como visitante
+            Ingresar al Dashboard
           </button>
           <div class="ls-form-footer">
-            Dashboard de Producción · Demo Portafolio<br>
-            <span style="opacity:.55">Los datos mostrados son sintéticos · v3.0 · 2026</span>
+            Dashboard de Producción · Línea Comunicaciones<br>
+            <span style="opacity:.55">v3.0 · 2026</span>
           </div>
         </div>
 
@@ -4874,7 +4862,7 @@
       }
     };
 
-    function _enterApp() {
+    window._enterApp = function _enterApp() {
       const p = window._msUserProfile || {};
       const topbarRight = document.querySelector('.topbar-right');
       if (topbarRight && !document.getElementById('ms-user-chip')) {
@@ -4908,7 +4896,7 @@
       setTimeout(() => {
         if (window.LoginTracker) window.LoginTracker.renderPanel();
       }, 400);
-    }
+    };
 
     window.doLogout = function() {
       clearTimeout(_sessionTimer);
@@ -4925,8 +4913,6 @@
       document.getElementById('app').classList.remove('on');
       document.getElementById('login-screen').classList.remove('hidden');
       document.getElementById('login-error').style.display = 'none';
-      const btn = document.getElementById('msLoginBtn');
-      if (btn) { btn.disabled = false; btn.innerHTML = _msBtnHTML(); }
     };
 
     // Arranque: mostrar login, NO arrancar app directo
