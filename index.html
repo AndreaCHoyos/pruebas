@@ -2604,22 +2604,19 @@
 
         <!-- Formulario derecho -->
         <div class="ls-form">
-          <div class="ls-form-eyebrow">Acceso corporativo</div>
+          <div class="ls-form-eyebrow">Acceso al tablero</div>
           <div class="ls-form-title">Bienvenido</div>
           <div class="ls-form-sep"></div>
           <div class="ls-form-desc">
-            Exclusivo para cuentas <strong>@lineacom.co</strong>.<br>
-            Inicia sesión con tu cuenta Microsoft corporativa.
+            Haz clic para ingresar al dashboard de producción.
           </div>
-          <div class="lerr" id="login-error"></div>
-          <button class="btn-ms" id="msLoginBtn" onclick="doMicrosoftLogin()">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23" style="width:20px;height:20px;flex-shrink:0;">
-              <rect x="1" y="1" width="10" height="10" fill="#f25022"/>
-              <rect x="12" y="1" width="10" height="10" fill="#7fba00"/>
-              <rect x="1" y="12" width="10" height="10" fill="#00a4ef"/>
-              <rect x="12" y="12" width="10" height="10" fill="#ffb900"/>
+          <button class="btn-ms" id="msLoginBtn" onclick="doEntrar()">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width:20px;height:20px;flex-shrink:0;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+              <polyline points="10 17 15 12 10 7"/>
+              <line x1="15" y1="12" x2="3" y2="12"/>
             </svg>
-            Iniciar sesión con Microsoft
+            Ingresar al Dashboard
           </button>
           <div class="ls-form-footer">
             Línea Comunicaciones · Confidencial · Solo uso interno<br>
@@ -4817,75 +4814,10 @@
       throw new Error('No se pudo cargar MSAL. Verifica tu conexión a Internet.');
     }
 
-    function _showLoginError(msg) {
-      const e = document.getElementById('login-error');
-      e.innerHTML = '⚠ ' + msg;
-      e.style.display = 'block';
-      const btn = document.getElementById('msLoginBtn');
-      if (btn) { btn.disabled = false; btn.innerHTML = _msBtnHTML(); }
-    }
-
-    function _msBtnHTML() {
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23" style="width:20px;height:20px;flex-shrink:0;"><rect x="1" y="1" width="10" height="10" fill="#f25022"/><rect x="12" y="1" width="10" height="10" fill="#7fba00"/><rect x="1" y="12" width="10" height="10" fill="#00a4ef"/><rect x="12" y="12" width="10" height="10" fill="#ffb900"/></svg> Iniciar sesión con Microsoft`;
-    }
-
-    window.doMicrosoftLogin = async function() {
-      const btn = document.getElementById('msLoginBtn');
-      if (btn) { btn.disabled = true; btn.textContent = 'Conectando con Microsoft...'; }
-      document.getElementById('login-error').style.display = 'none';
-
-      try {
-        const msal = await _loadMSAL();
-        _msalInstance = new msal.PublicClientApplication(MSAL_CONFIG);
-        await _msalInstance.initialize();
-
-        const result = await _msalInstance.loginPopup({ scopes: MS_SCOPES, prompt: 'select_account' });
-        const email  = result.account?.username || '';
-        const domain = email.split('@')[1]?.toLowerCase();
-
-        if (domain !== ALLOWED_DOMAIN) {
-          await _msalInstance.logoutPopup({ account: result.account }).catch(() => {});
-          _showLoginError(`Acceso denegado. Solo cuentas @${ALLOWED_DOMAIN}.<br><small style="opacity:0.7">Tu cuenta: ${email}</small>`);
-          return;
-        }
-
-        let displayName = result.account.name || email, jobTitle = '', photo = null;
-        try {
-          const graphToken = await _msalInstance.acquireTokenSilent({ scopes: ['User.Read'], account: result.account });
-          const profileRes = await fetch('https://graph.microsoft.com/v1.0/me?$select=displayName,jobTitle,mail', { headers: { Authorization: `Bearer ${graphToken.accessToken}` } });
-          if (profileRes.ok) { const p = await profileRes.json(); displayName = p.displayName || displayName; jobTitle = p.jobTitle || ''; }
-          const photoRes = await fetch('https://graph.microsoft.com/v1.0/me/photo/$value', { headers: { Authorization: `Bearer ${graphToken.accessToken}` } });
-          if (photoRes.ok) {
-            const blob = await photoRes.blob();
-            photo = await new Promise(res => { const r = new FileReader(); r.onload = () => res(r.result); r.readAsDataURL(blob); });
-          }
-        } catch (graphErr) { console.warn('[Auth] Graph parcial:', graphErr.message); }
-
-        window._msUserProfile = { nombre: displayName, cargo: jobTitle, email, foto: photo };
-
-        // Guardar permisos del usuario
-        _currentUserPerms = _getUserPermissions(email);
-
-        if (_currentUserPerms === 'DENIED') {
-          await _msalInstance.logoutPopup({ account: result.account }).catch(() => {});
-          _showLoginError(`Acceso denegado. No tienes permisos para acceder a este tablero.<br><small style="opacity:0.7">Contacta al administrador.</small>`);
-          return;
-        }
-
-        // Registrar acceso en Supabase sin bloquear el login
-        if (window.LoginTracker) {
-          window.LoginTracker.registrar(window._msUserProfile).catch(e => console.warn('[Tracker]', e));
-        }
-
-        _enterApp();
-
-      } catch (err) {
-        if (err.errorCode === 'user_cancelled') _showLoginError('Inicio de sesión cancelado.');
-        else { console.error('[Auth]', err); _showLoginError('Error al conectar con Microsoft. Intenta de nuevo.<br><small style="opacity:.7">' + (err.message||err) + '</small>'); }
-      } finally {
-        const btn2 = document.getElementById('msLoginBtn');
-        if (btn2 && btn2.disabled) { btn2.disabled = false; btn2.innerHTML = _msBtnHTML(); }
-      }
+    window.doEntrar = function() {
+      window._msUserProfile = { nombre: 'Usuario', cargo: '', email: '', foto: null };
+      _currentUserPerms = null;
+      _enterApp();
     };
 
     function _enterApp() {
