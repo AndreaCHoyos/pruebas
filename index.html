@@ -4849,7 +4849,7 @@
       document.getElementById('app').classList.add('on');
 
       clearTimeout(_sessionTimer);
-      _sessionTimer = setTimeout(() => { alert('⏰ Sesión expirada. Inicia sesión nuevamente.'); doLogout(); }, SESSION_DURATION);
+      // _sessionTimer deshabilitado en modo demo
 
       setTimeout(() => {
         if (window.LoginTracker) window.LoginTracker.renderPanel();
@@ -4875,9 +4875,11 @@
       if (btn) { btn.disabled = false; btn.innerHTML = _msBtnHTML(); }
     };
 
-    // Arranque: mostrar login, NO arrancar app directo
+    // Arranque: entrar automáticamente (modo demo/portafolio)
     window.addEventListener('DOMContentLoaded', () => {
-      // La app arranca solo tras login exitoso (_enterApp → hideSplash → initDash)
+      window._msUserProfile = { nombre: 'Demo Usuario', cargo: 'Portafolio', email: 'demo@empresa.co', foto: null };
+      _currentUserPerms = null;
+      setTimeout(() => _enterApp(), 300);
     });
 
     // ══════════════════════════════════════════════
@@ -4886,7 +4888,7 @@
     let RAW = [];
     const CI = new Map(), LI = new Map(), BI = new Map(); // chart instances
 
-    const MONTHS_ISO = ['2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09', '2026-10', '2026-11', '2026-12'];
+    const MONTHS_ISO = ['2025-01', '2025-02', '2025-03', '2025-04', '2025-05', '2025-06', '2025-07', '2025-08', '2025-09', '2025-10', '2025-11', '2025-12'];
     const MONTHS_LBL = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
     const GERS = ['PROYECTO 1', 'PROYECTO 2', 'PROYECTO 3'];
     const GC = { 'PROYECTO 1': '#166534', 'PROYECTO 2': '#001D62', 'PROYECTO 3': '#0847a3' };
