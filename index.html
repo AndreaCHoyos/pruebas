@@ -4100,11 +4100,11 @@
             <div class="pa">
               <div class="f-group">
                 <label>Desde</label>
-                <input type="date" id="cir-d1" class="f-sel" value="2026-04-01" onchange="renderProyecto 2()">
+                <input type="date" id="cir-d1" class="f-sel" value="2026-04-01" onchange="renderProyecto2()">
               </div>
               <div class="f-group">
                 <label>Hasta</label>
-                <input type="date" id="cir-d2" class="f-sel" value="2026-04-30" onchange="renderProyecto 2()">
+                <input type="date" id="cir-d2" class="f-sel" value="2026-04-30" onchange="renderProyecto2()">
               </div>
               <button class="btn-exp" onclick="exportTab('proyecto 2')">📊 Exportar</button>
             </div>
@@ -4176,11 +4176,11 @@
             <div class="pa">
               <div class="f-group">
                 <label>Desde</label>
-                <input type="date" id="lib-d1" class="f-sel" value="2026-04-01" onchange="renderProyecto 3()">
+                <input type="date" id="lib-d1" class="f-sel" value="2026-04-01" onchange="renderProyecto3()">
               </div>
               <div class="f-group">
                 <label>Hasta</label>
-                <input type="date" id="lib-d2" class="f-sel" value="2026-04-30" onchange="renderProyecto 3()">
+                <input type="date" id="lib-d2" class="f-sel" value="2026-04-30" onchange="renderProyecto3()">
               </div>
               <button class="btn-exp" onclick="exportTab('proyecto 3')">📊 Exportar</button>
             </div>
@@ -4238,11 +4238,11 @@
             <div class="pa">
               <div class="f-group">
                 <label>Desde</label>
-                <input type="date" id="ban-d1" class="f-sel" value="2026-04-01" onchange="renderProyecto 1()">
+                <input type="date" id="ban-d1" class="f-sel" value="2026-04-01" onchange="renderProyecto1()">
               </div>
               <div class="f-group">
                 <label>Hasta</label>
-                <input type="date" id="ban-d2" class="f-sel" value="2026-04-30" onchange="renderProyecto 1()">
+                <input type="date" id="ban-d2" class="f-sel" value="2026-04-30" onchange="renderProyecto1()">
               </div>
               <button class="btn-exp" onclick="exportTab('proyecto 1')">📊 Exportar</button>
             </div>
@@ -5007,9 +5007,9 @@
       if (name === 'resumen') renderResumen();
       if (name === 'diario') { toggleSubGer(); requestAnimationFrame(() => renderDiario()); }
       if (name === 'zonas') renderZonas();
-      if (name === 'proyecto 2') renderProyecto 2();
-      if (name === 'proyecto 3') renderProyecto 3();
-      if (name === 'proyecto 1') renderProyecto 1();
+      if (name === 'proyecto 2') renderProyecto2();
+      if (name === 'proyecto 3') renderProyecto3();
+      if (name === 'proyecto 1') renderProyecto1();
       if (name === 'detalle') { renderDetalleHero(); renderDetalle(); }
       if (name === 'accesos') renderAccesos();
     }
@@ -5407,13 +5407,13 @@
           <div class="estado-metric"><span class="estado-metric-val" style="color:${cumpAcumTotal >= 95 ? '#4ade80' : cumpAcumTotal >= 75 ? '#fbbf24' : '#f87171'}">${cumpAcumTotal}%</span><span class="estado-metric-lbl">%Cump Año</span></div>`;
       }
 
-      const gProyecto 1 = document.getElementById('res-grid-proyecto 1');
-      const gProyecto 2 = document.getElementById('res-grid-proyecto 2');
-      const gProyecto 3 = document.getElementById('res-grid-proyecto 3');
-      if (gProyecto 1 && gProyecto 2 && gProyecto 3) {
-        gProyecto 1.innerHTML = renderUnifiedProjectCard('PROYECTO 1', range, resD1, resD2);
-        gProyecto 2.innerHTML = renderCompactProjectCard('PROYECTO 2', range, resD1, resD2);
-        gProyecto 3.innerHTML = renderCompactProjectCard('PROYECTO 3', range, resD1, resD2);
+      const gProyecto1 = document.getElementById('res-grid-proyecto 1');
+      const gProyecto2 = document.getElementById('res-grid-proyecto 2');
+      const gProyecto3 = document.getElementById('res-grid-proyecto 3');
+      if (gProyecto1 && gProyecto2 && gProyecto3) {
+        gProyecto1.innerHTML = renderUnifiedProjectCard('PROYECTO 1', range, resD1, resD2);
+        gProyecto2.innerHTML = renderCompactProjectCard('PROYECTO 2', range, resD1, resD2);
+        gProyecto3.innerHTML = renderCompactProjectCard('PROYECTO 3', range, resD1, resD2);
       }
 
       // Tendencia — Siempre 12 meses, filtrable por proyecto
@@ -5590,11 +5590,11 @@
       if (_currentUserPerms && _currentUserPerms.resumenChartGerencia === 'PROYECTO 1') {
         const redebanProd = prodSubReal(isRedeban, range, null, null);
         const wompiProd   = prodSubReal(isWompi,   range, null, null);
-        const proyecto 2Prod  = prodReal('PROYECTO 2',  range);
-        const proyecto 3Prod = prodReal('PROYECTO 3', range);
+        const proyecto2Prod  = prodReal('PROYECTO 2',  range);
+        const proyecto3Prod = prodReal('PROYECTO 3', range);
         mkC('ch-res-dona', 'doughnut', {
           labels: ['Redeban', 'Wompi', 'Proyecto 2', 'Proyecto 3'],
-          datasets: [{ data: [redebanProd, wompiProd, proyecto 2Prod, proyecto 3Prod], backgroundColor: ['#0847a3', '#166534', '#001D62', '#4f46e5'], borderWidth: 0, hoverOffset: 10 }]
+          datasets: [{ data: [redebanProd, wompiProd, proyecto2Prod, proyecto3Prod], backgroundColor: ['#0847a3', '#166534', '#001D62', '#4f46e5'], borderWidth: 0, hoverOffset: 10 }]
         }, {
           cutout: '68%',
           plugins: {
@@ -5622,11 +5622,11 @@
         } else {
           const redebanProd = prodSubReal(isRedeban, range, null, null);
           const wompiProd   = prodSubReal(isWompi,   range, null, null);
-          const proyecto 2Prod  = prodReal('PROYECTO 2',  range);
-          const proyecto 3Prod = prodReal('PROYECTO 3', range);
+          const proyecto2Prod  = prodReal('PROYECTO 2',  range);
+          const proyecto3Prod = prodReal('PROYECTO 3', range);
           mkC('ch-res-dona', 'doughnut', {
             labels: ['Redeban', 'Wompi', 'Proyecto 2', 'Proyecto 3'],
-            datasets: [{ data: [redebanProd, wompiProd, proyecto 2Prod, proyecto 3Prod], backgroundColor: ['#0847a3', '#166534', '#001D62', '#4472c4'], borderWidth: 0, hoverOffset: 10 }]
+            datasets: [{ data: [redebanProd, wompiProd, proyecto2Prod, proyecto3Prod], backgroundColor: ['#0847a3', '#166534', '#001D62', '#4472c4'], borderWidth: 0, hoverOffset: 10 }]
           }, {
             cutout: '68%',
             plugins: {
@@ -6242,7 +6242,7 @@
     // ══════════════════════════════════════════════
     // PROYECTO 2
     // ══════════════════════════════════════════════
-    function renderProyecto 2() {
+    function renderProyecto2() {
       const range = getRange('cir-d1', 'cir-d2');
       const { d1: cirD1, d2: cirD2 } = getRangeDates('cir-d1', 'cir-d2');
       const c = RAW.filter(r => {
@@ -6273,7 +6273,7 @@
         kpi('Finalizadas', fin.toLocaleString(), `${Math.round(fin / c.length * 100) || 0}%`, 'ok', '✅', Math.round(fin / c.length * 100) || 0),
         kpi('Producción Real', fmtCOP(vt), 'Valor total histórico', '', '💰'),
         kpi('%Cump Periodo', cp + '%', `${periodLbl} · ${fmtCOP(prod)} / ${fmtCOP(meta)}`, cTClass(cp), '🎯', cp),
-        kpi('Meta Anual', fmtCOP(metaAnual('PROYECTO 2')), 'Presupuesto 2026', 'lima', '📆'),
+        kpi('Meta Anual', fmtCOP(metaAnual('PROYECTO 2')), 'Presupuesto2026', 'lima', '📆'),
         kpi('Zonas', Object.keys(PROYECTO2_ZONAS).length.toString(), 'Centros de costo activos', 'lima', '📍'),
       ].join('');
 
@@ -6355,7 +6355,7 @@
     // ══════════════════════════════════════════════
     // PROYECTO 3
     // ══════════════════════════════════════════════
-    function renderProyecto 3() {
+    function renderProyecto3() {
       const range = getRange('lib-d1', 'lib-d2');
       const { d1: libD1, d2: libD2 } = getRangeDates('lib-d1', 'lib-d2');
       const l = RAW.filter(r => {
@@ -6386,7 +6386,7 @@
         kpi('Finalizadas', fin.toLocaleString(), `${Math.round(fin / (l.length || 1) * 100)}%`, 'ok', '✅', Math.round(fin / (l.length || 1) * 100)),
         kpi('Producción Real', fmtCOP(vt), 'Valor total histórico', '', '💰'),
         kpi('%Cump Periodo', cp + '%', `${periodLbl} · ${fmtCOP(prod)} / ${fmtCOP(meta)}`, cTClass(cp), '🎯', cp),
-        kpi('Meta Anual', fmtCOP(metaAnual('PROYECTO 3')), 'Presupuesto 2026', 'lima', '📆'),
+        kpi('Meta Anual', fmtCOP(metaAnual('PROYECTO 3')), 'Presupuesto2026', 'lima', '📆'),
         kpi('Zonas', '2', 'Cali · Medellín', 'lima', '📍'),
       ].join('');
 
@@ -6431,7 +6431,7 @@
     // ══════════════════════════════════════════════
     // PROYECTO 1
     // ══════════════════════════════════════════════
-    function renderProyecto 1() {
+    function renderProyecto1() {
       const range = getRange('ban-d1', 'ban-d2');
       const { d1: banD1, d2: banD2 } = getRangeDates('ban-d1', 'ban-d2');
       const b = RAW.filter(r => {
@@ -6462,7 +6462,7 @@
         kpi('Finalizadas', fin.toLocaleString(), `${Math.round(fin / (b.length || 1) * 100)}%`, 'ok', '✅', Math.round(fin / (b.length || 1) * 100)),
         kpi('Producción Real', fmtCOP(vt), 'Valor total histórico', '', '💰'),
         kpi('%Cump Periodo', cp + '%', `${periodLbl} · ${fmtCOP(prod)} / ${fmtCOP(meta)}`, cTClass(cp), '🎯', cp),
-        kpi('Meta Anual', fmtCOP(metaAnual('PROYECTO 1')), 'Presupuesto 2026', 'lima', '📆'),
+        kpi('Meta Anual', fmtCOP(metaAnual('PROYECTO 1')), 'Presupuesto2026', 'lima', '📆'),
         kpi('Zonas', Object.keys(PROYECTO1_ZONAS).length.toString(), 'Redes y centros', 'lima', '📍'),
       ].join('');
 
@@ -6552,7 +6552,7 @@
 
       // ── PROYECTO 1: métricas especializadas ───────────────────────────────
       if (gerSel === 'PROYECTO 1') {
-        const totalProyecto 1 = sumBy(rows, 'VALOR_TOTAL');
+        const totalProyecto1 = sumBy(rows, 'VALOR_TOTAL');
         const totalActs  = rows.length;
 
         // Por NEGOCIOGENERAL → Redeban vs Wompi vs Otros
@@ -6599,7 +6599,7 @@
           </div>`;
 
         band.innerHTML = `
-          ${M(totalProyecto 1, 'Producción Proyecto 1', true)}
+          ${M(totalProyecto1, 'Producción Proyecto 1', true)}
           ${sep}
           ${M(redebanVal, 'Redeban', true)}
           ${M(redebanCBVal,  'Redeban CB')}
@@ -6621,7 +6621,7 @@
 
       // ── PROYECTO 2: métricas por tipo de negocio ────────────────────────
       if (gerSel === 'PROYECTO 2') {
-        const totalProyecto 2  = sumBy(rows, 'VALOR_TOTAL');
+        const totalProyecto2  = sumBy(rows, 'VALOR_TOTAL');
         const assuranceRows = rows.filter(r => /ASSURANCE/i.test(r.TIPO_NEGOCIO || ''));
         const deliveryRows  = rows.filter(r => /DELIVERY/i.test(r.TIPO_NEGOCIO  || ''));
         const fijoRows      = rows.filter(r => /FIJO/i.test(r.TIPO_NEGOCIO      || ''));
@@ -6636,7 +6636,7 @@
             <div class="estado-metric-lbl">${lbl}</div>
           </div>`;
 
-        const totalActsProyecto 2 = rows.length;
+        const totalActsProyecto2 = rows.length;
         const Mn2 = (num, lbl) =>
           `<div class="estado-metric">
             <div class="estado-metric-val">${num.toLocaleString()}</div>
@@ -6644,13 +6644,13 @@
           </div>`;
 
         band.innerHTML = `
-          ${M(totalProyecto 2, 'Producción Total', true)}
+          ${M(totalProyecto2, 'Producción Total', true)}
           ${sep}
           ${M(assuranceVal, 'Assurance')}
           ${M(deliveryVal,  'Delivery')}
           ${M(fijoVal,      'Abono Fijo')}
           ${sep}
-          ${Mn2(totalActsProyecto 2, 'Actividades')}
+          ${Mn2(totalActsProyecto2, 'Actividades')}
         `;
         band.style.display = 'flex';
         band.style.flexWrap = 'wrap';
@@ -6661,7 +6661,7 @@
 
       // ── PROYECTO 3: métricas específicas ────────────────────────────────
       if (gerSel === 'PROYECTO 3') {
-        const totalProyecto 3 = sumBy(rows, 'VALOR_TOTAL');
+        const totalProyecto3 = sumBy(rows, 'VALOR_TOTAL');
 
         // Abono Fijo: actividades cuyo TIPO_ACTIVIDAD coincide con los 4 conceptos definidos
         const abonoFijoTypes = [
@@ -6682,7 +6682,7 @@
             <div class="estado-metric-lbl">${lbl}</div>
           </div>`;
 
-        const totalActsProyecto 3 = rows.length;
+        const totalActsProyecto3 = rows.length;
         const Mn3 = (num, lbl) =>
           `<div class="estado-metric">
             <div class="estado-metric-val">${num.toLocaleString()}</div>
@@ -6690,11 +6690,11 @@
           </div>`;
 
         band.innerHTML = `
-          ${M(totalProyecto 3, 'Producción Total', true)}
+          ${M(totalProyecto3, 'Producción Total', true)}
           ${sep}
           ${M(abonoFijoVal, 'Abono Fijo')}
           ${sep}
-          ${Mn3(totalActsProyecto 3, 'Actividades')}
+          ${Mn3(totalActsProyecto3, 'Actividades')}
         `;
         band.style.display = 'flex';
         band.style.flexWrap = 'wrap';
@@ -7088,19 +7088,19 @@
 
       // Mostrar/ocultar filtros según gerencia
       const isTodos   = gerSel === 'todos';
-      const isProyecto 1   = gerSel === 'PROYECTO 1';
-      const isProyecto 2  = gerSel === 'PROYECTO 2';
-      const isProyecto 3 = gerSel === 'PROYECTO 3';
+      const isProyecto1   = gerSel === 'PROYECTO 1';
+      const isProyecto2  = gerSel === 'PROYECTO 2';
+      const isProyecto3 = gerSel === 'PROYECTO 3';
       const showFn = (id, show) => { const el = document.getElementById(id); if (el) el.style.display = show ? '' : 'none'; };
-      showFn('fg-est',     !isTodos && !isProyecto 1 && !isProyecto 2 && !isProyecto 3);
-      showFn('fg-zona',    !isTodos && !isProyecto 1 && !isProyecto 2);
+      showFn('fg-est',     !isTodos && !isProyecto1 && !isProyecto2 && !isProyecto3);
+      showFn('fg-zona',    !isTodos && !isProyecto1 && !isProyecto2);
       showFn('fg-cc',      true);
-      showFn('fg-tipo',    !isProyecto 1);
-      showFn('fg-negocio',        isProyecto 1);
-      showFn('fg-forma',          isProyecto 1);
-      showFn('hero-fg-proyecto',  isProyecto 1);
-      showFn('fg-base',    isProyecto 2 || isProyecto 3);
-      showFn('fg-coord',   isProyecto 2 || isProyecto 3);
+      showFn('fg-tipo',    !isProyecto1);
+      showFn('fg-negocio',        isProyecto1);
+      showFn('fg-forma',          isProyecto1);
+      showFn('hero-fg-proyecto',  isProyecto1);
+      showFn('fg-base',    isProyecto2 || isProyecto3);
+      showFn('fg-coord',   isProyecto2 || isProyecto3);
 
       let rows = _dGer === 'todos' ? RAW : RAW.filter(r => r.GERENCIA === _dGer);
       if (_dEst)      rows = rows.filter(r => r.ESTADO_ACTIVIDAD === _dEst);
