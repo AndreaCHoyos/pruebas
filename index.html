@@ -2653,7 +2653,7 @@
   </div>
 
   <!-- APP -->
-  <div id="app" class="on">
+  <div id="app">
     <header class="topbar">
       <div style="display:flex;align-items:center">
         <div class="tb-brand">
@@ -4519,11 +4519,11 @@
 
     let PROYECCION_RAW = [];
     let PPTO_DIARIO = {};
-    let PROYECTO 2_ZONAS = {};
-    let PROYECTO 2_CATS = {};
-    let PROYECTO 1_ZONAS = {};
-    let PROYECTO 3_ZONAS = {};
-    let META_MES = { PROYECTO 1: {}, PROYECTO 2: {}, PROYECTO 3: {} };
+    let PROYECTO2_ZONAS = {};
+    let PROYECTO2_CATS = {};
+    let PROYECTO1_ZONAS = {};
+    let PROYECTO3_ZONAS = {};
+    let META_MES = { 'PROYECTO 1': {}, 'PROYECTO 2': {}, 'PROYECTO 3': {} };
     // ── SPLASH (ya integrado en login-screen, esta función queda de compatibilidad) ──
     function hideSplash() {
       document.getElementById('app').classList.add('on');
@@ -4696,8 +4696,8 @@
               // Activar Proyecto 2 por defecto y sincronizar _trendGer
               _trendGer = 'PROYECTO 2';
               Array.from(trendPills.querySelectorAll('.pill')).forEach(btn => btn.classList.remove('on'));
-              const proyecto 2Btn = Array.from(trendPills.querySelectorAll('.pill')).find(b => b.textContent.trim().toUpperCase() === 'PROYECTO 2');
-              if (proyecto 2Btn) proyecto 2Btn.classList.add('on');
+              const proyecto2Btn = Array.from(trendPills.querySelectorAll('.pill')).find(b => b.textContent.trim().toUpperCase() === 'PROYECTO 2');
+              if (proyecto2Btn) proyecto2Btn.classList.add('on');
             } else {
               trendPills.style.display = 'none';
             }
@@ -4713,8 +4713,8 @@
         }
         // Ajustar el grid del resumen según los grids visibles
         const resGrid = document.querySelector('#tp-resumen > div[style*="grid-template-columns"]');
-        const hasProyecto 2Proyecto 3 = perms.resumenVisibleGrids.includes('res-grid-proyecto 2') && perms.resumenVisibleGrids.includes('res-grid-proyecto 3');
-        if (resGrid && hasProyecto 2Proyecto 3) {
+        const hasProyecto2Proyecto3 = perms.resumenVisibleGrids.includes('res-grid-proyecto 2') && perms.resumenVisibleGrids.includes('res-grid-proyecto 3');
+        if (resGrid && hasProyecto2Proyecto3) {
           // Proyecto 2 y Proyecto 3: 2 columnas iguales, dona oculta, tendencia full-width
           resGrid.style.gridTemplateColumns = '1fr 1fr';
           resGrid.style.gridTemplateRows = 'auto auto';
@@ -4889,7 +4889,7 @@
     const MONTHS_ISO = ['2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09', '2026-10', '2026-11', '2026-12'];
     const MONTHS_LBL = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
     const GERS = ['PROYECTO 1', 'PROYECTO 2', 'PROYECTO 3'];
-    const GC = { PROYECTO 1: '#166534', PROYECTO 2: '#001D62', PROYECTO 3: '#0847a3' };
+    const GC = { 'PROYECTO 1': '#166534', 'PROYECTO 2': '#001D62', 'PROYECTO 3': '#0847a3' };
     const PAL = ['#001D62', '#C5D336', '#166534', '#0847a3', '#9eaa25', '#22c55e', '#f59e0b', '#e8334a', '#6366f1', '#ec4899', '#14b8a6', '#f97316'];
 
     const CT = {
@@ -5054,8 +5054,13 @@
         setTimeout(hideBoot, 350);
         startAutoRefresh();
       } catch (err) {
-        console.error('[boot]', err);
-        fatalBoot(err.message || 'No fue posible cargar los archivos reales.');
+        console.warn('[boot] Archivos de datos no encontrados, abriendo tablero vacío:', err.message);
+        // Si los archivos no están disponibles, abrir el tablero igualmente (sin datos)
+        setBootStep('cons', 'err');
+        setBootStep('proy', 'err');
+        setBootProgress(100, 'Tablero abierto sin datos');
+        setBootMsg('⚠️ No se encontraron consolidado.json.gz / proyeccion.json.gz. El tablero está vacío. Sube los archivos y recarga.', true);
+        setTimeout(hideBoot, 2200);
       }
     }
 
@@ -5242,12 +5247,12 @@
 
     function buildProjectionIndexes(rows) {
       PROYECCION_RAW = rows;
-      PPTO_DIARIO = { PROYECTO 1: {}, PROYECTO 2: {}, PROYECTO 3: {} };
-      META_MES = { PROYECTO 1: {}, PROYECTO 2: {}, PROYECTO 3: {} };
-      PROYECTO 2_ZONAS = {};
-      PROYECTO 1_ZONAS = {};
-      PROYECTO 3_ZONAS = {};
-      PROYECTO 2_CATS = {};
+      PPTO_DIARIO = { 'PROYECTO 1': {}, 'PROYECTO 2': {}, 'PROYECTO 3': {} };
+      META_MES = { 'PROYECTO 1': {}, 'PROYECTO 2': {}, 'PROYECTO 3': {} };
+      PROYECTO2_ZONAS = {};
+      PROYECTO1_ZONAS = {};
+      PROYECTO3_ZONAS = {};
+      PROYECTO2_CATS = {};
 
       rows.forEach(r => {
         const ger = r.GERENCIA;
@@ -5262,14 +5267,14 @@
           META_MES[ger][mes] = (META_MES[ger][mes] || 0) + r.VALOR;
 
           const zonaKey = (r.PROYECTO_ZONA_SITIO || 'SIN ZONA').trim();
-          const targetZonas = ger === 'PROYECTO 2' ? PROYECTO 2_ZONAS : ger === 'PROYECTO 1' ? PROYECTO 1_ZONAS : PROYECTO 3_ZONAS;
+          const targetZonas = ger === 'PROYECTO 2' ? PROYECTO2_ZONAS : ger === 'PROYECTO 1' ? PROYECTO1_ZONAS : PROYECTO3_ZONAS;
           if (!targetZonas[zonaKey]) targetZonas[zonaKey] = {};
           targetZonas[zonaKey][mes] = (targetZonas[zonaKey][mes] || 0) + r.VALOR;
 
           if (ger === 'PROYECTO 2') {
             const cat = (r.LINEA_NEGOCIO || 'SIN CATEGORÍA').trim().toUpperCase();
-            if (!PROYECTO 2_CATS[cat]) PROYECTO 2_CATS[cat] = {};
-            PROYECTO 2_CATS[cat][mes] = (PROYECTO 2_CATS[cat][mes] || 0) + r.VALOR;
+            if (!PROYECTO2_CATS[cat]) PROYECTO2_CATS[cat] = {};
+            PROYECTO2_CATS[cat][mes] = (PROYECTO2_CATS[cat][mes] || 0) + r.VALOR;
           }
         }
       });
@@ -5796,7 +5801,7 @@
       const progresoAnual = pct(prodA, metaAnualVal);
       const cumplPeriodo = pct(prod, meta);
       const faltantePeriodo = Math.max(0, meta - prod);
-      const icons = { PROYECTO 2: '', PROYECTO 3: '', PROYECTO 1: '' };
+      const icons = { 'PROYECTO 2': '', 'PROYECTO 3': '', 'PROYECTO 1': '' };
 
       // Sub-proyectos Proyecto 1 con datos reales
       let subProyHtml = '';
@@ -5869,7 +5874,7 @@
       const progresoAnual = pct(prodA, metaAnualVal);
       const cumplPeriodo = pct(prod, meta);
       const faltantePeriodo = Math.max(0, meta - prod);
-      const icons = { PROYECTO 2: '', PROYECTO 3: '', PROYECTO 1: '' };
+      const icons = { 'PROYECTO 2': '', 'PROYECTO 3': '', 'PROYECTO 1': '' };
 
       const barColorPeriodo = cumplPeriodo >= 100 ? 'var(--ok)' : cumplPeriodo >= 70 ? 'var(--warn)' : 'var(--bad)';
 
@@ -6178,7 +6183,7 @@
 
     function renderZonas() {
       const ger = document.getElementById('zona-ger')?.value || 'PROYECTO 2';
-      const zonaData = ger === 'PROYECTO 2' ? PROYECTO 2_ZONAS : (ger === 'PROYECTO 1' ? PROYECTO 1_ZONAS : PROYECTO 3_ZONAS);
+      const zonaData = ger === 'PROYECTO 2' ? PROYECTO2_ZONAS : (ger === 'PROYECTO 1' ? PROYECTO1_ZONAS : PROYECTO3_ZONAS);
       const color = GC[ger];
 
       // Annual totals
@@ -6269,12 +6274,12 @@
         kpi('Producción Real', fmtCOP(vt), 'Valor total histórico', '', '💰'),
         kpi('%Cump Periodo', cp + '%', `${periodLbl} · ${fmtCOP(prod)} / ${fmtCOP(meta)}`, cTClass(cp), '🎯', cp),
         kpi('Meta Anual', fmtCOP(metaAnual('PROYECTO 2')), 'Presupuesto 2026', 'lima', '📆'),
-        kpi('Zonas', Object.keys(PROYECTO 2_ZONAS).length.toString(), 'Centros de costo activos', 'lima', '📍'),
+        kpi('Zonas', Object.keys(PROYECTO2_ZONAS).length.toString(), 'Centros de costo activos', 'lima', '📍'),
       ].join('');
 
       // Cat blocks: ASSURANCE, MANTENIMIENTO, DELIVERY
       const catColors = { ASSURANCE: '#001D62', MANTENIMIENTO: '#0847a3', DELIVERY: '#166534' };
-      document.getElementById('cir-cat-blocks').innerHTML = Object.entries(PROYECTO 2_CATS).map(([cat, mv]) => {
+      document.getElementById('cir-cat-blocks').innerHTML = Object.entries(PROYECTO2_CATS).map(([cat, mv]) => {
         const total = Object.values(mv).reduce((s, v) => s + v, 0);
         const pct12 = MONTHS_ISO.map(m => mv[m] || 0);
         const catColor = catColors[cat] || '#001D62';
@@ -6287,20 +6292,20 @@
         <div class="pi"><div class="pil">Total anual proyectado</div><div class="piv" style="color:${catColor}">${fmtCOP(total)}</div></div>
         <div class="pi"><div class="pil">Promedio mensual</div><div class="piv lima">${fmtCOP(total / 12)}</div></div>
         <div class="pi"><div class="pil">Mejor mes</div><div class="piv ok">${fmtCOP(Math.max(...pct12))}</div></div>
-        <div class="pi"><div class="pil">% del total Proyecto 2</div><div class="piv">${pct(total, Object.values(PROYECTO 2_CATS).reduce((s, v) => s + Object.values(v).reduce((a, b) => a + b, 0), 0))}%</div></div>
+        <div class="pi"><div class="pil">% del total Proyecto 2</div><div class="piv">${pct(total, Object.values(PROYECTO2_CATS).reduce((s, v) => s + Object.values(v).reduce((a, b) => a + b, 0), 0))}%</div></div>
       </div>
     </div>`;
       }).join('');
 
       // Tipo dona
-      const catTotals = Object.entries(PROYECTO 2_CATS).map(([k, v]) => [k, Object.values(v).reduce((s, x) => s + x, 0)]);
+      const catTotals = Object.entries(PROYECTO2_CATS).map(([k, v]) => [k, Object.values(v).reduce((s, x) => s + x, 0)]);
       mkC('ch-cir-tipo', 'doughnut', {
         labels: catTotals.map(([k]) => k),
         datasets: [{ data: catTotals.map(([, v]) => v), backgroundColor: ['#001D62', '#0847a3', '#166534'], borderWidth: 0, hoverOffset: 5 }]
       }, { cutout: '63%', plugins: { ...CT.plugins, legend: { ...CT.plugins.legend, position: 'bottom' } } });
 
       // Top zonas Proyecto 2 — excluir NO APLICA
-      const zTot = Object.entries(PROYECTO 2_ZONAS)
+      const zTot = Object.entries(PROYECTO2_ZONAS)
         .filter(([z]) => !/^NO\s*APLICA$/i.test(z.trim()))
         .map(([z, mv]) => [z, Object.values(mv).reduce((s, v) => s + v, 0)])
         .sort((a, b) => b[1] - a[1]).slice(0, 8);
@@ -6316,7 +6321,7 @@
       // Tendencia mensual por tipo
       mkC('ch-cir-tend', 'line', {
         labels: MONTHS_LBL,
-        datasets: Object.entries(PROYECTO 2_CATS).map(([cat, mv], i) => ({
+        datasets: Object.entries(PROYECTO2_CATS).map(([cat, mv], i) => ({
           label: cat, data: MONTHS_ISO.map(m => mv[m] || 0),
           borderColor: Object.values(catColors)[i], backgroundColor: Object.values(catColors)[i] + '18',
           borderWidth: 2, fill: false, tension: .4, pointRadius: 2
@@ -6400,7 +6405,7 @@
         scales: { y: { ticks: { color: '#5c6b8a', callback: v => fmtCOP(v) }, grid: { color: 'rgba(0,0,0,.05)' } }, x: { ticks: { color: '#5c6b8a' }, grid: { display: false } } }
       });
 
-      const zonaLTot = Object.entries(PROYECTO 3_ZONAS)
+      const zonaLTot = Object.entries(PROYECTO3_ZONAS)
         .filter(([z]) => !/^NO\s*APLICA$/i.test(z.trim()))
         .map(([z, mv]) => [z, Object.values(mv).reduce((s, v) => s + v, 0)])
         .sort((a, b) => b[1] - a[1]);
@@ -6458,7 +6463,7 @@
         kpi('Producción Real', fmtCOP(vt), 'Valor total histórico', '', '💰'),
         kpi('%Cump Periodo', cp + '%', `${periodLbl} · ${fmtCOP(prod)} / ${fmtCOP(meta)}`, cTClass(cp), '🎯', cp),
         kpi('Meta Anual', fmtCOP(metaAnual('PROYECTO 1')), 'Presupuesto 2026', 'lima', '📆'),
-        kpi('Zonas', Object.keys(PROYECTO 1_ZONAS).length.toString(), 'Redes y centros', 'lima', '📍'),
+        kpi('Zonas', Object.keys(PROYECTO1_ZONAS).length.toString(), 'Redes y centros', 'lima', '📍'),
       ].join('');
 
       const estB = cntBy(b, 'ESTADO_ACTIVIDAD');
@@ -6490,7 +6495,7 @@
       });
 
       // Top zonas proyecto 1 — excluir NO APLICA
-      const zTotB = Object.entries(PROYECTO 1_ZONAS)
+      const zTotB = Object.entries(PROYECTO1_ZONAS)
         .filter(([z]) => !/^NO\s*APLICA$/i.test(z.trim()))
         .map(([z, mv]) => [z, Object.values(mv).reduce((s, v) => s + v, 0)])
         .sort((a, b) => b[1] - a[1]).slice(0, 8);
@@ -6538,7 +6543,7 @@
       if (!band) return;
 
       // Título dinámico
-      const titleMap = { PROYECTO 1:'Proyecto 1 · Detalle de Producción', PROYECTO 2:'Proyecto 2 · Detalle de Producción', PROYECTO 3:'Proyecto 3 · Detalle de Producción' };
+      const titleMap = { 'PROYECTO 1':'Proyecto 1 · Detalle de Producción', 'PROYECTO 2':'Proyecto 2 · Detalle de Producción', 'PROYECTO 3':'Proyecto 3 · Detalle de Producción' };
       if (titleEl) titleEl.textContent = titleMap[gerSel] || 'Detalle de Producción';
 
       let rows = gerSel === 'todos' ? RAW : RAW.filter(r => r.GERENCIA === gerSel);
@@ -6755,7 +6760,7 @@
       { h: 'Valor Total',    k: 'VALOR_TOTAL',    t: 'cur'     },
     ];
     const DCOLS_BY_GER = {
-      PROYECTO 3: [
+      'PROYECTO 3': [
         { h: 'ID TA',          k: 'ID_TA'                        },
         { h: 'Proyecto',       k: 'NEGOCIOGENERAL'               },
         { h: 'Centro Costos',  k: 'CENTRO_DE_COSTOS'             },
@@ -6770,7 +6775,7 @@
         { h: 'V. Material',    k: 'VALOR_MATERIAL',   t: 'cur'  },
         { h: 'V. Adicional',   k: 'VALOR_ADICIONAL',  t: 'cur'  },
       ],
-      PROYECTO 2: [
+      'PROYECTO 2': [
         { h: 'ID TA',          k: 'ID_TA'                        },
         { h: 'ID FO',          k: 'ID_FO'                        },
         { h: 'Proyecto',       k: 'NEGOCIOGENERAL'               },
@@ -6786,7 +6791,7 @@
         { h: 'V. Material',    k: 'VALOR_MATERIAL',    t: 'cur'  },
         { h: 'V. Adicional',   k: 'VALOR_ADICIONAL',   t: 'cur'  },
       ],
-      PROYECTO 1: [
+      'PROYECTO 1': [
         { h: 'ID TA',          k: 'ID_TA'                       },
         { h: 'ID FO',          k: 'ID_FO'                       },
         { h: 'Centro Costos',  k: 'CENTRO_DE_COSTOS'            },
@@ -6805,19 +6810,19 @@
 
     // ── Configuración de paneles por gerencia ─────────────────────────
     const METRIC_PANELS = {
-      PROYECTO 3: [
+      'PROYECTO 3': [
         { label: 'Base Operativa',   key: 'BASE_OPERATIVA',   icon: '' },
         { label: 'Centro de Costos', key: 'CENTRO_DE_COSTOS', icon: '💰' },
         { label: 'Tipo de Actividad',key: 'TIPO_ACTIVIDAD',   icon: '🔧' },
         { label: 'Coordinador',      key: 'COORDINADOR',      icon: '👤' },
       ],
-      PROYECTO 2: [
+      'PROYECTO 2': [
         { label: 'BASE OPERATIVA',   key: 'BASE_OPERATIVA',   icon: '' },
         { label: 'CENTRO DE COSTOS', key: 'CENTRO_DE_COSTOS', icon: '💰' },
         { label: 'TIPO DE ACTIVIDAD',key: 'TIPO_ACTIVIDAD',   icon: '🔧' },
         { label: 'COORDINADOR',      key: 'COORDINADOR',      icon: '👤' },
       ],
-      PROYECTO 1: [
+      'PROYECTO 1': [
         { label: 'Centro de Costos', key: 'CENTRO_DE_COSTOS', icon: '💰' },
         { label: 'Tipología',        key: 'TIPOLOGIA',        icon: '🏷️' },
         { label: 'Zona',             key: 'ZONA',             icon: '📍' },
@@ -7457,7 +7462,7 @@ ${sl.map((r, i) => `<tr style="background:${i%2?'':'rgba(0,29,98,.018)'}">
       const ahora        = new Date();
       const mesActualKey = ahora.toLocaleString('es-CO', { timeZone:'America/Bogota', year:'numeric', month:'2-digit' });
       const estesMes     = todos.filter(r => r.mesKey === mesActualKey).length;
-      const tipoCount    = { GENERAL:0, WIPEN:0, PROYECTO 1:0 };
+      const tipoCount    = { GENERAL:0, WIPEN:0, 'PROYECTO 1':0 };
       todos.forEach(r => { if (tipoCount[r.tipo] !== undefined) tipoCount[r.tipo]++; });
       const tipoMasFrecuente = Object.entries(tipoCount).sort((a,b)=>b[1]-a[1])[0]?.[0] || '—';
 
@@ -7515,7 +7520,7 @@ ${sl.map((r, i) => `<tr style="background:${i%2?'':'rgba(0,29,98,.018)'}">
       const userList = Object.values(byUser).sort((a,b) => b.count - a.count);
       const uListEl = document.getElementById('acc-usuarios-list');
       if (uListEl) {
-        const tipoCol = { GENERAL:'#3730a3', WIPEN:'#065f46', PROYECTO 1:'#92400e' };
+        const tipoCol = { GENERAL:'#3730a3', WIPEN:'#065f46', 'PROYECTO 1':'#92400e' };
         uListEl.innerHTML = userList.length ? userList.map(u => `
           <div style="display:flex; align-items:center; justify-content:space-between; gap:8px">
             <div style="display:flex; align-items:center; gap:8px; min-width:0">
@@ -7550,7 +7555,7 @@ ${sl.map((r, i) => `<tr style="background:${i%2?'':'rgba(0,29,98,.018)'}">
       }
 
       const tipoBadge = t => {
-        const cfg = { GENERAL:{bg:'#e0e7ff',color:'#3730a3'}, WIPEN:{bg:'#d1fae5',color:'#065f46'}, PROYECTO 1:{bg:'#fef3c7',color:'#92400e'} }[t] || {bg:'#f1f5f9',color:'#475569'};
+        const cfg = { GENERAL:{bg:'#e0e7ff',color:'#3730a3'}, WIPEN:{bg:'#d1fae5',color:'#065f46'}, 'PROYECTO 1':{bg:'#fef3c7',color:'#92400e'} }[t] || {bg:'#f1f5f9',color:'#475569'};
         return `<span style="background:${cfg.bg};color:${cfg.color};padding:2px 9px;border-radius:20px;font-size:10.5px;font-weight:600;white-space:nowrap">${t}</span>`;
       };
 
