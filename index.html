@@ -153,7 +153,27 @@
     .frow input,.frow select{width:100%;padding:8px 11px;border:1.5px solid var(--border);border-radius:8px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--negro);outline:none;text-transform:uppercase}
     .frow input:focus,.frow select:focus{border-color:var(--naranja)}
     .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .fgrid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
     .mactions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
+
+    /* IMAGEN PRODUCTO */
+    .img-pick{display:flex;align-items:center;gap:12px}
+    .img-preview{width:56px;height:56px;border-radius:10px;background:#f7f7f7;border:1.5px dashed var(--border);display:flex;align-items:center;justify-content:center;font-size:22px;overflow:hidden;flex-shrink:0}
+    .img-preview img{width:100%;height:100%;object-fit:cover}
+    .img-pick input[type="file"]{font-size:10.5px;text-transform:none;max-width:100%}
+    .img-pick input[type="text"]{margin-top:6px;text-transform:none}
+    .img-pick-hint{font-size:9.5px;color:var(--txl);margin-top:5px;text-transform:none}
+    .tbl-thumb{width:30px;height:30px;border-radius:7px;background:#f2f2f2;display:flex;align-items:center;justify-content:center;font-size:14px;overflow:hidden;flex-shrink:0}
+    .tbl-thumb img{width:100%;height:100%;object-fit:cover}
+
+    /* POPOVER PRECIOS */
+    .modal-sm{background:#fff;border-radius:14px;padding:22px;width:320px;max-width:92vw;border-top:4px solid var(--naranja)}
+    .modal-sm h2{font-size:13px;font-weight:700;margin-bottom:14px}
+    .precio-tier{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #f0f0f0}
+    .precio-tier:last-child{border-bottom:none}
+    .precio-tier-lbl{font-size:11px;font-weight:600;color:var(--txm)}
+    .precio-tier-sub{font-size:9.5px;color:var(--txl);text-transform:none;margin-top:2px}
+    .precio-tier-val{font-family:'DM Mono',monospace;font-weight:700;color:var(--negro);font-size:13px}
 
     /* CHART */
     .chart-wrap{padding:0 16px 16px;position:relative;height:210px}
@@ -299,7 +319,7 @@
       <div class="tbl-wrap">
         <table>
           <thead><tr>
-            <th>#</th><th>Código</th><th>Producto</th><th>Categoría</th>
+            <th>#</th><th></th><th>Código</th><th>Producto</th><th>Categoría</th><th>Unidad</th>
             <th>Stock</th><th>Mín.</th><th>Días Stock</th>
             <th>P. Costo</th><th>P. Venta</th><th>Margen</th><th>Estado</th><th></th>
           </tr></thead>
@@ -380,18 +400,60 @@
   <div class="modal" onclick="event.stopPropagation()">
     <h2 id="mp-title">Agregar Producto</h2>
     <div class="frow"><label>Nombre del Producto</label><input id="fp-nombre" placeholder="Ej: Martillo 16oz"></div>
+
+    <div class="frow">
+      <label>Imagen del Producto</label>
+      <div class="img-pick">
+        <div class="img-preview" id="fp-img-preview">📦</div>
+        <div style="flex:1;min-width:0">
+          <input id="fp-imagen-file" type="file" accept="image/*" onchange="previsualizarImagenArchivo(this)">
+          <input id="fp-imagen-url" type="text" placeholder="...o pega una URL de imagen" oninput="previsualizarImagenUrl(this.value)">
+          <div class="img-pick-hint">Ayuda a identificar el producto en bodega o en la app</div>
+        </div>
+      </div>
+    </div>
+
     <div class="fgrid">
       <div class="frow"><label>Código</label><input id="fp-cod" placeholder="FER-001"></div>
       <div class="frow"><label>Categoría</label><input id="fp-cat" placeholder="Herramientas"></div>
     </div>
     <div class="fgrid">
+      <div class="frow"><label>Unidad de Medida</label>
+        <select id="fp-unidad">
+          <option>Unidad</option>
+          <option>Metro</option>
+          <option>Bulto</option>
+          <option>Caja</option>
+          <option>Kilogramo</option>
+          <option>Litro</option>
+          <option>Galón</option>
+          <option>Rollo</option>
+          <option>Par</option>
+        </select>
+      </div>
       <div class="frow"><label>Stock Actual</label><input id="fp-stock" type="number" min="0" placeholder="0"></div>
-      <div class="frow"><label>Stock Mínimo</label><input id="fp-min" type="number" min="0" placeholder="5"></div>
     </div>
     <div class="fgrid">
+      <div class="frow"><label>Stock Mínimo</label><input id="fp-min" type="number" min="0" placeholder="5"></div>
       <div class="frow"><label>Precio Costo ($)</label><input id="fp-costo" type="number" min="0" placeholder="0"></div>
-      <div class="frow"><label>Precio Venta ($)</label><input id="fp-venta" type="number" min="0" placeholder="0"></div>
     </div>
+
+    <div class="frow"><label>Precios de Venta ($)</label></div>
+    <div class="fgrid3">
+      <div class="frow">
+        <label style="font-size:9px">Mostrador</label>
+        <input id="fp-venta" type="number" min="0" placeholder="0">
+      </div>
+      <div class="frow">
+        <label style="font-size:9px">Contratista</label>
+        <input id="fp-venta-contratista" type="number" min="0" placeholder="0">
+      </div>
+      <div class="frow">
+        <label style="font-size:9px">Mayorista</label>
+        <input id="fp-venta-mayorista" type="number" min="0" placeholder="0">
+      </div>
+    </div>
+
     <div class="mactions">
       <button class="btn btn-out" onclick="document.getElementById('overlay-prod').classList.remove('open')">Cancelar</button>
       <button class="btn btn-primary" onclick="guardarProd()">Guardar</button>
@@ -399,19 +461,30 @@
   </div>
 </div>
 
+<!-- MODAL PRECIOS -->
+<div class="overlay" id="overlay-precios" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-sm" onclick="event.stopPropagation()">
+    <h2 id="mpr-title">Precios de Venta</h2>
+    <div id="mpr-body"></div>
+    <div class="mactions">
+      <button class="btn btn-out" onclick="document.getElementById('overlay-precios').classList.remove('open')">Cerrar</button>
+    </div>
+  </div>
+</div>
+
 <script>
 // ── DATOS ──
 let productos = [
-  {id:1,cod:'HER-001',nombre:'Martillo Carpintero 16oz',   cat:'Herramientas',stock:45,min:10,costo:20000,venta:32000},
-  {id:2,cod:'HER-002',nombre:'Destornillador Phillips #2', cat:'Herramientas',stock:8, min:15,costo:7000, venta:12000},
-  {id:3,cod:'ELE-001',nombre:'Cable THW 12 AWG (metro)',   cat:'Eléctrico',   stock:0, min:30,costo:2800, venta:4500},
-  {id:4,cod:'ELE-002',nombre:'Toma Corriente Doble',       cat:'Eléctrico',   stock:6, min:20,costo:5000, venta:8500},
-  {id:5,cod:'PLO-001',nombre:'Tubo PVC 1/2" x 6m',        cat:'Plomería',    stock:0, min:15,costo:11000,venta:18000},
-  {id:6,cod:'PLO-002',nombre:'Llave de Paso 1/2"',        cat:'Plomería',    stock:4, min:10,costo:9000, venta:15000},
-  {id:7,cod:'PIN-001',nombre:'Pintura Vinilo Blanco 4L',   cat:'Pintura',     stock:22,min:8, costo:28000,venta:45000},
-  {id:8,cod:'FIJ-001',nombre:'Tornillo Drywall 6x1 (100u)',cat:'Fijaciones',  stock:85,min:20,costo:4000, venta:6500},
-  {id:9,cod:'HER-003',nombre:'Sierra para Metal 12"',      cat:'Herramientas',stock:12,min:5, costo:12000,venta:20000},
-  {id:10,cod:'ELE-003',nombre:'Breaker 20A',               cat:'Eléctrico',   stock:15,min:10,costo:14000,venta:22000},
+  {id:1,cod:'HER-001',nombre:'Martillo Carpintero 16oz',   cat:'Herramientas',unidad:'Unidad',imagen:'',stock:45,min:10,costo:20000,venta:32000,ventaContratista:28000,ventaMayorista:26000},
+  {id:2,cod:'HER-002',nombre:'Destornillador Phillips #2', cat:'Herramientas',unidad:'Unidad',imagen:'',stock:8, min:15,costo:7000, venta:12000,ventaContratista:10500,ventaMayorista:9800},
+  {id:3,cod:'ELE-001',nombre:'Cable THW 12 AWG (metro)',   cat:'Eléctrico',   unidad:'Metro', imagen:'',stock:0, min:30,costo:2800, venta:4500, ventaContratista:4000, ventaMayorista:3700},
+  {id:4,cod:'ELE-002',nombre:'Toma Corriente Doble',       cat:'Eléctrico',   unidad:'Unidad',imagen:'',stock:6, min:20,costo:5000, venta:8500, ventaContratista:7500, ventaMayorista:7000},
+  {id:5,cod:'PLO-001',nombre:'Tubo PVC 1/2" x 6m',        cat:'Plomería',    unidad:'Unidad',imagen:'',stock:0, min:15,costo:11000,venta:18000,ventaContratista:16000,ventaMayorista:15000},
+  {id:6,cod:'PLO-002',nombre:'Llave de Paso 1/2"',        cat:'Plomería',    unidad:'Unidad',imagen:'',stock:4, min:10,costo:9000, venta:15000,ventaContratista:13500,ventaMayorista:12500},
+  {id:7,cod:'PIN-001',nombre:'Pintura Vinilo Blanco 4L',   cat:'Pintura',     unidad:'Galón', imagen:'',stock:22,min:8, costo:28000,venta:45000,ventaContratista:41000,ventaMayorista:38000},
+  {id:8,cod:'FIJ-001',nombre:'Tornillo Drywall 6x1 (100u)',cat:'Fijaciones',  unidad:'Caja',  imagen:'',stock:85,min:20,costo:4000, venta:6500, ventaContratista:5800, ventaMayorista:5300},
+  {id:9,cod:'HER-003',nombre:'Sierra para Metal 12"',      cat:'Herramientas',unidad:'Unidad',imagen:'',stock:12,min:5, costo:12000,venta:20000,ventaContratista:18000,ventaMayorista:16500},
+  {id:10,cod:'ELE-003',nombre:'Breaker 20A',               cat:'Eléctrico',   unidad:'Unidad',imagen:'',stock:15,min:10,costo:14000,venta:22000,ventaContratista:19500,ventaMayorista:18000},
 ];
 
 // Movimientos con fechas del mes actual
@@ -611,16 +684,23 @@ function renderTabla() {
     const mgColor = mg>=30?'#166534':mg>=15?'#d97706':'#b91c1c';
     const dsNum = parseInt(ds);
     const dsColor = isNaN(dsNum)?'#888':dsNum<=3?'#b91c1c':dsNum<=7?'#d97706':'#166534';
+    const thumb = p.imagen
+      ? `<img src="${p.imagen}" alt="">`
+      : '📦';
     return `<tr>
       <td class="mono" style="color:#aaa">${i+1}</td>
+      <td><div class="tbl-thumb">${thumb}</div></td>
       <td class="mono" style="color:var(--naranja);font-weight:600">${p.cod}</td>
       <td style="font-weight:600;color:#111;min-width:180px">${p.nombre}</td>
       <td style="font-size:11.5px">${p.cat}</td>
+      <td style="font-size:11.5px">${p.unidad||'Unidad'}</td>
       <td class="mono" style="font-weight:700;color:${st==='bad'?'#b91c1c':st==='warn'?'#d97706':'#166534'}">${p.stock}</td>
       <td class="mono">${p.min}</td>
       <td class="mono" style="color:${dsColor};font-weight:700">${ds}</td>
       <td class="mono">${fmt(p.costo)}</td>
-      <td class="mono" style="font-weight:600">${fmt(p.venta)}</td>
+      <td class="mono" style="font-weight:600;white-space:nowrap">${fmt(p.venta)}
+        <button onclick="verPrecios(${p.id})" title="Ver otros precios" style="background:none;border:none;cursor:pointer;color:var(--naranja);font-size:11px;font-weight:800;padding:0 0 0 3px">＋</button>
+      </td>
       <td class="mono" style="color:${mgColor};font-weight:700">${mg}%</td>
       <td><span class="badge badge-${st}">${badgeTxt[st]}</span></td>
       <td><button onclick="editarProd(${p.id})" style="background:none;border:1.5px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:12px">✏</button></td>
@@ -685,10 +765,37 @@ function registrarMov() {
 }
 
 // ── MODAL PRODUCTO ──
+let fpImagenActual = '';
+
+function resetPreviewImagen() {
+  fpImagenActual = '';
+  document.getElementById('fp-img-preview').innerHTML = '📦';
+}
+function previsualizarImagenArchivo(input) {
+  const file = input.files && input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    fpImagenActual = e.target.result;
+    document.getElementById('fp-img-preview').innerHTML = `<img src="${fpImagenActual}" alt="">`;
+    document.getElementById('fp-imagen-url').value = '';
+  };
+  reader.readAsDataURL(file);
+}
+function previsualizarImagenUrl(url) {
+  url = url.trim();
+  if (!url) { if(!document.getElementById('fp-imagen-file').files.length) resetPreviewImagen(); return; }
+  fpImagenActual = url;
+  document.getElementById('fp-img-preview').innerHTML = `<img src="${url}" onerror="this.parentNode.innerHTML='📦'" alt="">`;
+}
+
 function abrirModalProd() {
   editProdId=null;
   document.getElementById('mp-title').textContent='Agregar Producto';
-  ['fp-nombre','fp-cod','fp-cat','fp-stock','fp-min','fp-costo','fp-venta'].forEach(id=>document.getElementById(id).value='');
+  ['fp-nombre','fp-cod','fp-cat','fp-stock','fp-min','fp-costo','fp-venta','fp-venta-contratista','fp-venta-mayorista','fp-imagen-url'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fp-imagen-file').value='';
+  document.getElementById('fp-unidad').value='Unidad';
+  resetPreviewImagen();
   document.getElementById('overlay-prod').classList.add('open');
 }
 function editarProd(id) {
@@ -698,29 +805,61 @@ function editarProd(id) {
   document.getElementById('fp-nombre').value=p.nombre;
   document.getElementById('fp-cod').value=p.cod;
   document.getElementById('fp-cat').value=p.cat;
+  document.getElementById('fp-unidad').value=p.unidad||'Unidad';
   document.getElementById('fp-stock').value=p.stock;
   document.getElementById('fp-min').value=p.min;
   document.getElementById('fp-costo').value=p.costo;
   document.getElementById('fp-venta').value=p.venta;
+  document.getElementById('fp-venta-contratista').value=p.ventaContratista||'';
+  document.getElementById('fp-venta-mayorista').value=p.ventaMayorista||'';
+  document.getElementById('fp-imagen-file').value='';
+  document.getElementById('fp-imagen-url').value='';
+  if (p.imagen) {
+    fpImagenActual = p.imagen;
+    document.getElementById('fp-img-preview').innerHTML = `<img src="${p.imagen}" onerror="this.parentNode.innerHTML='📦'" alt="">`;
+  } else {
+    resetPreviewImagen();
+  }
   document.getElementById('overlay-prod').classList.add('open');
 }
 function guardarProd() {
   const nombre=document.getElementById('fp-nombre').value.trim();
   const cod=document.getElementById('fp-cod').value.trim();
   const cat=document.getElementById('fp-cat').value.trim();
+  const unidad=document.getElementById('fp-unidad').value;
   const stock=parseInt(document.getElementById('fp-stock').value)||0;
   const min=parseInt(document.getElementById('fp-min').value)||0;
   const costo=parseInt(document.getElementById('fp-costo').value)||0;
   const venta=parseInt(document.getElementById('fp-venta').value)||0;
+  const ventaContratista=parseInt(document.getElementById('fp-venta-contratista').value)||0;
+  const ventaMayorista=parseInt(document.getElementById('fp-venta-mayorista').value)||0;
+  const imagen=fpImagenActual;
   if(!nombre||!cod){alert('Completa Nombre y Código');return;}
   if(editProdId!==null){
     const i=productos.findIndex(p=>p.id===editProdId);
-    productos[i]={id:editProdId,cod,nombre,cat,stock,min,costo,venta};
+    productos[i]={id:editProdId,cod,nombre,cat,unidad,imagen,stock,min,costo,venta,ventaContratista,ventaMayorista};
   } else {
-    productos.push({id:Date.now(),cod,nombre,cat,stock,min,costo,venta});
+    productos.push({id:Date.now(),cod,nombre,cat,unidad,imagen,stock,min,costo,venta,ventaContratista,ventaMayorista});
   }
   document.getElementById('overlay-prod').classList.remove('open');
   renderTabla(); renderHeader();
+}
+
+// ── POPOVER PRECIOS MÚLTIPLES ──
+function verPrecios(id) {
+  const p = productos.find(x=>x.id===id); if(!p) return;
+  document.getElementById('mpr-title').textContent = p.nombre;
+  const tiers = [
+    ['Mostrador','Precio al público', p.venta],
+    ['Contratista','Cliente frecuente / obra', p.ventaContratista],
+    ['Mayorista','Compra por volumen', p.ventaMayorista],
+  ];
+  document.getElementById('mpr-body').innerHTML = tiers.map(([lbl,sub,val])=>`
+    <div class="precio-tier">
+      <div><div class="precio-tier-lbl">${lbl}</div><div class="precio-tier-sub">${sub}</div></div>
+      <div class="precio-tier-val">${val?fmt(val):'—'}</div>
+    </div>`).join('');
+  document.getElementById('overlay-precios').classList.add('open');
 }
 
 // ── LOGIN MOCKUP ──
@@ -748,9 +887,11 @@ function hacerLogin(){
   login.classList.add('saliendo');
   setTimeout(()=>{
     login.classList.add('oculta');
+    document.querySelector('header').style.display='flex';
+    document.querySelector('nav').style.display='flex';
     document.getElementById('hdr-user-nombre').textContent = user.nombre.toUpperCase() + ' · ' + user.rol.toUpperCase();
     renderHeader();
-    goModule('analisis');
+    goTab('resumen');
   }, 340);
 }
 
@@ -758,28 +899,16 @@ function cerrarSesion(){
   if(!confirm('¿Cerrar sesión?')) return;
   usuarioActual = null;
   document.querySelector('header').style.display='none';
-  document.querySelector('.module-nav').style.display='none';
-  _appIniciada = false;
+  document.querySelector('nav').style.display='none';
   document.getElementById('login-usuario').value='';
   document.getElementById('login-pass').value='';
   document.getElementById('login-error').textContent='';
   document.getElementById('pantalla-login').classList.remove('oculta','saliendo');
 }
 
-// Ocultar header y navs hasta que el usuario haga login
+// Ocultar header y nav hasta que el usuario haga login
 document.querySelector('header').style.display = 'none';
-document.querySelector('.module-nav').style.display = 'none';
-
-let _appIniciada = false;
-const __goModule = goModule;
-window.goModule = function(m) {
-  if (!_appIniciada) {
-    document.querySelector('header').style.display = 'flex';
-    document.querySelector('.module-nav').style.display = 'flex';
-    _appIniciada = true;
-  }
-  __goModule(m);
-};
+document.querySelector('nav').style.display = 'none';
 </script>
 </body>
 </html>
