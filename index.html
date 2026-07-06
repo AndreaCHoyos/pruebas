@@ -17,6 +17,62 @@
     ::-webkit-scrollbar{width:4px;height:4px}
     ::-webkit-scrollbar-thumb{background:#ccc;border-radius:3px}
 
+    /* ── LOGIN ── */
+    #pantalla-login{position:fixed;inset:0;background:var(--negro);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
+    #pantalla-login.oculta{display:none}
+    #pantalla-login.saliendo{animation:fadeOut .35s ease forwards}
+    .login-box{background:#161616;border:1.5px solid #222;border-radius:20px;padding:36px 32px;width:100%;max-width:380px;display:flex;flex-direction:column;align-items:center;gap:0;animation:entradaInicio .4s ease both}
+    .login-logo{background:var(--naranja);width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:16px}
+    .login-empresa{font-size:18px;font-weight:800;color:#fff;letter-spacing:-.3px;margin-bottom:3px}
+    .login-sub{font-size:10px;color:#444;letter-spacing:1.5px;margin-bottom:28px}
+    .login-field{width:100%;margin-bottom:12px}
+    .login-field label{display:block;font-size:9.5px;font-weight:700;color:#444;letter-spacing:.8px;margin-bottom:5px}
+    .login-field input{width:100%;padding:10px 14px;background:#1f1f1f;border:1.5px solid #2a2a2a;border-radius:10px;font-family:'Outfit',sans-serif;font-size:13px;color:#fff;outline:none;transition:border-color .18s;text-transform:none}
+    .login-field input:focus{border-color:var(--naranja)}
+    .login-field input::placeholder{color:#333;text-transform:none}
+    .login-error{font-size:10.5px;color:#f87171;text-align:center;min-height:16px;margin-bottom:6px;font-weight:600;text-transform:none}
+    .login-btn{width:100%;padding:11px;background:var(--naranja);color:#fff;border:none;border-radius:10px;font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;transition:background .18s;margin-top:4px}
+    .login-btn:hover{background:var(--naranja2)}
+    .login-hint{margin-top:20px;padding:10px 14px;background:#111;border-radius:8px;width:100%}
+    .login-hint-title{font-size:9px;color:#333;letter-spacing:1px;font-weight:700;margin-bottom:6px}
+    .login-hint-row{display:flex;justify-content:space-between;font-size:10px;color:#444;padding:2px 0;font-family:'DM Mono',monospace;text-transform:none}
+    .login-hint-row span:last-child{color:#555}
+    .login-user-badge{display:flex;align-items:center;gap:8px;padding:6px 10px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.2);border-radius:8px;margin-bottom:6px;width:100%}
+    .login-user-dot{width:8px;height:8px;border-radius:50%;background:var(--naranja);flex-shrink:0}
+    .login-user-name{font-size:11px;color:var(--naranja);font-weight:700;flex:1}
+    .login-user-rol{font-size:9.5px;color:#555}
+
+    /* ── PANTALLA DE BIENVENIDA ── */
+    #pantalla-inicio{position:fixed;inset:0;background:var(--negro);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
+    #pantalla-inicio.oculta{display:none}
+    .inicio-logo{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+    .inicio-icon{background:var(--naranja);width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
+    .inicio-titulo{font-size:28px;font-weight:800;color:#fff;letter-spacing:-.5px}
+    .inicio-sub{font-size:12px;color:#555;letter-spacing:1.5px;margin-bottom:48px;text-align:center}
+    .inicio-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;max-width:680px}
+    @media(max-width:560px){.inicio-grid{grid-template-columns:1fr}}
+    .mod-card{background:#1a1a1a;border:1.5px solid #2a2a2a;border-radius:16px;padding:28px 24px;cursor:pointer;transition:all .22s;display:flex;flex-direction:column;gap:10px;text-align:left;position:relative;overflow:hidden}
+    .mod-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(249,115,22,.08),transparent);opacity:0;transition:opacity .22s}
+    .mod-card:hover{border-color:var(--naranja);transform:translateY(-3px);box-shadow:0 12px 32px rgba(249,115,22,.15)}
+    .mod-card:hover::before{opacity:1}
+    .mod-card-icon{font-size:32px;line-height:1}
+    .mod-card-title{font-size:16px;font-weight:800;color:#fff;letter-spacing:.2px}
+    .mod-card-desc{font-size:11.5px;color:#666;line-height:1.6;font-weight:400;text-transform:none}
+    .mod-card-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+    .mod-tag{font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:20px;background:#222;color:#555;letter-spacing:.4px}
+    .mod-card:hover .mod-tag{background:rgba(249,115,22,.15);color:var(--naranja)}
+    .mod-card-arrow{position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:20px;color:#333;transition:all .22s}
+    .mod-card:hover .mod-card-arrow{color:var(--naranja);right:14px}
+    .inicio-footer{margin-top:36px;font-size:10px;color:#333;letter-spacing:1px}
+
+    @keyframes entradaInicio{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
+    .mod-card{animation:entradaInicio .4s ease both}
+    .mod-card:nth-child(1){animation-delay:.1s}
+    .mod-card:nth-child(2){animation-delay:.18s}
+
+    @keyframes fadeOut{from{opacity:1}to{opacity:0;pointer-events:none}}
+    #pantalla-inicio.saliendo{animation:fadeOut .35s ease forwards}
+
     @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
     .fu{animation:fadeUp .35s ease both}
     .fu1{animation-delay:.05s}.fu2{animation-delay:.1s}.fu3{animation-delay:.15s}
@@ -119,37 +175,76 @@
     .top-bar-wrap{flex:1}
     .top-bar-bg{height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden;margin-top:4px}
     .top-bar-fill{height:100%;background:var(--naranja);border-radius:3px}
-
-    /* CODIGOS DE BARRAS */
-    .cod-layout{display:grid;grid-template-columns:340px 1fr;gap:16px}
-    @media(max-width:900px){.cod-layout{grid-template-columns:1fr}}
-    .prod-pick-row{display:flex;align-items:center;gap:9px;padding:8px 4px;border-bottom:1px solid #f0f0f0}
-    .prod-pick-row:last-child{border-bottom:none}
-    .prod-pick-row input[type="checkbox"]{width:16px;height:16px;accent-color:var(--naranja);flex-shrink:0;cursor:pointer}
-    .prod-pick-info{flex:1;min-width:0}
-    .prod-pick-name{font-size:11.5px;font-weight:600;color:var(--negro);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .prod-pick-cod{font-size:10px;color:var(--txl);font-family:'DM Mono',monospace}
-    .prod-pick-qty{width:52px;padding:5px 6px;border:1.5px solid var(--border);border-radius:6px;font-family:'DM Mono',monospace;font-size:12px;text-align:center;outline:none}
-    .prod-pick-qty:focus{border-color:var(--naranja)}
-    .prod-pick-qty:disabled{background:#fafafa;color:#ccc}
-
-    #label-preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;padding:16px}
-    .label-card{border:1.5px dashed #ccc;border-radius:8px;padding:10px 10px 8px;background:#fff;display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center}
-    .label-empresa{font-size:9px;letter-spacing:1px;color:var(--txl);font-weight:700}
-    .label-nombre{font-size:11px;font-weight:700;color:var(--negro);line-height:1.15;min-height:26px;display:flex;align-items:center;justify-content:center}
-    .label-precio{font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--naranja)}
-    .label-empty{grid-column:1/-1;text-align:center;color:var(--txl);font-size:12px;padding:40px 0}
-
-    @media print{
-      body *{visibility:hidden}
-      #print-area,#print-area *{visibility:visible}
-      #print-area{position:absolute;top:0;left:0;width:100%;padding:0}
-      #label-preview-grid{gap:6px;padding:6px}
-      .label-card{border-style:solid;border-color:#bbb;break-inside:avoid}
-    }
   </style>
 </head>
 <body>
+
+<!-- ══ LOGIN ══ -->
+<div id="pantalla-login">
+  <div class="login-box">
+    <div class="login-logo">🔧</div>
+    <div class="login-empresa">Ferretería</div>
+    <div class="login-sub">SISTEMA DE GESTIÓN · ACCESO</div>
+
+    <div class="login-field">
+      <label>Usuario</label>
+      <input id="login-usuario" type="text" placeholder="Ingresa tu usuario" autocomplete="off" onkeydown="if(event.key==='Enter')document.getElementById('login-pass').focus()">
+    </div>
+    <div class="login-field">
+      <label>Contraseña</label>
+      <input id="login-pass" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')hacerLogin()">
+    </div>
+    <div class="login-error" id="login-error"></div>
+    <button class="login-btn" onclick="hacerLogin()">Ingresar al sistema</button>
+
+    <div class="login-hint">
+      <div class="login-hint-title">CREDENCIALES DE DEMO</div>
+      <div class="login-hint-row"><span>admin</span><span>admin123</span></div>
+      <div class="login-hint-row"><span>vendedor</span><span>venta123</span></div>
+      <div class="login-hint-row"><span>bodega</span><span>bodega123</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PANTALLA DE BIENVENIDA ══ -->
+<div id="pantalla-inicio">
+  <div class="inicio-logo">
+    <div class="inicio-icon">🔧</div>
+    <div class="inicio-titulo">Ferretería</div>
+  </div>
+  <div class="inicio-sub">SISTEMA DE GESTIÓN · SELECCIONA UN MÓDULO</div>
+
+  <div class="inicio-grid">
+    <!-- Módulo Análisis -->
+    <div class="mod-card" onclick="entrarModulo('analisis')">
+      <div class="mod-card-icon">📊</div>
+      <div class="mod-card-title">Análisis</div>
+      <div class="mod-card-desc">Tablero de indicadores, ventas del mes, productos más vendidos y métricas del negocio en tiempo real.</div>
+      <div class="mod-card-tags">
+        <span class="mod-tag">KPIs</span>
+        <span class="mod-tag">Gráficas</span>
+        <span class="mod-tag">Top ventas</span>
+        <span class="mod-tag">Márgenes</span>
+      </div>
+      <div class="mod-card-arrow">→</div>
+    </div>
+
+    <!-- Módulo Operación -->
+    <div class="mod-card" onclick="entrarModulo('operacion')">
+      <div class="mod-card-icon">📦</div>
+      <div class="mod-card-title">Operación</div>
+      <div class="mod-card-desc">Gestión de inventario, registro de entradas y salidas, y generación de etiquetas con códigos de barras.</div>
+      <div class="mod-card-tags">
+        <span class="mod-tag">Inventario</span>
+        <span class="mod-tag">Movimientos</span>
+        <span class="mod-tag">Códigos de barras</span>
+      </div>
+      <div class="mod-card-arrow">→</div>
+    </div>
+  </div>
+
+  <div class="inicio-footer">DEMO · TU AGENCIA TECH · 2025</div>
+</div>
 
 <!-- HEADER -->
 <header>
@@ -159,6 +254,11 @@
   </div>
   <div class="h-right">
     <div class="h-badge" id="hdr-alerta">⚠ 0 alertas</div>
+    <div id="hdr-usuario" style="display:flex;align-items:center;gap:6px;cursor:pointer" onclick="cerrarSesion()" title="Cerrar sesión">
+      <div id="hdr-user-dot" style="width:7px;height:7px;border-radius:50%;background:var(--naranja)"></div>
+      <div id="hdr-user-nombre" style="color:#777;font-size:11px;font-weight:600;letter-spacing:.3px"></div>
+      <div style="color:#444;font-size:10px">↩</div>
+    </div>
     <div class="h-date" id="hdr-fecha"></div>
   </div>
 </header>
@@ -168,7 +268,6 @@
   <button class="nav-btn active" onclick="goTab('resumen')">📊 Resumen</button>
   <button class="nav-btn" onclick="goTab('inventario')">📦 Inventario</button>
   <button class="nav-btn" onclick="goTab('movimientos')">🔄 Movimientos</button>
-  <button class="nav-btn" onclick="goTab('codigos')">🏷️ Códigos de Barras</button>
 </nav>
 
 <main>
@@ -313,46 +412,6 @@
 
   </div>
 
-  <!-- ══ CÓDIGOS DE BARRAS ══ -->
-  <div class="section" id="tab-codigos">
-    <div class="card fu" style="margin-bottom:14px">
-      <div class="card-body" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-        <span style="font-size:11px;color:var(--txl)">🧪 Generador simulado de códigos de barras para marcar productos en bodega. Las barras son ilustrativas (mockup), no corresponden a un estándar real de codificación.</span>
-      </div>
-    </div>
-
-    <div class="cod-layout">
-      <!-- Selección de productos -->
-      <div class="card fu fu1" style="margin-bottom:0">
-        <div class="card-hdr">
-          <div class="card-title">Seleccionar Productos</div>
-        </div>
-        <div class="search" style="border-bottom:1px solid var(--border)">
-          <input id="srch-cod" placeholder="Buscar..." oninput="renderCodigos()">
-        </div>
-        <div class="card-body" style="max-height:480px;overflow-y:auto;padding-top:6px;padding-bottom:6px" id="cod-lista-prod"></div>
-        <div style="padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:8px">
-          <button class="btn btn-out" onclick="seleccionarTodosCod()" style="flex:1">Todos</button>
-          <button class="btn btn-out" onclick="limpiarSeleccionCod()" style="flex:1">Limpiar</button>
-        </div>
-      </div>
-
-      <!-- Vista previa etiquetas -->
-      <div class="card fu fu2" style="margin-bottom:0">
-        <div class="card-hdr">
-          <div class="card-title">Vista Previa de Etiquetas</div>
-          <div style="display:flex;gap:8px;align-items:center">
-            <span class="mono" style="font-size:10.5px;color:var(--txl)" id="cod-total-lbl">0 etiquetas</span>
-            <button class="btn btn-primary" onclick="imprimirEtiquetas()">🖨 Imprimir</button>
-          </div>
-        </div>
-        <div id="print-area">
-          <div id="label-preview-grid"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
 </main>
 
 <!-- MODAL PRODUCTO -->
@@ -417,9 +476,6 @@ let movimientos = [
 let editProdId = null;
 let chVentas = null;
 
-// Selección para etiquetas: { prodId: cantidad }
-let labelSelections = {};
-
 // ── HELPERS ──
 const estado  = p => p.stock===0?'bad':p.stock<p.min?'warn':'ok';
 const margen  = p => p.venta>0?Math.round((p.venta-p.costo)/p.venta*100):0;
@@ -448,7 +504,6 @@ function goTab(t) {
   if(t==='resumen')     renderResumen();
   if(t==='inventario')  renderTabla();
   if(t==='movimientos') { renderSelectProd(); renderHistorial(); }
-  if(t==='codigos')     renderCodigos();
 }
 
 // ── HEADER ──
@@ -607,10 +662,7 @@ function renderTabla() {
       <td class="mono" style="font-weight:600">${fmt(p.venta)}</td>
       <td class="mono" style="color:${mgColor};font-weight:700">${mg}%</td>
       <td><span class="badge badge-${st}">${badgeTxt[st]}</span></td>
-      <td style="white-space:nowrap">
-        <button onclick="editarProd(${p.id})" style="background:none;border:1.5px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:12px" title="Editar">✏</button>
-        <button onclick="etiquetaRapida(${p.id})" style="background:none;border:1.5px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:12px" title="Generar etiqueta">🏷️</button>
-      </td>
+      <td><button onclick="editarProd(${p.id})" style="background:none;border:1.5px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:12px">✏</button></td>
     </tr>`;
   }).join('');
 }
@@ -710,130 +762,77 @@ function guardarProd() {
   renderTabla(); renderHeader();
 }
 
-// ══════════════════════════════════════════════
-// ── CÓDIGOS DE BARRAS (simulado / mockup) ──
-// ══════════════════════════════════════════════
+// ── LOGIN MOCKUP ──
+const usuarios = {
+  'admin':    {pass:'admin123',   nombre:'Administrador', rol:'Admin'},
+  'vendedor': {pass:'venta123',   nombre:'Vendedor',      rol:'Vendedor'},
+  'bodega':   {pass:'bodega123',  nombre:'Bodeguero',     rol:'Bodega'},
+};
+let usuarioActual = null;
 
-// Genera un número pseudoaleatorio determinístico a partir de un texto,
-// así el mismo código de producto siempre produce el mismo "código de barras".
-function hashTexto(str) {
-  let h = 0;
-  for (let i = 0; i < str.length; i++) {
-    h = (h << 5) - h + str.charCodeAt(i);
-    h |= 0;
-  }
-  return Math.abs(h) || 1;
-}
-function randomConSemilla(semilla) {
-  let s = semilla;
-  return function () {
-    s = (s * 9301 + 49297) % 233280;
-    return s / 233280;
-  };
-}
-
-// Genera un SVG de barras "tipo código de barras" (solo ilustrativo, no decodificable)
-function generarBarrasSVG(codigo, w = 170, h = 56) {
-  const rand = randomConSemilla(hashTexto(codigo));
-  let x = 3;
-  let bars = '';
-  const maxX = w - 3;
-  while (x < maxX) {
-    const anchoBarra = 1 + Math.floor(rand() * 3);
-    const esNegra = rand() > 0.42;
-    if (esNegra) {
-      bars += `<rect x="${x}" y="2" width="${anchoBarra}" height="${h - 16}" fill="#111"/>`;
-    }
-    x += anchoBarra;
-  }
-  return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" preserveAspectRatio="none">
-    ${bars}
-    <text x="${w/2}" y="${h-4}" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#111" style="text-transform:none">${codigo}</text>
-  </svg>`;
-}
-
-function renderCodigos() {
-  const srch = (document.getElementById('srch-cod').value || '').toLowerCase();
-  let lista = productos;
-  if (srch) lista = lista.filter(p => p.nombre.toLowerCase().includes(srch) || p.cod.toLowerCase().includes(srch));
-
-  // Lista de selección
-  document.getElementById('cod-lista-prod').innerHTML = lista.map(p => {
-    const checked = labelSelections[p.id] > 0;
-    const qty = labelSelections[p.id] || 1;
-    return `<div class="prod-pick-row">
-      <input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleSelCod(${p.id}, this.checked)">
-      <div class="prod-pick-info">
-        <div class="prod-pick-name">${p.nombre}</div>
-        <div class="prod-pick-cod">${p.cod}</div>
-      </div>
-      <input type="number" class="prod-pick-qty" min="1" value="${qty}" ${checked ? '' : 'disabled'}
-        onchange="setCantidadCod(${p.id}, this.value)">
-    </div>`;
-  }).join('');
-
-  // Vista previa de etiquetas
-  const seleccionados = Object.entries(labelSelections).filter(([id, qty]) => qty > 0);
-  const totalEtiquetas = seleccionados.reduce((a, [id, qty]) => a + qty, 0);
-  document.getElementById('cod-total-lbl').textContent = `${totalEtiquetas} etiqueta${totalEtiquetas !== 1 ? 's' : ''}`;
-
-  const grid = document.getElementById('label-preview-grid');
-  if (!seleccionados.length) {
-    grid.innerHTML = '<div class="label-empty">Selecciona productos a la izquierda para generar sus etiquetas</div>';
+function hacerLogin(){
+  const u = document.getElementById('login-usuario').value.trim().toLowerCase();
+  const p = document.getElementById('login-pass').value;
+  const err = document.getElementById('login-error');
+  const user = usuarios[u];
+  if(!user || user.pass !== p){
+    err.textContent = 'Usuario o contraseña incorrectos';
+    document.getElementById('login-pass').value='';
+    document.getElementById('login-pass').focus();
     return;
   }
-
-  let html = '';
-  seleccionados.forEach(([id, qty]) => {
-    const p = getProd(parseInt(id));
-    if (!p) return;
-    for (let i = 0; i < qty; i++) {
-      html += `<div class="label-card">
-        <div class="label-empresa">FERRETERÍA</div>
-        <div class="label-nombre">${p.nombre}</div>
-        ${generarBarrasSVG(p.cod)}
-        <div class="label-precio">${fmt(p.venta)}</div>
-      </div>`;
-    }
-  });
-  grid.innerHTML = html;
+  err.textContent='';
+  usuarioActual = {...user, user: u};
+  // Salir del login y mostrar selector de módulos
+  const login = document.getElementById('pantalla-login');
+  login.classList.add('saliendo');
+  setTimeout(()=>{
+    login.classList.add('oculta');
+    document.getElementById('hdr-user-nombre').textContent = user.nombre.toUpperCase() + ' · ' + user.rol.toUpperCase();
+    document.getElementById('pantalla-inicio').classList.remove('oculta');
+  }, 340);
 }
 
-function toggleSelCod(id, checked) {
-  if (checked) {
-    labelSelections[id] = labelSelections[id] || 1;
-  } else {
-    delete labelSelections[id];
+function cerrarSesion(){
+  if(!confirm('¿Cerrar sesión?')) return;
+  usuarioActual = null;
+  document.querySelector('header').style.display='none';
+  document.querySelector('.module-nav').style.display='none';
+  _appIniciada = false;
+  document.getElementById('login-usuario').value='';
+  document.getElementById('login-pass').value='';
+  document.getElementById('login-error').textContent='';
+  document.getElementById('pantalla-login').classList.remove('oculta','saliendo');
+  document.getElementById('pantalla-inicio').classList.add('oculta');
+}
+
+// ── PANTALLA DE INICIO ──
+function entrarModulo(modulo) {
+  const pantalla = document.getElementById('pantalla-inicio');
+  pantalla.classList.add('saliendo');
+  setTimeout(() => {
+    pantalla.classList.add('oculta');
+    renderHeader();
+    goModule(modulo);
+  }, 340);
+}
+
+// Ocultar header y navs hasta que el usuario elija
+document.querySelector('header').style.display = 'none';
+document.querySelector('.module-nav').style.display = 'none';
+// La pantalla de inicio también empieza oculta (el login la muestra)
+document.getElementById('pantalla-inicio').classList.add('oculta');
+
+let _appIniciada = false;
+const __goModule = goModule;
+window.goModule = function(m) {
+  if (!_appIniciada) {
+    document.querySelector('header').style.display = 'flex';
+    document.querySelector('.module-nav').style.display = 'flex';
+    _appIniciada = true;
   }
-  renderCodigos();
-}
-function setCantidadCod(id, val) {
-  const qty = Math.max(1, parseInt(val) || 1);
-  if (labelSelections[id] !== undefined) labelSelections[id] = qty;
-  renderCodigos();
-}
-function seleccionarTodosCod() {
-  productos.forEach(p => { labelSelections[p.id] = labelSelections[p.id] || 1; });
-  renderCodigos();
-}
-function limpiarSeleccionCod() {
-  labelSelections = {};
-  renderCodigos();
-}
-// Acceso rápido desde la tabla de inventario: genera 1 etiqueta de ese producto
-function etiquetaRapida(id) {
-  labelSelections[id] = labelSelections[id] || 1;
-  goTab('codigos');
-}
-function imprimirEtiquetas() {
-  const total = Object.values(labelSelections).reduce((a, q) => a + q, 0);
-  if (!total) { alert('Selecciona al menos un producto para imprimir etiquetas'); return; }
-  window.print();
-}
-
-// ── INIT ──
-renderHeader();
-renderResumen();
+  __goModule(m);
+};
 </script>
 </body>
 </html>
