@@ -206,45 +206,6 @@
   </div>
 </div>
 
-<!-- ══ PANTALLA DE BIENVENIDA ══ -->
-<div id="pantalla-inicio">
-  <div class="inicio-logo">
-    <div class="inicio-icon">🔧</div>
-    <div class="inicio-titulo">Ferretería</div>
-  </div>
-  <div class="inicio-sub">SISTEMA DE GESTIÓN · SELECCIONA UN MÓDULO</div>
-
-  <div class="inicio-grid">
-    <!-- Módulo Análisis -->
-    <div class="mod-card" onclick="entrarModulo('analisis')">
-      <div class="mod-card-icon">📊</div>
-      <div class="mod-card-title">Análisis</div>
-      <div class="mod-card-desc">Tablero de indicadores, ventas del mes, productos más vendidos y métricas del negocio en tiempo real.</div>
-      <div class="mod-card-tags">
-        <span class="mod-tag">KPIs</span>
-        <span class="mod-tag">Gráficas</span>
-        <span class="mod-tag">Top ventas</span>
-        <span class="mod-tag">Márgenes</span>
-      </div>
-      <div class="mod-card-arrow">→</div>
-    </div>
-
-    <!-- Módulo Operación -->
-    <div class="mod-card" onclick="entrarModulo('operacion')">
-      <div class="mod-card-icon">📦</div>
-      <div class="mod-card-title">Operación</div>
-      <div class="mod-card-desc">Gestión de inventario, registro de entradas y salidas, y generación de etiquetas con códigos de barras.</div>
-      <div class="mod-card-tags">
-        <span class="mod-tag">Inventario</span>
-        <span class="mod-tag">Movimientos</span>
-        <span class="mod-tag">Códigos de barras</span>
-      </div>
-      <div class="mod-card-arrow">→</div>
-    </div>
-  </div>
-
-  <div class="inicio-footer">DEMO · TU AGENCIA TECH · 2025</div>
-</div>
 
 <!-- HEADER -->
 <header>
@@ -783,13 +744,13 @@ function hacerLogin(){
   }
   err.textContent='';
   usuarioActual = {...user, user: u};
-  // Salir del login y mostrar selector de módulos
   const login = document.getElementById('pantalla-login');
   login.classList.add('saliendo');
   setTimeout(()=>{
     login.classList.add('oculta');
     document.getElementById('hdr-user-nombre').textContent = user.nombre.toUpperCase() + ' · ' + user.rol.toUpperCase();
-    document.getElementById('pantalla-inicio').classList.remove('oculta');
+    renderHeader();
+    goModule('analisis');
   }, 340);
 }
 
@@ -803,25 +764,11 @@ function cerrarSesion(){
   document.getElementById('login-pass').value='';
   document.getElementById('login-error').textContent='';
   document.getElementById('pantalla-login').classList.remove('oculta','saliendo');
-  document.getElementById('pantalla-inicio').classList.add('oculta');
 }
 
-// ── PANTALLA DE INICIO ──
-function entrarModulo(modulo) {
-  const pantalla = document.getElementById('pantalla-inicio');
-  pantalla.classList.add('saliendo');
-  setTimeout(() => {
-    pantalla.classList.add('oculta');
-    renderHeader();
-    goModule(modulo);
-  }, 340);
-}
-
-// Ocultar header y navs hasta que el usuario elija
+// Ocultar header y navs hasta que el usuario haga login
 document.querySelector('header').style.display = 'none';
 document.querySelector('.module-nav').style.display = 'none';
-// La pantalla de inicio también empieza oculta (el login la muestra)
-document.getElementById('pantalla-inicio').classList.add('oculta');
 
 let _appIniciada = false;
 const __goModule = goModule;
