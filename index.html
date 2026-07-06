@@ -119,6 +119,34 @@
     .top-bar-wrap{flex:1}
     .top-bar-bg{height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden;margin-top:4px}
     .top-bar-fill{height:100%;background:var(--naranja);border-radius:3px}
+
+    /* CODIGOS DE BARRAS */
+    .cod-layout{display:grid;grid-template-columns:340px 1fr;gap:16px}
+    @media(max-width:900px){.cod-layout{grid-template-columns:1fr}}
+    .prod-pick-row{display:flex;align-items:center;gap:9px;padding:8px 4px;border-bottom:1px solid #f0f0f0}
+    .prod-pick-row:last-child{border-bottom:none}
+    .prod-pick-row input[type="checkbox"]{width:16px;height:16px;accent-color:var(--naranja);flex-shrink:0;cursor:pointer}
+    .prod-pick-info{flex:1;min-width:0}
+    .prod-pick-name{font-size:11.5px;font-weight:600;color:var(--negro);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .prod-pick-cod{font-size:10px;color:var(--txl);font-family:'DM Mono',monospace}
+    .prod-pick-qty{width:52px;padding:5px 6px;border:1.5px solid var(--border);border-radius:6px;font-family:'DM Mono',monospace;font-size:12px;text-align:center;outline:none}
+    .prod-pick-qty:focus{border-color:var(--naranja)}
+    .prod-pick-qty:disabled{background:#fafafa;color:#ccc}
+
+    #label-preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;padding:16px}
+    .label-card{border:1.5px dashed #ccc;border-radius:8px;padding:10px 10px 8px;background:#fff;display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center}
+    .label-empresa{font-size:9px;letter-spacing:1px;color:var(--txl);font-weight:700}
+    .label-nombre{font-size:11px;font-weight:700;color:var(--negro);line-height:1.15;min-height:26px;display:flex;align-items:center;justify-content:center}
+    .label-precio{font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--naranja)}
+    .label-empty{grid-column:1/-1;text-align:center;color:var(--txl);font-size:12px;padding:40px 0}
+
+    @media print{
+      body *{visibility:hidden}
+      #print-area,#print-area *{visibility:visible}
+      #print-area{position:absolute;top:0;left:0;width:100%;padding:0}
+      #label-preview-grid{gap:6px;padding:6px}
+      .label-card{border-style:solid;border-color:#bbb;break-inside:avoid}
+    }
   </style>
 </head>
 <body>
@@ -140,6 +168,7 @@
   <button class="nav-btn active" onclick="goTab('resumen')">📊 Resumen</button>
   <button class="nav-btn" onclick="goTab('inventario')">📦 Inventario</button>
   <button class="nav-btn" onclick="goTab('movimientos')">🔄 Movimientos</button>
+  <button class="nav-btn" onclick="goTab('codigos')">🏷️ Códigos de Barras</button>
 </nav>
 
 <main>
@@ -284,6 +313,46 @@
 
   </div>
 
+  <!-- ══ CÓDIGOS DE BARRAS ══ -->
+  <div class="section" id="tab-codigos">
+    <div class="card fu" style="margin-bottom:14px">
+      <div class="card-body" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <span style="font-size:11px;color:var(--txl)">🧪 Generador simulado de códigos de barras para marcar productos en bodega. Las barras son ilustrativas (mockup), no corresponden a un estándar real de codificación.</span>
+      </div>
+    </div>
+
+    <div class="cod-layout">
+      <!-- Selección de productos -->
+      <div class="card fu fu1" style="margin-bottom:0">
+        <div class="card-hdr">
+          <div class="card-title">Seleccionar Productos</div>
+        </div>
+        <div class="search" style="border-bottom:1px solid var(--border)">
+          <input id="srch-cod" placeholder="Buscar..." oninput="renderCodigos()">
+        </div>
+        <div class="card-body" style="max-height:480px;overflow-y:auto;padding-top:6px;padding-bottom:6px" id="cod-lista-prod"></div>
+        <div style="padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:8px">
+          <button class="btn btn-out" onclick="seleccionarTodosCod()" style="flex:1">Todos</button>
+          <button class="btn btn-out" onclick="limpiarSeleccionCod()" style="flex:1">Limpiar</button>
+        </div>
+      </div>
+
+      <!-- Vista previa etiquetas -->
+      <div class="card fu fu2" style="margin-bottom:0">
+        <div class="card-hdr">
+          <div class="card-title">Vista Previa de Etiquetas</div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <span class="mono" style="font-size:10.5px;color:var(--txl)" id="cod-total-lbl">0 etiquetas</span>
+            <button class="btn btn-primary" onclick="imprimirEtiquetas()">🖨 Imprimir</button>
+          </div>
+        </div>
+        <div id="print-area">
+          <div id="label-preview-grid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <!-- MODAL PRODUCTO -->
@@ -348,6 +417,9 @@ let movimientos = [
 let editProdId = null;
 let chVentas = null;
 
+// Selección para etiquetas: { prodId: cantidad }
+let labelSelections = {};
+
 // ── HELPERS ──
 const estado  = p => p.stock===0?'bad':p.stock<p.min?'warn':'ok';
 const margen  = p => p.venta>0?Math.round((p.venta-p.costo)/p.venta*100):0;
@@ -376,6 +448,7 @@ function goTab(t) {
   if(t==='resumen')     renderResumen();
   if(t==='inventario')  renderTabla();
   if(t==='movimientos') { renderSelectProd(); renderHistorial(); }
+  if(t==='codigos')     renderCodigos();
 }
 
 // ── HEADER ──
@@ -534,7 +607,10 @@ function renderTabla() {
       <td class="mono" style="font-weight:600">${fmt(p.venta)}</td>
       <td class="mono" style="color:${mgColor};font-weight:700">${mg}%</td>
       <td><span class="badge badge-${st}">${badgeTxt[st]}</span></td>
-      <td><button onclick="editarProd(${p.id})" style="background:none;border:1.5px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:12px">✏</button></td>
+      <td style="white-space:nowrap">
+        <button onclick="editarProd(${p.id})" style="background:none;border:1.5px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:12px" title="Editar">✏</button>
+        <button onclick="etiquetaRapida(${p.id})" style="background:none;border:1.5px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:12px" title="Generar etiqueta">🏷️</button>
+      </td>
     </tr>`;
   }).join('');
 }
@@ -632,6 +708,127 @@ function guardarProd() {
   }
   document.getElementById('overlay-prod').classList.remove('open');
   renderTabla(); renderHeader();
+}
+
+// ══════════════════════════════════════════════
+// ── CÓDIGOS DE BARRAS (simulado / mockup) ──
+// ══════════════════════════════════════════════
+
+// Genera un número pseudoaleatorio determinístico a partir de un texto,
+// así el mismo código de producto siempre produce el mismo "código de barras".
+function hashTexto(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) {
+    h = (h << 5) - h + str.charCodeAt(i);
+    h |= 0;
+  }
+  return Math.abs(h) || 1;
+}
+function randomConSemilla(semilla) {
+  let s = semilla;
+  return function () {
+    s = (s * 9301 + 49297) % 233280;
+    return s / 233280;
+  };
+}
+
+// Genera un SVG de barras "tipo código de barras" (solo ilustrativo, no decodificable)
+function generarBarrasSVG(codigo, w = 170, h = 56) {
+  const rand = randomConSemilla(hashTexto(codigo));
+  let x = 3;
+  let bars = '';
+  const maxX = w - 3;
+  while (x < maxX) {
+    const anchoBarra = 1 + Math.floor(rand() * 3);
+    const esNegra = rand() > 0.42;
+    if (esNegra) {
+      bars += `<rect x="${x}" y="2" width="${anchoBarra}" height="${h - 16}" fill="#111"/>`;
+    }
+    x += anchoBarra;
+  }
+  return `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" preserveAspectRatio="none">
+    ${bars}
+    <text x="${w/2}" y="${h-4}" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" fill="#111" style="text-transform:none">${codigo}</text>
+  </svg>`;
+}
+
+function renderCodigos() {
+  const srch = (document.getElementById('srch-cod').value || '').toLowerCase();
+  let lista = productos;
+  if (srch) lista = lista.filter(p => p.nombre.toLowerCase().includes(srch) || p.cod.toLowerCase().includes(srch));
+
+  // Lista de selección
+  document.getElementById('cod-lista-prod').innerHTML = lista.map(p => {
+    const checked = labelSelections[p.id] > 0;
+    const qty = labelSelections[p.id] || 1;
+    return `<div class="prod-pick-row">
+      <input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleSelCod(${p.id}, this.checked)">
+      <div class="prod-pick-info">
+        <div class="prod-pick-name">${p.nombre}</div>
+        <div class="prod-pick-cod">${p.cod}</div>
+      </div>
+      <input type="number" class="prod-pick-qty" min="1" value="${qty}" ${checked ? '' : 'disabled'}
+        onchange="setCantidadCod(${p.id}, this.value)">
+    </div>`;
+  }).join('');
+
+  // Vista previa de etiquetas
+  const seleccionados = Object.entries(labelSelections).filter(([id, qty]) => qty > 0);
+  const totalEtiquetas = seleccionados.reduce((a, [id, qty]) => a + qty, 0);
+  document.getElementById('cod-total-lbl').textContent = `${totalEtiquetas} etiqueta${totalEtiquetas !== 1 ? 's' : ''}`;
+
+  const grid = document.getElementById('label-preview-grid');
+  if (!seleccionados.length) {
+    grid.innerHTML = '<div class="label-empty">Selecciona productos a la izquierda para generar sus etiquetas</div>';
+    return;
+  }
+
+  let html = '';
+  seleccionados.forEach(([id, qty]) => {
+    const p = getProd(parseInt(id));
+    if (!p) return;
+    for (let i = 0; i < qty; i++) {
+      html += `<div class="label-card">
+        <div class="label-empresa">FERRETERÍA</div>
+        <div class="label-nombre">${p.nombre}</div>
+        ${generarBarrasSVG(p.cod)}
+        <div class="label-precio">${fmt(p.venta)}</div>
+      </div>`;
+    }
+  });
+  grid.innerHTML = html;
+}
+
+function toggleSelCod(id, checked) {
+  if (checked) {
+    labelSelections[id] = labelSelections[id] || 1;
+  } else {
+    delete labelSelections[id];
+  }
+  renderCodigos();
+}
+function setCantidadCod(id, val) {
+  const qty = Math.max(1, parseInt(val) || 1);
+  if (labelSelections[id] !== undefined) labelSelections[id] = qty;
+  renderCodigos();
+}
+function seleccionarTodosCod() {
+  productos.forEach(p => { labelSelections[p.id] = labelSelections[p.id] || 1; });
+  renderCodigos();
+}
+function limpiarSeleccionCod() {
+  labelSelections = {};
+  renderCodigos();
+}
+// Acceso rápido desde la tabla de inventario: genera 1 etiqueta de ese producto
+function etiquetaRapida(id) {
+  labelSelections[id] = labelSelections[id] || 1;
+  goTab('codigos');
+}
+function imprimirEtiquetas() {
+  const total = Object.values(labelSelections).reduce((a, q) => a + q, 0);
+  if (!total) { alert('Selecciona al menos un producto para imprimir etiquetas'); return; }
+  window.print();
 }
 
 // ── INIT ──
