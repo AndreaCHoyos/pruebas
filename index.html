@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Control de Inventario — Ferretería</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EDEAE3; --surface:#FFFFFF; --surface-2:#F5F3EE;
+    --ink:#23201B; --muted:#6B665C; --border:#D8D3C7;
+    --amber:#E8A33D; --amber-ink:#7A4E12; --steel:#35586E; --steel-ink:#1E3140;
+    --green:#3B6D11; --green-bg:#EAF3DE;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:'IBM Plex Sans', sans-serif; -webkit-font-smoothing:antialiased;}
+  a{color:inherit;}
+
+  .view{display:none;}
+  .view.active{display:block;}
+
+  /* ---------- shared bits ---------- */
+  .crumb{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted); text-decoration:none; background:none; border:none; cursor:pointer; padding:0;}
+  .crumb:hover{color:var(--ink);}
+  .eyebrow{font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.14em; color:var(--muted); text-transform:uppercase; margin:22px 0 10px;}
+  .code-tag{display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.06em; padding:3px 8px; border-radius:2px; border:1px solid var(--border); margin-bottom:14px;}
+  .go{font-family:'IBM Plex Mono', monospace; font-size:12px;}
+
+  /* ================= VIEW: INICIO ================= */
+  #view-inicio .wrap{max-width:920px; margin:0 auto; padding:48px 24px 64px;}
+  #view-inicio h1{font-family:'Archivo Expanded', sans-serif; font-weight:700; font-size:clamp(28px, 5vw, 40px); margin:0 0 8px; letter-spacing:-0.01em;}
+  #view-inicio .sub{color:var(--muted); font-size:15px; margin:0; max-width:520px;}
+  .ticks{display:flex; gap:3px; margin:28px 0 32px; overflow:hidden;}
+  .ticks span{width:3px; height:14px; background:var(--border); flex-shrink:0;}
+  .ticks span:nth-child(4n){ height:20px; background:var(--muted); }
+  .ticks span:nth-child(9n){ background:var(--amber); }
+
+  .primary-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;}
+  .card{display:block; background:var(--surface); border:1px solid var(--border); border-radius:4px; padding:22px 22px 20px; text-decoration:none; color:inherit; transition:border-color .15s ease, transform .15s ease;}
+  .card:hover{border-color:var(--ink); transform:translateY(-1px);}
+  .card.primary{border-width:2px; border-color:var(--amber);}
+  .card.primary:hover{border-color:var(--amber-ink);}
+  #view-inicio .code-tag{background:var(--surface-2); color:var(--steel-ink);}
+  #view-inicio .primary .code-tag{background:#FBEFDB; color:var(--amber-ink); border-color:#EAC685;}
+  .card h2{font-family:'Archivo Expanded', sans-serif; font-weight:700; font-size:19px; margin:0 0 6px;}
+  .card p{font-size:13.5px; color:var(--muted); margin:0 0 14px; line-height:1.5;}
+  #view-inicio .go{color:var(--ink); display:inline-flex; align-items:center; gap:5px;}
+  .card:hover .go{ color:var(--amber-ink); }
+
+  .secondary-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:12px;}
+  .secondary-grid .card{padding:16px 16px 14px;}
+  .secondary-grid h2{font-size:15px;}
+  .secondary-grid p{font-size:12.5px; margin-bottom:10px;}
+  .secondary-grid .code-tag{font-size:10px; margin-bottom:10px;}
+  .secondary-grid .go{font-size:11px;}
+
+  footer{margin-top:40px; padding-top:18px; border-top:1px solid var(--border); font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted);}
+
+  @media (max-width:640px){ .primary-grid{ grid-template-columns:1fr; } .secondary-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:420px){ .secondary-grid{ grid-template-columns:1fr; } }
+
+  /* ================= VIEW: PRODUCTOS ================= */
+  #view-productos .wrap{max-width:760px; margin:0 auto; padding:40px 24px 64px;}
+  #view-productos h1{font-family:'Archivo Expanded', sans-serif; font-weight:700; font-size:clamp(26px,5vw,36px); margin:0 0 8px; letter-spacing:-0.01em;}
+  #view-productos .sub{color:var(--muted); font-size:15px; margin:0 0 30px; max-width:480px;}
+  #view-productos .grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  #view-productos .card{border:2px solid var(--border);}
+  #view-productos .card:hover{border-color:var(--amber-ink);}
+  #view-productos .card.primary{border-color:var(--amber);}
+  #view-productos .code-tag{background:#FBEFDB; color:var(--amber-ink); border-color:#EAC685;}
+  #view-productos .card.secondary .code-tag{background:var(--surface-2); color:var(--steel-ink); border-color:var(--border);}
+  @media (max-width:560px){ #view-productos .grid{grid-template-columns:1fr;} }
+
+  /* ================= VIEW: AGREGAR PRODUCTO ================= */
+  #view-agregar .wrap{max-width:680px; margin:0 auto; padding:40px 24px 80px;}
+  #view-agregar h1{font-family:'Archivo Expanded', sans-serif; font-weight:700; font-size:clamp(26px,5vw,34px); margin:0 0 8px; letter-spacing:-0.01em;}
+  #view-agregar .sub{color:var(--muted); font-size:14.5px; margin:0 0 28px; max-width:520px;}
+
+  #view-agregar form{background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:28px 26px 26px;}
+
+  #view-agregar .section-label{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--muted); margin:26px 0 12px;
+    padding-top:18px; border-top:1px solid var(--border);
+  }
+  #view-agregar .section-label:first-of-type{margin-top:0; padding-top:0; border-top:none;}
+
+  #view-agregar .row{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;}
+  #view-agregar .field{margin-bottom:14px;}
+  #view-agregar .field.full{grid-column:1 / -1;}
+  #view-agregar label{display:block; font-size:12.5px; font-weight:500; margin-bottom:5px; color:var(--ink);}
+  #view-agregar label .opt{font-weight:400; color:var(--muted); font-size:11.5px;}
+  #view-agregar .hint{font-size:11.5px; color:var(--muted); margin:4px 0 0;}
+
+  #view-agregar input, #view-agregar select{
+    width:100%; height:38px; padding:0 10px;
+    border:1px solid var(--border); border-radius:4px;
+    background:var(--surface-2); color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif; font-size:14px;
+  }
+  #view-agregar input:focus, #view-agregar select:focus{outline:none; border-color:var(--amber-ink); background:var(--surface);}
+  #view-agregar input[readonly]{color:var(--muted); background:#EEEBE4;}
+
+  #view-agregar .radio-group{display:flex; gap:10px;}
+  #view-agregar .radio-option{
+    flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
+    height:38px; border:1px solid var(--border); border-radius:4px; cursor:pointer;
+    font-size:13.5px; background:var(--surface-2);
+  }
+  #view-agregar .radio-option input{width:auto; height:auto;}
+  #view-agregar .radio-option:has(input:checked){border-color:var(--amber-ink); background:#FBEFDB; color:var(--amber-ink); font-weight:500;}
+
+  #view-agregar .ftb-preview{
+    display:flex; align-items:center; gap:10px;
+    background:var(--surface-2); border:1px dashed var(--border);
+    border-radius:4px; padding:10px 14px; margin-bottom:20px;
+  }
+  #view-agregar .ftb-preview .code{font-family:'IBM Plex Mono', monospace; font-size:14px; font-weight:500; color:var(--steel-ink);}
+  #view-agregar .ftb-preview .note{font-size:11.5px; color:var(--muted);}
+
+  #view-agregar .rentab-box{
+    background:var(--surface-2); border:1px solid var(--border); border-radius:4px;
+    padding:10px 14px; display:flex; align-items:baseline; justify-content:space-between;
+  }
+  #view-agregar .rentab-box .val{font-family:'IBM Plex Mono', monospace; font-size:18px; font-weight:500;}
+  #view-agregar .rentab-box .lbl{font-size:12px; color:var(--muted);}
+
+  #view-agregar .actions{display:flex; gap:10px; margin-top:26px;}
+  #view-agregar button{
+    font-family:'IBM Plex Sans', sans-serif; font-size:14px; font-weight:500;
+    height:42px; padding:0 20px; border-radius:4px; cursor:pointer; border:1px solid var(--border);
+  }
+  #view-agregar .btn-primary{background:var(--ink); color:#fff; border-color:var(--ink); flex:1;}
+  #view-agregar .btn-primary:hover{background:#3a352c;}
+  #view-agregar .btn-ghost{background:var(--surface); color:var(--ink);}
+
+  #view-agregar #confirm{
+    display:none; margin-top:16px; padding:14px 16px;
+    background:var(--green-bg); border:1px solid #C0DD97; border-radius:4px;
+    color:#173404; font-size:13.5px;
+  }
+  #view-agregar #confirm.show{display:block;}
+</style>
+</head>
+<body>
+
+<!-- ================= VIEW: INICIO ================= -->
+<div class="view active" id="view-inicio">
+  <div class="wrap">
+    <p class="eyebrow">Sistema de inventario</p>
+    <h1>Ferretería</h1>
+    <p class="sub">Elige qué quieres hacer. Cada módulo corresponde a una tabla del sistema.</p>
+
+    <div class="ticks" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="primary-grid">
+      <a class="card primary" href="#productos" data-view="productos">
+        <span class="code-tag">FTB-PRD</span>
+        <h2>Productos</h2>
+        <p>Agregar producto nuevo o actualizar el catálogo: precios, stock, categoría, marca.</p>
+        <span class="go">Abrir →</span>
+      </a>
+      <a class="card primary" href="movimientos.html">
+        <span class="code-tag">FTB-MOV</span>
+        <h2>Movimientos</h2>
+        <p>Registrar entradas y salidas de inventario por bodega.</p>
+        <span class="go">Abrir →</span>
+      </a>
+    </div>
+
+    <div class="secondary-grid">
+      <a class="card" href="stock-bodega.html">
+        <span class="code-tag">FTB-BOD</span>
+        <h2>Stock y bodega</h2>
+        <p>Ubicación y cantidad disponible por bodega.</p>
+        <span class="go">Abrir →</span>
+      </a>
+      <a class="card" href="produccion.html">
+        <span class="code-tag">FTB-PRO</span>
+        <h2>Producción</h2>
+        <p>Recetas y lotes fabricados (ej. bloques).</p>
+        <span class="go">Abrir →</span>
+      </a>
+      <a class="card" href="maquinaria.html">
+        <span class="code-tag">FTB-MAQ</span>
+        <h2>Maquinaria</h2>
+        <p>Equipos, estado y mantenimientos.</p>
+        <span class="go">Abrir →</span>
+      </a>
+      <a class="card" href="compras-granel.html">
+        <span class="code-tag">FTB-CMP</span>
+        <h2>Compras a granel</h2>
+        <p>Lotes y conversión de unidades.</p>
+        <span class="go">Abrir →</span>
+      </a>
+      <a class="card" href="servicios.html">
+        <span class="code-tag">FTB-SRV</span>
+        <h2>Servicios</h2>
+        <p>Transporte, mantenimiento y otros.</p>
+        <span class="go">Abrir →</span>
+      </a>
+      <a class="card" href="metricas.html">
+        <span class="code-tag">FTB-MET</span>
+        <h2>Métricas</h2>
+        <p>Dashboard de indicadores clave.</p>
+        <span class="go">Abrir →</span>
+      </a>
+    </div>
+
+    <footer>
+      Basado en la propuesta de estandarización de inventario — prefijo FTB.
+    </footer>
+  </div>
+</div>
+
+<!-- ================= VIEW: PRODUCTOS ================= -->
+<div class="view" id="view-productos">
+  <div class="wrap">
+    <a class="crumb" href="#inicio" data-view="inicio">← Inicio</a>
+    <p class="eyebrow">Módulo FTB-PRD</p>
+    <h1>Productos</h1>
+    <p class="sub">¿Qué necesitas hacer con el catálogo?</p>
+
+    <div class="grid">
+      <a class="card primary" href="#agregar" data-view="agregar">
+        <span class="code-tag">Nuevo</span>
+        <h2>Agregar producto</h2>
+        <p>Dar de alta un producto nuevo con todos los datos estandarizados.</p>
+        <span class="go">Continuar →</span>
+      </a>
+      <a class="card secondary" href="actualizar-producto.html">
+        <span class="code-tag">Existente</span>
+        <h2>Actualizar producto</h2>
+        <p>Buscar un producto por código FTB y editar sus datos.</p>
+        <span class="go">Continuar →</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ================= VIEW: AGREGAR PRODUCTO ================= -->
+<div class="view" id="view-agregar">
+  <div class="wrap">
+    <a class="crumb" href="#productos" data-view="productos">← Productos</a>
+    <p class="eyebrow">Módulo FTB-PRD · Nuevo</p>
+    <h1>Agregar producto</h1>
+    <p class="sub">Completa los datos según la estandarización del catálogo. Los campos marcados como opcionales pueden dejarse en blanco.</p>
+
+    <form id="product-form">
+
+      <div class="section-label">Identificación</div>
+
+      <div class="ftb-preview">
+        <span class="code" id="ftb-code">FTB-···-····</span>
+        <span class="note">Se genera automáticamente al guardar, según categoría</span>
+      </div>
+
+      <div class="field full">
+        <label for="cod-barras">Código de barras del proveedor</label>
+        <input type="text" id="cod-barras" placeholder="Leído con el lector de código de barras">
+      </div>
+
+      <div class="field full">
+        <label for="nombre">Nombre del producto</label>
+        <input type="text" id="nombre" placeholder="Ej: Broca SDS Plus - 3/8 x 6 pulg – Irwin" required>
+        <p class="hint">Formato: [nombre] + [característica principal] + [marca], con la marca al final separada por un guion.</p>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="categoria">Categoría</label>
+          <select id="categoria" required>
+            <option value="" disabled selected>Selecciona una categoría</option>
+            <option>Herramientas eléctricas</option>
+            <option>Herramientas manuales</option>
+            <option>Pinturas y acabados</option>
+            <option>Eléctrico</option>
+            <option>Plomería</option>
+            <option>Cerrajería</option>
+            <option>Materiales de construcción</option>
+            <option>Seguridad industrial</option>
+            <option>Ferretería general</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="subcategoria">Subcategoría <span class="opt">(opcional)</span></label>
+          <input type="text" id="subcategoria" placeholder="Ej: Esmaltes">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="marca">Marca</label>
+          <input type="text" id="marca" placeholder="Ej: Irwin">
+        </div>
+        <div class="field">
+          <label for="unidad">Unidad de medida</label>
+          <select id="unidad" required>
+            <option value="" disabled selected>Selecciona una unidad</option>
+            <option>Unidad</option>
+            <option>Galón</option>
+            <option>Metro</option>
+            <option>Kilogramo</option>
+            <option>Litro</option>
+            <option>Caja</option>
+            <option>Rollo</option>
+            <option>Par</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="section-label">Precios y rentabilidad</div>
+
+      <div class="row">
+        <div class="field">
+          <label for="costo">Costo unitario de compra / producción</label>
+          <input type="number" id="costo" min="0" step="0.01" placeholder="0">
+        </div>
+        <div class="field">
+          <label for="precio">Precio unitario de venta</label>
+          <input type="number" id="precio" min="0" step="0.01" placeholder="0">
+        </div>
+      </div>
+
+      <div class="field full">
+        <div class="rentab-box">
+          <span class="lbl">Rentabilidad calculada</span>
+          <span class="val" id="rentabilidad">—</span>
+        </div>
+      </div>
+
+      <div class="field full">
+        <label for="impuesto">Tipo de impuesto</label>
+        <select id="impuesto">
+          <option>IVA 19%</option>
+          <option>IVA 5%</option>
+          <option>Exento</option>
+        </select>
+      </div>
+
+      <div class="section-label">Origen y control</div>
+
+      <div class="field full">
+        <label>Origen</label>
+        <div class="radio-group">
+          <label class="radio-option"><input type="radio" name="origen" value="Comprado" checked> Comprado</label>
+          <label class="radio-option"><input type="radio" name="origen" value="Fabricado"> Fabricado</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>Estado</label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="estado" value="Activo" checked> Activo</label>
+            <label class="radio-option"><input type="radio" name="estado" value="Inactivo"> Inactivo</label>
+          </div>
+        </div>
+        <div class="field">
+          <label for="fecha">Fecha de ingreso</label>
+          <input type="date" id="fecha">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="responsable">Responsable de ingreso</label>
+          <input type="text" id="responsable" placeholder="Nombre de quien registra">
+        </div>
+        <div class="field">
+          <label for="proveedor">Proveedor</label>
+          <input type="text" id="proveedor" placeholder="Quién suministra el producto">
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn-primary">Guardar producto</button>
+        <button type="button" class="btn-ghost" data-view="productos">Cancelar</button>
+      </div>
+
+      <div id="confirm"></div>
+    </form>
+  </div>
+</div>
+
+<script>
+  /* ---------- router: switch views by hash, no page reload ---------- */
+  const views = ['inicio', 'productos', 'agregar'];
+
+  function showView(name){
+    if(!views.includes(name)) name = 'inicio';
+    views.forEach(v => {
+      document.getElementById('view-' + v).classList.toggle('active', v === name);
+    });
+    window.scrollTo(0, 0);
+  }
+
+  function navigate(name, push){
+    showView(name);
+    if(push !== false) location.hash = name;
+  }
+
+  // clicks on any element with data-view
+  document.addEventListener('click', (e) => {
+    const el = e.target.closest('[data-view]');
+    if(el){
+      e.preventDefault();
+      navigate(el.getAttribute('data-view'));
+    }
+  });
+
+  window.addEventListener('hashchange', () => {
+    showView(location.hash.replace('#', '') || 'inicio');
+  });
+
+  // initial view based on current hash
+  showView(location.hash.replace('#', '') || 'inicio');
+
+  /* ---------- agregar-producto logic ---------- */
+  const costo = document.getElementById('costo');
+  const precio = document.getElementById('precio');
+  const rentabilidad = document.getElementById('rentabilidad');
+  const categoria = document.getElementById('categoria');
+  const ftbCode = document.getElementById('ftb-code');
+  const fecha = document.getElementById('fecha');
+  const form = document.getElementById('product-form');
+  const confirmBox = document.getElementById('confirm');
+
+  fecha.value = new Date().toISOString().split('T')[0];
+
+  function calcRentabilidad(){
+    const c = parseFloat(costo.value);
+    const p = parseFloat(precio.value);
+    if(!isNaN(c) && !isNaN(p) && p > 0){
+      const r = ((p - c) / p) * 100;
+      rentabilidad.textContent = r.toFixed(1) + '%';
+    } else {
+      rentabilidad.textContent = '—';
+    }
+  }
+  costo.addEventListener('input', calcRentabilidad);
+  precio.addEventListener('input', calcRentabilidad);
+
+  function catPrefix(cat){
+    const map = {
+      'Herramientas eléctricas':'HEL', 'Herramientas manuales':'HMA', 'Pinturas y acabados':'PIN',
+      'Eléctrico':'ELE', 'Plomería':'PLO', 'Cerrajería':'CER', 'Materiales de construcción':'MAT',
+      'Seguridad industrial':'SEG', 'Ferretería general':'FER', 'Otro':'OTR'
+    };
+    return map[cat] || '···';
+  }
+  categoria.addEventListener('change', () => {
+    ftbCode.textContent = 'FTB-' + catPrefix(categoria.value) + '-····';
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const nombre = document.getElementById('nombre').value || 'este producto';
+    confirmBox.textContent = 'Producto agregado: ' + nombre + '. Código ' + ftbCode.textContent + ' asignado al guardar en la base de datos.';
+    confirmBox.classList.add('show');
+  });
+</script>
+</body>
+</html>
