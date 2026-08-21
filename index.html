@@ -74,74 +74,128 @@
   @media (max-width:560px){ #view-productos .grid{grid-template-columns:1fr;} }
 
   /* ================= VIEW: AGREGAR PRODUCTO ================= */
-  #view-agregar .wrap{max-width:680px; margin:0 auto; padding:40px 24px 80px;}
-  #view-agregar h1{font-family:'Archivo Expanded', sans-serif; font-weight:700; font-size:clamp(26px,5vw,34px); margin:0 0 8px; letter-spacing:-0.01em;}
-  #view-agregar .sub{color:var(--muted); font-size:14.5px; margin:0 0 28px; max-width:520px;}
+  #view-agregar, #view-actualizar .wrap{max-width:680px; margin:0 auto; padding:40px 24px 80px;}
+  #view-agregar, #view-actualizar h1{font-family:'Archivo Expanded', sans-serif; font-weight:700; font-size:clamp(26px,5vw,34px); margin:0 0 8px; letter-spacing:-0.01em;}
+  #view-agregar, #view-actualizar .sub{color:var(--muted); font-size:14.5px; margin:0 0 28px; max-width:520px;}
 
-  #view-agregar form{background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:28px 26px 26px;}
+  #view-agregar, #view-actualizar form{background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:28px 26px 26px;}
 
-  #view-agregar .section-label{
+  #view-agregar, #view-actualizar .section-label{
     font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em;
     text-transform:uppercase; color:var(--muted); margin:26px 0 12px;
     padding-top:18px; border-top:1px solid var(--border);
   }
-  #view-agregar .section-label:first-of-type{margin-top:0; padding-top:0; border-top:none;}
+  #view-agregar, #view-actualizar .section-label:first-of-type{margin-top:0; padding-top:0; border-top:none;}
 
-  #view-agregar .row{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;}
-  #view-agregar .field{margin-bottom:14px;}
-  #view-agregar .field.full{grid-column:1 / -1;}
-  #view-agregar label{display:block; font-size:12.5px; font-weight:500; margin-bottom:5px; color:var(--ink);}
-  #view-agregar label .opt{font-weight:400; color:var(--muted); font-size:11.5px;}
-  #view-agregar .hint{font-size:11.5px; color:var(--muted); margin:4px 0 0;}
+  #view-agregar, #view-actualizar .row{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;}
+  #view-agregar, #view-actualizar .field{margin-bottom:14px;}
+  #view-agregar, #view-actualizar .field.full{grid-column:1 / -1;}
+  #view-agregar, #view-actualizar label{display:block; font-size:12.5px; font-weight:500; margin-bottom:5px; color:var(--ink);}
+  #view-agregar, #view-actualizar label .opt{font-weight:400; color:var(--muted); font-size:11.5px;}
+  #view-agregar, #view-actualizar .hint{font-size:11.5px; color:var(--muted); margin:4px 0 0;}
 
-  #view-agregar input, #view-agregar select{
+  #view-agregar, #view-actualizar input, #view-agregar, #view-actualizar select{
     width:100%; height:38px; padding:0 10px;
     border:1px solid var(--border); border-radius:4px;
     background:var(--surface-2); color:var(--ink);
     font-family:'IBM Plex Sans', sans-serif; font-size:14px;
   }
-  #view-agregar input:focus, #view-agregar select:focus{outline:none; border-color:var(--amber-ink); background:var(--surface);}
-  #view-agregar input[readonly]{color:var(--muted); background:#EEEBE4;}
+  #view-agregar, #view-actualizar input:focus, #view-agregar, #view-actualizar select:focus{outline:none; border-color:var(--amber-ink); background:var(--surface);}
+  #view-agregar, #view-actualizar input[readonly]{color:var(--muted); background:#EEEBE4;}
 
-  #view-agregar .radio-group{display:flex; gap:10px;}
-  #view-agregar .radio-option{
+  #view-agregar, #view-actualizar .radio-group{display:flex; gap:10px;}
+  #view-agregar, #view-actualizar .radio-option{
     flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
     height:38px; border:1px solid var(--border); border-radius:4px; cursor:pointer;
     font-size:13.5px; background:var(--surface-2);
   }
-  #view-agregar .radio-option input{width:auto; height:auto;}
-  #view-agregar .radio-option:has(input:checked){border-color:var(--amber-ink); background:#FBEFDB; color:var(--amber-ink); font-weight:500;}
+  #view-agregar, #view-actualizar .radio-option input{width:auto; height:auto;}
+  #view-agregar, #view-actualizar .radio-option:has(input:checked){border-color:var(--amber-ink); background:#FBEFDB; color:var(--amber-ink); font-weight:500;}
 
-  #view-agregar .ftb-preview{
+  #view-agregar, #view-actualizar .ftb-preview{
     display:flex; align-items:center; gap:10px;
     background:var(--surface-2); border:1px dashed var(--border);
     border-radius:4px; padding:10px 14px; margin-bottom:20px;
   }
-  #view-agregar .ftb-preview .code{font-family:'IBM Plex Mono', monospace; font-size:14px; font-weight:500; color:var(--steel-ink);}
-  #view-agregar .ftb-preview .note{font-size:11.5px; color:var(--muted);}
+  #view-agregar, #view-actualizar .ftb-preview .code{font-family:'IBM Plex Mono', monospace; font-size:14px; font-weight:500; color:var(--steel-ink);}
+  #view-agregar, #view-actualizar .ftb-preview .note{font-size:11.5px; color:var(--muted);}
 
-  #view-agregar .rentab-box{
+  #view-agregar, #view-actualizar .rentab-box{
     background:var(--surface-2); border:1px solid var(--border); border-radius:4px;
     padding:10px 14px; display:flex; align-items:baseline; justify-content:space-between;
   }
-  #view-agregar .rentab-box .val{font-family:'IBM Plex Mono', monospace; font-size:18px; font-weight:500;}
-  #view-agregar .rentab-box .lbl{font-size:12px; color:var(--muted);}
+  #view-agregar, #view-actualizar .rentab-box .val{font-family:'IBM Plex Mono', monospace; font-size:18px; font-weight:500;}
+  #view-agregar, #view-actualizar .rentab-box .lbl{font-size:12px; color:var(--muted);}
 
-  #view-agregar .actions{display:flex; gap:10px; margin-top:26px;}
-  #view-agregar button{
+  #view-agregar, #view-actualizar .actions{display:flex; gap:10px; margin-top:26px;}
+  #view-agregar, #view-actualizar button{
     font-family:'IBM Plex Sans', sans-serif; font-size:14px; font-weight:500;
     height:42px; padding:0 20px; border-radius:4px; cursor:pointer; border:1px solid var(--border);
   }
-  #view-agregar .btn-primary{background:var(--ink); color:#fff; border-color:var(--ink); flex:1;}
-  #view-agregar .btn-primary:hover{background:#3a352c;}
-  #view-agregar .btn-ghost{background:var(--surface); color:var(--ink);}
+  #view-agregar, #view-actualizar .btn-primary{background:var(--ink); color:#fff; border-color:var(--ink); flex:1;}
+  #view-agregar, #view-actualizar .btn-primary:hover{background:#3a352c;}
+  #view-agregar, #view-actualizar .btn-ghost{background:var(--surface); color:var(--ink);}
 
-  #view-agregar #confirm{
+  #view-agregar, #view-actualizar #confirm{
     display:none; margin-top:16px; padding:14px 16px;
     background:var(--green-bg); border:1px solid #C0DD97; border-radius:4px;
     color:#173404; font-size:13.5px;
   }
-  #view-agregar #confirm.show{display:block;}
+  #view-agregar, #view-actualizar #confirm.show{display:block;}
+
+  /* ---- extra bits only used in ACTUALIZAR (búsqueda) ---- */
+  #view-actualizar .search-box{
+    display:flex; gap:10px; margin-bottom:18px;
+  }
+  #view-actualizar .search-box input{
+    flex:1; height:42px; padding:0 12px; border:1px solid var(--border); border-radius:4px;
+    background:var(--surface); color:var(--ink); font-family:'IBM Plex Sans', sans-serif; font-size:14px;
+  }
+  #view-actualizar .search-box input:focus{outline:none; border-color:var(--amber-ink);}
+  #view-actualizar .search-box button{
+    font-family:'IBM Plex Sans', sans-serif; font-size:14px; font-weight:500;
+    height:42px; padding:0 18px; border-radius:4px; cursor:pointer;
+    border:1px solid var(--ink); background:var(--ink); color:#fff;
+  }
+  #view-actualizar .search-hint{font-size:12px; color:var(--muted); margin:0 0 22px;}
+
+  #view-actualizar .results{display:flex; flex-direction:column; gap:8px; margin-bottom:8px;}
+  #view-actualizar .result-item{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    background:var(--surface); border:1px solid var(--border); border-radius:4px;
+    padding:12px 14px; cursor:pointer; text-align:left; width:100%;
+    font-family:'IBM Plex Sans', sans-serif;
+  }
+  #view-actualizar .result-item:hover{border-color:var(--amber-ink);}
+  #view-actualizar .result-item .r-code{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--steel-ink); background:var(--surface-2); padding:2px 6px; border-radius:2px; margin-right:8px;}
+  #view-actualizar .result-item .r-name{font-size:13.5px; font-weight:500;}
+  #view-actualizar .result-item .r-meta{font-size:11.5px; color:var(--muted); margin-top:2px;}
+  #view-actualizar .result-item .r-go{font-size:11px; color:var(--muted); flex-shrink:0;}
+
+  #view-actualizar .empty-state{
+    font-size:13px; color:var(--muted); background:var(--surface-2);
+    border:1px dashed var(--border); border-radius:4px; padding:16px; text-align:center;
+  }
+
+  #view-actualizar .editing-tag{
+    display:inline-flex; align-items:center; gap:8px; margin-bottom:16px;
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--steel-ink);
+    background:var(--surface-2); border:1px solid var(--border); border-radius:4px; padding:6px 10px;
+  }
+  #view-actualizar .editing-tag button{
+    background:none; border:none; color:var(--muted); font-family:'IBM Plex Sans', sans-serif;
+    font-size:11.5px; cursor:pointer; text-decoration:underline; padding:0; height:auto;
+  }
+
+  #view-actualizar #search-stage, #view-actualizar #edit-stage{display:none;}
+  #view-actualizar #search-stage.show, #view-actualizar #edit-stage.show{display:block;}
+
+  #view-actualizar #edit-confirm{
+    display:none; margin-top:16px; padding:14px 16px;
+    background:var(--green-bg); border:1px solid #C0DD97; border-radius:4px;
+    color:#173404; font-size:13.5px;
+  }
+  #view-actualizar #edit-confirm.show{display:block;}
 </style>
 </head>
 <body>
@@ -237,7 +291,7 @@
         <p>Dar de alta un producto nuevo con todos los datos estandarizados.</p>
         <span class="go">Continuar →</span>
       </a>
-      <a class="card secondary" href="actualizar-producto.html">
+      <a class="card secondary" href="#actualizar" data-view="actualizar">
         <span class="code-tag">Existente</span>
         <h2>Actualizar producto</h2>
         <p>Buscar un producto por código FTB y editar sus datos.</p>
@@ -275,27 +329,21 @@
         <p class="hint">Formato: [nombre] + [característica principal] + [marca], con la marca al final separada por un guion.</p>
       </div>
 
-      <div class="row">
-        <div class="field">
-          <label for="categoria">Categoría</label>
-          <select id="categoria" required>
-            <option value="" disabled selected>Selecciona una categoría</option>
-            <option>Herramientas eléctricas</option>
-            <option>Herramientas manuales</option>
-            <option>Pinturas y acabados</option>
-            <option>Eléctrico</option>
-            <option>Plomería</option>
-            <option>Cerrajería</option>
-            <option>Materiales de construcción</option>
-            <option>Seguridad industrial</option>
-            <option>Ferretería general</option>
-            <option>Otro</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="subcategoria">Subcategoría <span class="opt">(opcional)</span></label>
-          <input type="text" id="subcategoria" placeholder="Ej: Esmaltes">
-        </div>
+      <div class="field full">
+        <label for="categoria">Categoría</label>
+        <select id="categoria" required>
+          <option value="" disabled selected>Selecciona una categoría</option>
+          <option>Herramientas eléctricas</option>
+          <option>Herramientas manuales</option>
+          <option>Pinturas y acabados</option>
+          <option>Eléctrico</option>
+          <option>Plomería</option>
+          <option>Cerrajería</option>
+          <option>Materiales de construcción</option>
+          <option>Seguridad industrial</option>
+          <option>Ferretería general</option>
+          <option>Otro</option>
+        </select>
       </div>
 
       <div class="row">
@@ -393,9 +441,159 @@
   </div>
 </div>
 
+<!-- ================= VIEW: ACTUALIZAR PRODUCTO ================= -->
+<div class="view" id="view-actualizar">
+  <div class="wrap">
+    <a class="crumb" href="#productos" data-view="productos">← Productos</a>
+    <p class="eyebrow">Módulo FTB-PRD · Existente</p>
+    <h1>Actualizar producto</h1>
+    <p class="sub">Busca por código FTB, nombre o marca, elige el producto y edita lo que cambió.</p>
+
+    <!-- ---- ETAPA 1: BÚSQUEDA ---- -->
+    <div id="search-stage" class="show">
+      <div class="search-box">
+        <input type="text" id="buscar-input" placeholder="Ej: FTB-HEL-0001, Broca, Irwin…">
+        <button type="button" id="btn-buscar">Buscar</button>
+      </div>
+      <p class="search-hint">Escribe al menos parte del código, nombre o marca y presiona Buscar. También puedes dejarlo vacío para ver todo el catálogo.</p>
+
+      <div id="results" class="results"></div>
+    </div>
+
+    <!-- ---- ETAPA 2: EDICIÓN ---- -->
+    <div id="edit-stage">
+      <span class="editing-tag">Editando <strong id="editing-code">FTB-···-····</strong> <button type="button" id="btn-volver-buscar">← volver a la búsqueda</button></span>
+
+      <form id="edit-form">
+
+        <div class="section-label">Identificación</div>
+
+        <div class="field full">
+          <label for="e-cod-barras">Código de barras del proveedor</label>
+          <input type="text" id="e-cod-barras" placeholder="Leído con el lector de código de barras">
+        </div>
+
+        <div class="field full">
+          <label for="e-nombre">Nombre del producto</label>
+          <input type="text" id="e-nombre" required>
+        </div>
+
+        <div class="field full">
+          <label for="e-categoria">Categoría</label>
+          <select id="e-categoria" required>
+            <option value="" disabled>Selecciona una categoría</option>
+            <option>Herramientas eléctricas</option>
+            <option>Herramientas manuales</option>
+            <option>Pinturas y acabados</option>
+            <option>Eléctrico</option>
+            <option>Plomería</option>
+            <option>Cerrajería</option>
+            <option>Materiales de construcción</option>
+            <option>Seguridad industrial</option>
+            <option>Ferretería general</option>
+            <option>Otro</option>
+          </select>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="e-marca">Marca</label>
+            <input type="text" id="e-marca">
+          </div>
+          <div class="field">
+            <label for="e-unidad">Unidad de medida</label>
+            <select id="e-unidad" required>
+              <option value="" disabled>Selecciona una unidad</option>
+              <option>Unidad</option>
+              <option>Galón</option>
+              <option>Metro</option>
+              <option>Kilogramo</option>
+              <option>Litro</option>
+              <option>Caja</option>
+              <option>Rollo</option>
+              <option>Par</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="section-label">Precios y rentabilidad</div>
+
+        <div class="row">
+          <div class="field">
+            <label for="e-costo">Costo unitario de compra / producción</label>
+            <input type="number" id="e-costo" min="0" step="0.01">
+          </div>
+          <div class="field">
+            <label for="e-precio">Precio unitario de venta</label>
+            <input type="number" id="e-precio" min="0" step="0.01">
+          </div>
+        </div>
+
+        <div class="field full">
+          <div class="rentab-box">
+            <span class="lbl">Rentabilidad calculada</span>
+            <span class="val" id="e-rentabilidad">—</span>
+          </div>
+        </div>
+
+        <div class="field full">
+          <label for="e-impuesto">Tipo de impuesto</label>
+          <select id="e-impuesto">
+            <option>IVA 19%</option>
+            <option>IVA 5%</option>
+            <option>Exento</option>
+          </select>
+        </div>
+
+        <div class="section-label">Origen y control</div>
+
+        <div class="field full">
+          <label>Origen</label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="e-origen" value="Comprado"> Comprado</label>
+            <label class="radio-option"><input type="radio" name="e-origen" value="Fabricado"> Fabricado</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>Estado</label>
+            <div class="radio-group">
+              <label class="radio-option"><input type="radio" name="e-estado" value="Activo"> Activo</label>
+              <label class="radio-option"><input type="radio" name="e-estado" value="Inactivo"> Inactivo</label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="e-fecha">Fecha de ingreso</label>
+            <input type="date" id="e-fecha">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="e-responsable">Responsable de ingreso</label>
+            <input type="text" id="e-responsable">
+          </div>
+          <div class="field">
+            <label for="e-proveedor">Proveedor</label>
+            <input type="text" id="e-proveedor">
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn-primary">Guardar cambios</button>
+          <button type="button" class="btn-ghost" id="btn-cancelar-edit">Cancelar</button>
+        </div>
+
+        <div id="edit-confirm"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <script>
   /* ---------- router: switch views by hash, no page reload ---------- */
-  const views = ['inicio', 'productos', 'agregar'];
+  const views = ['inicio', 'productos', 'agregar', 'actualizar'];
 
   function showView(name){
     if(!views.includes(name)) name = 'inicio';
@@ -463,12 +661,196 @@
     ftbCode.textContent = 'FTB-' + catPrefix(categoria.value) + '-····';
   });
 
+  /* ---------- "base de datos" en memoria, compartida con Actualizar ---------- */
+  const catalogo = [
+    { codigo:'FTB-HMA-0001', nombre:'Martillo de uña 16oz - mango fibra – Truper', codBarras:'7501234567890', categoria:'Herramientas manuales', marca:'Truper', unidad:'Unidad', costo:18000, precio:29900, impuesto:'IVA 19%', origen:'Comprado', estado:'Activo', fecha:'2026-06-02', responsable:'Camila Ríos', proveedor:'Distribuidora Truper' },
+    { codigo:'FTB-ELE-0001', nombre:'Cable THHN 12 AWG x metro – Centelsa', codBarras:'7709876543210', categoria:'Eléctrico', marca:'Centelsa', unidad:'Metro', costo:1200, precio:2100, impuesto:'IVA 19%', origen:'Comprado', estado:'Activo', fecha:'2026-05-18', responsable:'Julián Pérez', proveedor:'Centelsa S.A.' }
+  ];
+  const codeCounters = {}; // ej: {HMA:1, ELE:1}
+  catalogo.forEach(p => {
+    const prefix = p.codigo.split('-')[1];
+    const num = parseInt(p.codigo.split('-')[2], 10);
+    codeCounters[prefix] = Math.max(codeCounters[prefix] || 0, num);
+  });
+
+  function nextCode(cat){
+    const prefix = catPrefix(cat);
+    codeCounters[prefix] = (codeCounters[prefix] || 0) + 1;
+    return 'FTB-' + prefix + '-' + String(codeCounters[prefix]).padStart(4, '0');
+  }
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    const origenEl = form.querySelector('input[name="origen"]:checked');
+    const estadoEl = form.querySelector('input[name="estado"]:checked');
     const nombre = document.getElementById('nombre').value || 'este producto';
-    confirmBox.textContent = 'Producto agregado: ' + nombre + '. Código ' + ftbCode.textContent + ' asignado al guardar en la base de datos.';
+    const codigoAsignado = nextCode(categoria.value);
+
+    catalogo.push({
+      codigo: codigoAsignado,
+      nombre: nombre,
+      codBarras: document.getElementById('cod-barras').value,
+      categoria: categoria.value,
+      marca: document.getElementById('marca').value,
+      unidad: document.getElementById('unidad').value,
+      costo: parseFloat(costo.value) || 0,
+      precio: parseFloat(precio.value) || 0,
+      impuesto: document.getElementById('impuesto').value,
+      origen: origenEl ? origenEl.value : 'Comprado',
+      estado: estadoEl ? estadoEl.value : 'Activo',
+      fecha: fecha.value,
+      responsable: document.getElementById('responsable').value,
+      proveedor: document.getElementById('proveedor').value
+    });
+
+    confirmBox.textContent = 'Producto agregado: ' + nombre + '. Código ' + codigoAsignado + ' asignado y guardado en el catálogo. Ya puedes buscarlo en "Actualizar producto".';
     confirmBox.classList.add('show');
+    form.reset();
+    fecha.value = new Date().toISOString().split('T')[0];
+    ftbCode.textContent = 'FTB-···-····';
+    rentabilidad.textContent = '—';
   });
+
+  /* ---------- actualizar-producto logic ---------- */
+  const buscarInput = document.getElementById('buscar-input');
+  const btnBuscar = document.getElementById('btn-buscar');
+  const resultsBox = document.getElementById('results');
+  const searchStage = document.getElementById('search-stage');
+  const editStage = document.getElementById('edit-stage');
+  const editingCode = document.getElementById('editing-code');
+  const editForm = document.getElementById('edit-form');
+  const editConfirm = document.getElementById('edit-confirm');
+  const eCosto = document.getElementById('e-costo');
+  const ePrecio = document.getElementById('e-precio');
+  const eRentabilidad = document.getElementById('e-rentabilidad');
+
+  let editingIndex = null;
+
+  function renderResults(){
+    const q = buscarInput.value.trim().toLowerCase();
+    const matches = catalogo.filter(p =>
+      !q ||
+      p.codigo.toLowerCase().includes(q) ||
+      p.nombre.toLowerCase().includes(q) ||
+      p.marca.toLowerCase().includes(q)
+    );
+
+    if(matches.length === 0){
+      resultsBox.innerHTML = '<div class="empty-state">No se encontró ningún producto con ese criterio.</div>';
+      return;
+    }
+
+    resultsBox.innerHTML = '';
+    matches.forEach(p => {
+      const idx = catalogo.indexOf(p);
+      const item = document.createElement('button');
+      item.type = 'button';
+      item.className = 'result-item';
+      item.innerHTML =
+        '<span>' +
+          '<span class="r-code">' + p.codigo + '</span>' +
+          '<span class="r-name">' + p.nombre + '</span>' +
+          '<div class="r-meta">' + p.categoria + (p.marca ? ' · ' + p.marca : '') + '</div>' +
+        '</span>' +
+        '<span class="r-go">Editar →</span>';
+      item.addEventListener('click', () => openEdit(idx));
+      resultsBox.appendChild(item);
+    });
+  }
+
+  buscarInput.addEventListener('input', renderResults);
+  btnBuscar.addEventListener('click', renderResults);
+
+  function calcRentabilidadEdit(){
+    const c = parseFloat(eCosto.value);
+    const p = parseFloat(ePrecio.value);
+    if(!isNaN(c) && !isNaN(p) && p > 0){
+      eRentabilidad.textContent = (((p - c) / p) * 100).toFixed(1) + '%';
+    } else {
+      eRentabilidad.textContent = '—';
+    }
+  }
+  eCosto.addEventListener('input', calcRentabilidadEdit);
+  ePrecio.addEventListener('input', calcRentabilidadEdit);
+
+  function openEdit(idx){
+    editingIndex = idx;
+    const p = catalogo[idx];
+
+    editingCode.textContent = p.codigo;
+    document.getElementById('e-cod-barras').value = p.codBarras || '';
+    document.getElementById('e-nombre').value = p.nombre || '';
+    document.getElementById('e-categoria').value = p.categoria || '';
+    document.getElementById('e-marca').value = p.marca || '';
+    document.getElementById('e-unidad').value = p.unidad || '';
+    eCosto.value = p.costo || '';
+    ePrecio.value = p.precio || '';
+    document.getElementById('e-impuesto').value = p.impuesto || 'IVA 19%';
+    document.getElementById('e-fecha').value = p.fecha || '';
+    document.getElementById('e-responsable').value = p.responsable || '';
+    document.getElementById('e-proveedor').value = p.proveedor || '';
+
+    const origenRadio = editForm.querySelector('input[name="e-origen"][value="' + (p.origen || 'Comprado') + '"]');
+    if(origenRadio) origenRadio.checked = true;
+    const estadoRadio = editForm.querySelector('input[name="e-estado"][value="' + (p.estado || 'Activo') + '"]');
+    if(estadoRadio) estadoRadio.checked = true;
+
+    calcRentabilidadEdit();
+    editConfirm.classList.remove('show');
+
+    searchStage.classList.remove('show');
+    editStage.classList.add('show');
+  }
+
+  function backToSearch(){
+    editingIndex = null;
+    editStage.classList.remove('show');
+    searchStage.classList.add('show');
+  }
+
+  document.getElementById('btn-volver-buscar').addEventListener('click', backToSearch);
+  document.getElementById('btn-cancelar-edit').addEventListener('click', backToSearch);
+
+  editForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if(editingIndex === null) return;
+
+    const origenEl = editForm.querySelector('input[name="e-origen"]:checked');
+    const estadoEl = editForm.querySelector('input[name="e-estado"]:checked');
+
+    catalogo[editingIndex] = {
+      ...catalogo[editingIndex],
+      codBarras: document.getElementById('e-cod-barras').value,
+      nombre: document.getElementById('e-nombre').value,
+      categoria: document.getElementById('e-categoria').value,
+      marca: document.getElementById('e-marca').value,
+      unidad: document.getElementById('e-unidad').value,
+      costo: parseFloat(eCosto.value) || 0,
+      precio: parseFloat(ePrecio.value) || 0,
+      impuesto: document.getElementById('e-impuesto').value,
+      origen: origenEl ? origenEl.value : catalogo[editingIndex].origen,
+      estado: estadoEl ? estadoEl.value : catalogo[editingIndex].estado,
+      fecha: document.getElementById('e-fecha').value,
+      responsable: document.getElementById('e-responsable').value,
+      proveedor: document.getElementById('e-proveedor').value
+    };
+
+    editConfirm.textContent = 'Cambios guardados en ' + catalogo[editingIndex].codigo + '.';
+    editConfirm.classList.add('show');
+    renderResults();
+  });
+
+  // al entrar a la vista de actualizar, mostrar siempre la etapa de búsqueda con el catálogo completo
+  document.addEventListener('click', (e) => {
+    const el = e.target.closest('[data-view="actualizar"]');
+    if(el){
+      buscarInput.value = '';
+      renderResults();
+      searchStage.classList.add('show');
+      editStage.classList.remove('show');
+    }
+  });
+  if(location.hash.replace('#','') === 'actualizar') renderResults();
 </script>
 </body>
 </html>
