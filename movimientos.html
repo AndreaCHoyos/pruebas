@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movimientos — Ferretería</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Expanded:wght@600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EDEAE3; --surface:#FFFFFF; --surface-2:#F5F3EE;
+    --ink:#23201B; --muted:#6B665C; --border:#D8D3C7;
+    --amber:#E8A33D; --amber-ink:#7A4E12; --steel:#35586E; --steel-ink:#1E3140;
+    --green:#3B6D11; --green-bg:#EAF3DE;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:'IBM Plex Sans', sans-serif; -webkit-font-smoothing:antialiased;}
+  a{color:inherit;}
+
+  .crumb{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted); text-decoration:none; background:none; border:none; cursor:pointer; padding:0;}
+  .crumb:hover{color:var(--ink);}
+  .eyebrow{font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.14em; color:var(--muted); text-transform:uppercase; margin:22px 0 10px;}
+
+  .wrap{max-width:760px; margin:0 auto; padding:40px 24px 80px;}
+  h1{font-family:'Archivo Expanded', sans-serif; font-weight:700; font-size:clamp(26px,5vw,36px); margin:0 0 8px; letter-spacing:-0.01em;}
+  .sub{color:var(--muted); font-size:15px; margin:0 0 18px; max-width:540px;}
+
+  .notice{
+    display:flex; gap:10px; align-items:flex-start;
+    background:#FBEFDB; border:1px solid #EAC685; border-radius:6px;
+    padding:13px 16px; margin-bottom:28px; font-size:13.5px; color:var(--amber-ink); line-height:1.5;
+  }
+  .notice strong{font-weight:600;}
+
+  form{background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:28px 26px 26px; margin-bottom:32px;}
+
+  .section-label{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--muted); margin:26px 0 12px;
+    padding-top:18px; border-top:1px solid var(--border);
+  }
+  .section-label:first-of-type{margin-top:0; padding-top:0; border-top:none;}
+
+  .row{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;}
+  .field{margin-bottom:14px;}
+  .field.full{grid-column:1 / -1;}
+  label{display:block; font-size:12.5px; font-weight:500; margin-bottom:5px; color:var(--ink);}
+  label .opt{font-weight:400; color:var(--muted); font-size:11.5px;}
+  .hint{font-size:11.5px; color:var(--muted); margin:4px 0 0;}
+
+  input, select, textarea{
+    width:100%; height:38px; padding:0 10px;
+    border:1px solid var(--border); border-radius:4px;
+    background:var(--surface-2); color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif; font-size:14px;
+  }
+  textarea{height:70px; padding:8px 10px; resize:vertical; font-family:'IBM Plex Sans', sans-serif;}
+  input:focus, select:focus, textarea:focus{outline:none; border-color:var(--amber-ink); background:var(--surface);}
+
+  .ftb-preview{
+    display:flex; align-items:center; gap:10px;
+    background:var(--surface-2); border:1px dashed var(--border);
+    border-radius:4px; padding:10px 14px; margin-bottom:18px;
+  }
+  .ftb-preview .code{font-family:'IBM Plex Mono', monospace; font-size:14px; font-weight:500; color:var(--steel-ink);}
+  .ftb-preview .note{font-size:11.5px; color:var(--muted);}
+
+  .actions{display:flex; gap:10px; margin-top:26px;}
+  button{
+    font-family:'IBM Plex Sans', sans-serif; font-size:14px; font-weight:500;
+    height:42px; padding:0 20px; border-radius:4px; cursor:pointer; border:1px solid var(--border);
+  }
+  .btn-primary{background:var(--ink); color:#fff; border-color:var(--ink); flex:1;}
+  .btn-primary:hover{background:#3a352c;}
+
+  #confirm{
+    display:none; margin-top:16px; padding:14px 16px;
+    background:var(--green-bg); border:1px solid #C0DD97; border-radius:4px;
+    color:#173404; font-size:13.5px;
+  }
+  #confirm.show{display:block;}
+  #error-msg{
+    display:none; margin-top:16px; padding:14px 16px;
+    background:#FBEAEA; border:1px solid #E7B8B8; border-radius:4px;
+    color:#7A1F1F; font-size:13.5px;
+  }
+  #error-msg.show{display:block;}
+
+  .table-wrap{
+    background:var(--surface); border:1px solid var(--border); border-radius:6px; overflow:hidden; margin-bottom:18px;
+  }
+  table.mov-table{width:100%; border-collapse:collapse; font-size:13px;}
+  table.mov-table th{
+    text-align:left; font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--muted); font-weight:500; padding:10px 14px; background:var(--surface-2); border-bottom:1px solid var(--border);
+  }
+  table.mov-table td{padding:12px 14px; border-bottom:1px solid var(--border); vertical-align:middle;}
+  table.mov-table tbody tr:last-child td{border-bottom:none;}
+  table.mov-table tbody tr:hover{background:var(--surface-2);}
+  .ftb-code-cell{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--steel-ink);}
+  .qty-cell{font-family:'IBM Plex Mono', monospace; font-weight:500;}
+  .tag-ingreso{
+    display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:10.5px;
+    padding:2px 8px; border-radius:3px; background:var(--green-bg); color:#173404; border:1px solid #C0DD97;
+  }
+  .empty-row td{text-align:center; color:var(--muted); padding:26px 14px;}
+
+  footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--border); font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted);}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <a class="crumb" href="index.html#inicio">← Inicio</a>
+  <p class="eyebrow">Módulo FTB-MOV</p>
+  <h1>Movimientos</h1>
+  <p class="sub">Registro de entradas y salidas de inventario por bodega.</p>
+
+  <div class="notice">
+    <span>⚠</span>
+    <span><strong>Por ahora este módulo solo registra ingresos.</strong> Las salidas de inventario se habilitarán más adelante.</span>
+  </div>
+
+  <form id="ingreso-form">
+
+    <div class="section-label">Producto</div>
+
+    <div class="row">
+      <div class="field">
+        <label for="mov-ftb">Código FTB</label>
+        <input type="text" id="mov-ftb" placeholder="Ej: FTB-HER-0001" required>
+      </div>
+      <div class="field">
+        <label for="mov-bodega">Bodega destino</label>
+        <select id="mov-bodega" required>
+          <option value="" disabled selected>Selecciona una bodega</option>
+          <option>Bodega Principal</option>
+          <option>Bodega 2</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="ftb-preview">
+      <span class="code" id="mov-preview-code">FTB-···-····</span>
+      <span class="note" id="mov-preview-nombre">Escribe el código y sale del catálogo el nombre del producto</span>
+    </div>
+
+    <div class="section-label">Detalle del ingreso</div>
+
+    <div class="row">
+      <div class="field">
+        <label for="mov-cantidad">Cantidad ingresada</label>
+        <input type="number" id="mov-cantidad" min="1" step="1" required>
+      </div>
+      <div class="field">
+        <label for="mov-fecha">Fecha del ingreso</label>
+        <input type="date" id="mov-fecha" required>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="mov-proveedor">Proveedor <span class="opt">(opcional)</span></label>
+        <input type="text" id="mov-proveedor" placeholder="Ej: Distribuidora Truper S.A.S.">
+      </div>
+      <div class="field">
+        <label for="mov-responsable">Responsable del ingreso</label>
+        <input type="text" id="mov-responsable" placeholder="Ej: Carlos Pérez" required>
+      </div>
+    </div>
+
+    <div class="field full">
+      <label for="mov-obs">Observaciones <span class="opt">(opcional)</span></label>
+      <textarea id="mov-obs" placeholder="Ej: Llegó con una unidad golpeada en el empaque"></textarea>
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="btn-primary">Registrar ingreso</button>
+    </div>
+
+    <div id="confirm"></div>
+    <div id="error-msg"></div>
+  </form>
+
+  <div class="section-label" style="margin-top:0; padding-top:0; border-top:none;">Historial de ingresos</div>
+
+  <div class="table-wrap">
+    <table class="mov-table">
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Código FTB</th>
+          <th>Producto</th>
+          <th>Bodega</th>
+          <th>Cantidad</th>
+          <th>Proveedor</th>
+          <th>Responsable</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody id="mov-tbody"></tbody>
+    </table>
+  </div>
+
+  <footer>
+    Basado en la propuesta de estandarización de inventario — prefijo FTB. Módulo de salidas próximamente.
+  </footer>
+</div>
+
+<script>
+  // Catálogo de productos de la demo (mismos códigos usados en el resto del sistema)
+  const CATALOGO = {
+    'FTB-HER-0001': { nombre: 'Martillo de uña 16 oz - Truper' },
+    'FTB-HER-0002': { nombre: 'Broca SDS Plus - 3/8 x 6 pulg – Irwin' },
+    'FTB-PIN-2971': { nombre: 'Esmalte Azul - Esmaltín' },
+    'FTB-ELE-0004': { nombre: 'Tablero Eléctrico Bifásico 12 Puestos con Tapa Metálica – Mercury' },
+    'FTB-MAT-0010': { nombre: 'Cemento gris 50kg - Argos' }
+  };
+
+  let MOVIMIENTOS = [
+    { tipo:'Ingreso', ftb:'FTB-HER-0001', nombre:'Martillo de uña 16 oz - Truper', bodega:'Bodega Principal', cantidad:20, proveedor:'Distribuidora Truper S.A.S.', responsable:'Carlos Pérez', fecha:'2026-08-10' },
+    { tipo:'Ingreso', ftb:'FTB-MAT-0010', nombre:'Cemento gris 50kg - Argos', bodega:'Bodega 2', cantidad:30, proveedor:'Cementos Argos', responsable:'Ana Gómez', fecha:'2026-08-19' }
+  ];
+
+  const ftbInput = document.getElementById('mov-ftb');
+  const previewCode = document.getElementById('mov-preview-code');
+  const previewNombre = document.getElementById('mov-preview-nombre');
+  const form = document.getElementById('ingreso-form');
+  const confirmBox = document.getElementById('confirm');
+  const errorBox = document.getElementById('error-msg');
+  const tbody = document.getElementById('mov-tbody');
+  const fecha = document.getElementById('mov-fecha');
+
+  fecha.value = new Date().toISOString().split('T')[0];
+
+  function actualizarPreview(){
+    const codigo = ftbInput.value.trim().toUpperCase();
+    const producto = CATALOGO[codigo];
+    if(codigo && producto){
+      previewCode.textContent = codigo;
+      previewNombre.textContent = producto.nombre;
+    } else if(codigo){
+      previewCode.textContent = codigo;
+      previewNombre.textContent = 'Código no encontrado en el catálogo';
+    } else {
+      previewCode.textContent = 'FTB-···-····';
+      previewNombre.textContent = 'Escribe el código y sale del catálogo el nombre del producto';
+    }
+  }
+  ftbInput.addEventListener('input', actualizarPreview);
+
+  function renderTabla(){
+    if(MOVIMIENTOS.length === 0){
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="8">Todavía no hay ingresos registrados.</td></tr>';
+      return;
+    }
+    const filas = MOVIMIENTOS.slice().reverse().map(m => `
+      <tr>
+        <td><span class="tag-ingreso">${m.tipo}</span></td>
+        <td class="ftb-code-cell">${m.ftb}</td>
+        <td>${m.nombre}</td>
+        <td>${m.bodega}</td>
+        <td class="qty-cell">${m.cantidad}</td>
+        <td>${m.proveedor || '—'}</td>
+        <td>${m.responsable}</td>
+        <td>${m.fecha}</td>
+      </tr>
+    `).join('');
+    tbody.innerHTML = filas;
+  }
+  renderTabla();
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const codigo = ftbInput.value.trim().toUpperCase();
+    const producto = CATALOGO[codigo];
+    errorBox.classList.remove('show');
+    confirmBox.classList.remove('show');
+
+    if(!producto){
+      errorBox.textContent = 'No se encontró el código "' + codigo + '" en el catálogo de productos. Verifica el código o crea el producto primero en el módulo Productos.';
+      errorBox.classList.add('show');
+      return;
+    }
+
+    const nuevo = {
+      tipo: 'Ingreso',
+      ftb: codigo,
+      nombre: producto.nombre,
+      bodega: document.getElementById('mov-bodega').value,
+      cantidad: parseInt(document.getElementById('mov-cantidad').value, 10) || 0,
+      proveedor: document.getElementById('mov-proveedor').value.trim(),
+      responsable: document.getElementById('mov-responsable').value.trim(),
+      fecha: fecha.value
+    };
+    MOVIMIENTOS.push(nuevo);
+    renderTabla();
+
+    confirmBox.textContent = 'Ingreso registrado: ' + nuevo.cantidad + ' unidad(es) de ' + nuevo.nombre + ' en ' + nuevo.bodega + '. El sistema sumaría esta cantidad al stock disponible del producto.';
+    confirmBox.classList.add('show');
+
+    form.reset();
+    fecha.value = new Date().toISOString().split('T')[0];
+    actualizarPreview();
+  });
+</script>
+
+</body>
+</html>

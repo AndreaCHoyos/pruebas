@@ -74,128 +74,149 @@
   @media (max-width:560px){ #view-productos .grid{grid-template-columns:1fr;} }
 
   /* ================= VIEW: AGREGAR PRODUCTO ================= */
-  #view-agregar, #view-actualizar .wrap{max-width:680px; margin:0 auto; padding:40px 24px 80px;}
-  #view-agregar, #view-actualizar h1{font-family:'Archivo Expanded', sans-serif; font-weight:700; font-size:clamp(26px,5vw,34px); margin:0 0 8px; letter-spacing:-0.01em;}
-  #view-agregar, #view-actualizar .sub{color:var(--muted); font-size:14.5px; margin:0 0 28px; max-width:520px;}
+  .form-view .wrap{max-width:680px; margin:0 auto; padding:40px 24px 80px;}
+  .form-view h1{font-family:'Archivo Expanded', sans-serif; font-weight:700; font-size:clamp(26px,5vw,34px); margin:0 0 8px; letter-spacing:-0.01em;}
+  .form-view .sub{color:var(--muted); font-size:14.5px; margin:0 0 28px; max-width:520px;}
 
-  #view-agregar, #view-actualizar form{background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:28px 26px 26px;}
+  .form-view form{background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:28px 26px 26px;}
 
-  #view-agregar, #view-actualizar .section-label{
+  .form-view .section-label{
     font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em;
     text-transform:uppercase; color:var(--muted); margin:26px 0 12px;
     padding-top:18px; border-top:1px solid var(--border);
   }
-  #view-agregar, #view-actualizar .section-label:first-of-type{margin-top:0; padding-top:0; border-top:none;}
+  .form-view .section-label:first-of-type{margin-top:0; padding-top:0; border-top:none;}
 
-  #view-agregar, #view-actualizar .row{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;}
-  #view-agregar, #view-actualizar .field{margin-bottom:14px;}
-  #view-agregar, #view-actualizar .field.full{grid-column:1 / -1;}
-  #view-agregar, #view-actualizar label{display:block; font-size:12.5px; font-weight:500; margin-bottom:5px; color:var(--ink);}
-  #view-agregar, #view-actualizar label .opt{font-weight:400; color:var(--muted); font-size:11.5px;}
-  #view-agregar, #view-actualizar .hint{font-size:11.5px; color:var(--muted); margin:4px 0 0;}
+  .form-view .row{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;}
+  .form-view .field{margin-bottom:14px;}
+  .form-view .field.full{grid-column:1 / -1;}
+  .form-view label{display:block; font-size:12.5px; font-weight:500; margin-bottom:5px; color:var(--ink);}
+  .form-view label .opt{font-weight:400; color:var(--muted); font-size:11.5px;}
+  .form-view .hint{font-size:11.5px; color:var(--muted); margin:4px 0 0;}
 
-  #view-agregar, #view-actualizar input, #view-agregar, #view-actualizar select{
+  .form-view input, .form-view select{
     width:100%; height:38px; padding:0 10px;
     border:1px solid var(--border); border-radius:4px;
     background:var(--surface-2); color:var(--ink);
     font-family:'IBM Plex Sans', sans-serif; font-size:14px;
   }
-  #view-agregar, #view-actualizar input:focus, #view-agregar, #view-actualizar select:focus{outline:none; border-color:var(--amber-ink); background:var(--surface);}
-  #view-agregar, #view-actualizar input[readonly]{color:var(--muted); background:#EEEBE4;}
+  .form-view input:focus, .form-view select:focus{outline:none; border-color:var(--amber-ink); background:var(--surface);}
+  .form-view input[readonly]{color:var(--muted); background:#EEEBE4;}
 
-  #view-agregar, #view-actualizar .radio-group{display:flex; gap:10px;}
-  #view-agregar, #view-actualizar .radio-option{
+  .form-view .radio-group{display:flex; gap:10px;}
+  .form-view .radio-option{
     flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
     height:38px; border:1px solid var(--border); border-radius:4px; cursor:pointer;
     font-size:13.5px; background:var(--surface-2);
   }
-  #view-agregar, #view-actualizar .radio-option input{width:auto; height:auto;}
-  #view-agregar, #view-actualizar .radio-option:has(input:checked){border-color:var(--amber-ink); background:#FBEFDB; color:var(--amber-ink); font-weight:500;}
+  .form-view .radio-option input{width:auto; height:auto;}
+  .form-view .radio-option:has(input:checked){border-color:var(--amber-ink); background:#FBEFDB; color:var(--amber-ink); font-weight:500;}
 
-  #view-agregar, #view-actualizar .ftb-preview{
+  .form-view .ftb-preview{
     display:flex; align-items:center; gap:10px;
     background:var(--surface-2); border:1px dashed var(--border);
     border-radius:4px; padding:10px 14px; margin-bottom:20px;
   }
-  #view-agregar, #view-actualizar .ftb-preview .code{font-family:'IBM Plex Mono', monospace; font-size:14px; font-weight:500; color:var(--steel-ink);}
-  #view-agregar, #view-actualizar .ftb-preview .note{font-size:11.5px; color:var(--muted);}
+  .form-view .ftb-preview .code{font-family:'IBM Plex Mono', monospace; font-size:14px; font-weight:500; color:var(--steel-ink);}
+  .form-view .ftb-preview .note{font-size:11.5px; color:var(--muted);}
 
-  #view-agregar, #view-actualizar .rentab-box{
+  .form-view .rentab-box{
     background:var(--surface-2); border:1px solid var(--border); border-radius:4px;
     padding:10px 14px; display:flex; align-items:baseline; justify-content:space-between;
   }
-  #view-agregar, #view-actualizar .rentab-box .val{font-family:'IBM Plex Mono', monospace; font-size:18px; font-weight:500;}
-  #view-agregar, #view-actualizar .rentab-box .lbl{font-size:12px; color:var(--muted);}
+  .form-view .rentab-box .val{font-family:'IBM Plex Mono', monospace; font-size:18px; font-weight:500;}
+  .form-view .rentab-box .lbl{font-size:12px; color:var(--muted);}
 
-  #view-agregar, #view-actualizar .actions{display:flex; gap:10px; margin-top:26px;}
-  #view-agregar, #view-actualizar button{
+  .form-view .actions{display:flex; gap:10px; margin-top:26px;}
+  .form-view button{
     font-family:'IBM Plex Sans', sans-serif; font-size:14px; font-weight:500;
     height:42px; padding:0 20px; border-radius:4px; cursor:pointer; border:1px solid var(--border);
   }
-  #view-agregar, #view-actualizar .btn-primary{background:var(--ink); color:#fff; border-color:var(--ink); flex:1;}
-  #view-agregar, #view-actualizar .btn-primary:hover{background:#3a352c;}
-  #view-agregar, #view-actualizar .btn-ghost{background:var(--surface); color:var(--ink);}
+  .form-view .btn-primary{background:var(--ink); color:#fff; border-color:var(--ink); flex:1;}
+  .form-view .btn-primary:hover{background:#3a352c;}
+  .form-view .btn-ghost{background:var(--surface); color:var(--ink);}
 
-  #view-agregar, #view-actualizar #confirm{
+  .form-view #confirm{
     display:none; margin-top:16px; padding:14px 16px;
     background:var(--green-bg); border:1px solid #C0DD97; border-radius:4px;
     color:#173404; font-size:13.5px;
   }
-  #view-agregar, #view-actualizar #confirm.show{display:block;}
+  .form-view #confirm.show{display:block;}
 
-  /* ---- extra bits only used in ACTUALIZAR (búsqueda) ---- */
-  #view-actualizar .search-box{
-    display:flex; gap:10px; margin-bottom:18px;
+  /* ---- buscador (vista actualizar) ---- */
+  .search-box{
+    background:var(--surface); border:1px solid var(--border); border-radius:6px;
+    padding:20px 22px; display:flex; gap:10px; align-items:flex-end; margin-bottom:18px;
   }
-  #view-actualizar .search-box input{
-    flex:1; height:42px; padding:0 12px; border:1px solid var(--border); border-radius:4px;
-    background:var(--surface); color:var(--ink); font-family:'IBM Plex Sans', sans-serif; font-size:14px;
+  .search-box .field{flex:1; margin:0;}
+  .search-box .hint-list{font-size:11.5px; color:var(--muted); margin:6px 0 0;}
+  .search-box .hint-list code{font-family:'IBM Plex Mono', monospace; background:var(--surface-2); padding:1px 5px; border-radius:3px;}
+  .search-box button{
+    height:38px; padding:0 18px; border-radius:4px; border:1px solid var(--ink);
+    background:var(--ink); color:#fff; font-family:'IBM Plex Sans', sans-serif; font-size:13.5px; font-weight:500; cursor:pointer;
   }
-  #view-actualizar .search-box input:focus{outline:none; border-color:var(--amber-ink);}
-  #view-actualizar .search-box button{
-    font-family:'IBM Plex Sans', sans-serif; font-size:14px; font-weight:500;
-    height:42px; padding:0 18px; border-radius:4px; cursor:pointer;
-    border:1px solid var(--ink); background:var(--ink); color:#fff;
+  .search-box button:hover{background:#3a352c;}
+  #not-found{
+    display:none; margin-bottom:18px; padding:12px 16px; border-radius:4px;
+    background:#FBEAEA; border:1px solid #E7B8B8; color:#7A1F1F; font-size:13.5px;
   }
-  #view-actualizar .search-hint{font-size:12px; color:var(--muted); margin:0 0 22px;}
-
-  #view-actualizar .results{display:flex; flex-direction:column; gap:8px; margin-bottom:8px;}
-  #view-actualizar .result-item{
-    display:flex; align-items:center; justify-content:space-between; gap:10px;
-    background:var(--surface); border:1px solid var(--border); border-radius:4px;
-    padding:12px 14px; cursor:pointer; text-align:left; width:100%;
-    font-family:'IBM Plex Sans', sans-serif;
-  }
-  #view-actualizar .result-item:hover{border-color:var(--amber-ink);}
-  #view-actualizar .result-item .r-code{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--steel-ink); background:var(--surface-2); padding:2px 6px; border-radius:2px; margin-right:8px;}
-  #view-actualizar .result-item .r-name{font-size:13.5px; font-weight:500;}
-  #view-actualizar .result-item .r-meta{font-size:11.5px; color:var(--muted); margin-top:2px;}
-  #view-actualizar .result-item .r-go{font-size:11px; color:var(--muted); flex-shrink:0;}
-
-  #view-actualizar .empty-state{
-    font-size:13px; color:var(--muted); background:var(--surface-2);
-    border:1px dashed var(--border); border-radius:4px; padding:16px; text-align:center;
+  #not-found.show{display:block;}
+  #update-result{display:none;}
+  #update-result.show{display:block;}
+  .found-tag{
+    display:inline-flex; align-items:center; gap:6px; font-size:12.5px; color:#173404;
+    background:var(--green-bg); border:1px solid #C0DD97; border-radius:4px; padding:6px 12px; margin-bottom:18px;
   }
 
-  #view-actualizar .editing-tag{
-    display:inline-flex; align-items:center; gap:8px; margin-bottom:16px;
-    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--steel-ink);
-    background:var(--surface-2); border:1px solid var(--border); border-radius:4px; padding:6px 10px;
-  }
-  #view-actualizar .editing-tag button{
-    background:none; border:none; color:var(--muted); font-family:'IBM Plex Sans', sans-serif;
-    font-size:11.5px; cursor:pointer; text-decoration:underline; padding:0; height:auto;
-  }
+  /* ================= VIEW: STOCK Y BODEGA ================= */
+  #view-stock-bodega .wrap, #view-stock-editar .wrap{max-width:900px; margin:0 auto; padding:40px 24px 80px;}
+  #view-stock-bodega h1, #view-stock-editar h1{font-family:'Archivo Expanded', sans-serif; font-weight:700; font-size:clamp(26px,5vw,34px); margin:0 0 8px; letter-spacing:-0.01em;}
+  #view-stock-bodega .sub, #view-stock-editar .sub{color:var(--muted); font-size:14.5px; margin:0 0 24px; max-width:560px;}
 
-  #view-actualizar #search-stage, #view-actualizar #edit-stage{display:none;}
-  #view-actualizar #search-stage.show, #view-actualizar #edit-stage.show{display:block;}
-
-  #view-actualizar #edit-confirm{
-    display:none; margin-top:16px; padding:14px 16px;
-    background:var(--green-bg); border:1px solid #C0DD97; border-radius:4px;
-    color:#173404; font-size:13.5px;
+  .filter-bar{
+    display:flex; gap:10px; align-items:flex-end; margin-bottom:18px; flex-wrap:wrap;
   }
-  #view-actualizar #edit-confirm.show{display:block;}
+  .filter-bar .field{margin:0; min-width:180px;}
+  .filter-bar .field.grow{flex:1; min-width:200px;}
+  .filter-bar label{display:block; font-size:12px; font-weight:500; margin-bottom:5px; color:var(--ink);}
+  .filter-bar input, .filter-bar select{
+    width:100%; height:38px; padding:0 10px; border:1px solid var(--border); border-radius:4px;
+    background:var(--surface-2); color:var(--ink); font-family:'IBM Plex Sans', sans-serif; font-size:13.5px;
+  }
+  .filter-bar input:focus, .filter-bar select:focus{outline:none; border-color:var(--amber-ink); background:var(--surface);}
+
+  .table-wrap{
+    background:var(--surface); border:1px solid var(--border); border-radius:6px; overflow:hidden; margin-bottom:18px;
+  }
+  table.stock-table{width:100%; border-collapse:collapse; font-size:13px;}
+  table.stock-table th{
+    text-align:left; font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--muted); font-weight:500; padding:10px 14px; background:var(--surface-2); border-bottom:1px solid var(--border);
+  }
+  table.stock-table td{padding:12px 14px; border-bottom:1px solid var(--border); vertical-align:middle;}
+  table.stock-table tbody tr:last-child td{border-bottom:none;}
+  table.stock-table tbody tr:hover{background:var(--surface-2);}
+  .ftb-code-cell{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--steel-ink);}
+  .qty-cell{font-family:'IBM Plex Mono', monospace; font-weight:500;}
+  .badge-low{
+    display:inline-block; margin-left:8px; font-family:'IBM Plex Mono', monospace; font-size:10px;
+    padding:2px 6px; border-radius:3px; background:#FBEAEA; color:#7A1F1F; border:1px solid #E7B8B8; vertical-align:middle;
+  }
+  .row-edit-btn{
+    font-family:'IBM Plex Sans', sans-serif; font-size:12px; font-weight:500; color:var(--ink);
+    background:var(--surface-2); border:1px solid var(--border); border-radius:4px; padding:6px 12px; cursor:pointer;
+  }
+  .row-edit-btn:hover{border-color:var(--amber-ink); color:var(--amber-ink);}
+  .empty-row td{text-align:center; color:var(--muted); padding:26px 14px;}
+  .table-legend{font-size:12px; color:var(--muted); margin:0 0 20px;}
+  .table-legend .badge-low{margin-left:0; margin-right:6px;}
+
+  #view-stock-editar .ftb-preview{
+    display:flex; align-items:center; gap:10px; background:var(--surface-2); border:1px dashed var(--border);
+    border-radius:4px; padding:10px 14px; margin-bottom:20px;
+  }
+  #view-stock-editar .ftb-preview .code{font-family:'IBM Plex Mono', monospace; font-size:14px; font-weight:500; color:var(--steel-ink);}
+  #view-stock-editar .ftb-preview .note{font-size:11.5px; color:var(--muted);}
 </style>
 </head>
 <body>
@@ -232,7 +253,7 @@
     </div>
 
     <div class="secondary-grid">
-      <a class="card" href="stock-bodega.html">
+      <a class="card" href="#stock-bodega" data-view="stock-bodega">
         <span class="code-tag">FTB-BOD</span>
         <h2>Stock y bodega</h2>
         <p>Ubicación y cantidad disponible por bodega.</p>
@@ -302,7 +323,7 @@
 </div>
 
 <!-- ================= VIEW: AGREGAR PRODUCTO ================= -->
-<div class="view" id="view-agregar">
+<div class="view form-view" id="view-agregar">
   <div class="wrap">
     <a class="crumb" href="#productos" data-view="productos">← Productos</a>
     <p class="eyebrow">Módulo FTB-PRD · Nuevo</p>
@@ -442,46 +463,50 @@
 </div>
 
 <!-- ================= VIEW: ACTUALIZAR PRODUCTO ================= -->
-<div class="view" id="view-actualizar">
+<div class="view form-view" id="view-actualizar">
   <div class="wrap">
     <a class="crumb" href="#productos" data-view="productos">← Productos</a>
-    <p class="eyebrow">Módulo FTB-PRD · Existente</p>
+    <p class="eyebrow">Módulo FTB-PRD · Actualizar</p>
     <h1>Actualizar producto</h1>
-    <p class="sub">Busca por código FTB, nombre o marca, elige el producto y edita lo que cambió.</p>
+    <p class="sub">Busca el producto por su código FTB y edita los datos que necesites corregir o poner al día.</p>
 
-    <!-- ---- ETAPA 1: BÚSQUEDA ---- -->
-    <div id="search-stage" class="show">
-      <div class="search-box">
-        <input type="text" id="buscar-input" placeholder="Ej: FTB-HEL-0001, Broca, Irwin…">
-        <button type="button" id="btn-buscar">Buscar</button>
+    <div class="search-box">
+      <div class="field">
+        <label for="buscar-ftb">Código FTB</label>
+        <input type="text" id="buscar-ftb" placeholder="Ej: FTB-HER-0001" value="FTB-HER-0001">
+        <p class="hint-list">Producto de ejemplo cargado en la demo: <code>FTB-HER-0001</code></p>
       </div>
-      <p class="search-hint">Escribe al menos parte del código, nombre o marca y presiona Buscar. También puedes dejarlo vacío para ver todo el catálogo.</p>
-
-      <div id="results" class="results"></div>
+      <button type="button" id="btn-buscar">Buscar producto</button>
     </div>
 
-    <!-- ---- ETAPA 2: EDICIÓN ---- -->
-    <div id="edit-stage">
-      <span class="editing-tag">Editando <strong id="editing-code">FTB-···-····</strong> <button type="button" id="btn-volver-buscar">← volver a la búsqueda</button></span>
+    <div id="not-found">No se encontró ningún producto con ese código. Prueba con <strong>FTB-HER-0001</strong>, el producto de ejemplo cargado en esta demo.</div>
 
-      <form id="edit-form">
+    <div id="update-result">
+      <span class="found-tag">✓ Producto encontrado — editando datos existentes</span>
+
+      <form id="update-form">
 
         <div class="section-label">Identificación</div>
 
-        <div class="field full">
-          <label for="e-cod-barras">Código de barras del proveedor</label>
-          <input type="text" id="e-cod-barras" placeholder="Leído con el lector de código de barras">
+        <div class="ftb-preview">
+          <span class="code" id="u-ftb-code">FTB-HER-0001</span>
+          <span class="note">Código interno — no se modifica al actualizar</span>
         </div>
 
         <div class="field full">
-          <label for="e-nombre">Nombre del producto</label>
-          <input type="text" id="e-nombre" required>
+          <label for="u-cod-barras">Código de barras del proveedor</label>
+          <input type="text" id="u-cod-barras">
         </div>
 
         <div class="field full">
-          <label for="e-categoria">Categoría</label>
-          <select id="e-categoria" required>
-            <option value="" disabled>Selecciona una categoría</option>
+          <label for="u-nombre">Nombre del producto</label>
+          <input type="text" id="u-nombre" required>
+          <p class="hint">Formato: [nombre] + [característica principal] + [marca], con la marca al final separada por un guion.</p>
+        </div>
+
+        <div class="field full">
+          <label for="u-categoria">Categoría</label>
+          <select id="u-categoria" required>
             <option>Herramientas eléctricas</option>
             <option>Herramientas manuales</option>
             <option>Pinturas y acabados</option>
@@ -497,13 +522,12 @@
 
         <div class="row">
           <div class="field">
-            <label for="e-marca">Marca</label>
-            <input type="text" id="e-marca">
+            <label for="u-marca">Marca</label>
+            <input type="text" id="u-marca">
           </div>
           <div class="field">
-            <label for="e-unidad">Unidad de medida</label>
-            <select id="e-unidad" required>
-              <option value="" disabled>Selecciona una unidad</option>
+            <label for="u-unidad">Unidad de medida</label>
+            <select id="u-unidad" required>
               <option>Unidad</option>
               <option>Galón</option>
               <option>Metro</option>
@@ -516,29 +540,37 @@
           </div>
         </div>
 
+        <div class="section-label">Stock</div>
+
+        <div class="field full">
+          <label for="u-stock">Cantidad disponible</label>
+          <input type="number" id="u-stock" min="0" step="1">
+          <p class="hint">Editar este valor equivale a un ajuste manual de inventario; lo normal es que el stock se mueva desde el módulo de Movimientos.</p>
+        </div>
+
         <div class="section-label">Precios y rentabilidad</div>
 
         <div class="row">
           <div class="field">
-            <label for="e-costo">Costo unitario de compra / producción</label>
-            <input type="number" id="e-costo" min="0" step="0.01">
+            <label for="u-costo">Costo unitario de compra / producción</label>
+            <input type="number" id="u-costo" min="0" step="0.01">
           </div>
           <div class="field">
-            <label for="e-precio">Precio unitario de venta</label>
-            <input type="number" id="e-precio" min="0" step="0.01">
+            <label for="u-precio">Precio unitario de venta</label>
+            <input type="number" id="u-precio" min="0" step="0.01">
           </div>
         </div>
 
         <div class="field full">
           <div class="rentab-box">
             <span class="lbl">Rentabilidad calculada</span>
-            <span class="val" id="e-rentabilidad">—</span>
+            <span class="val" id="u-rentabilidad">—</span>
           </div>
         </div>
 
         <div class="field full">
-          <label for="e-impuesto">Tipo de impuesto</label>
-          <select id="e-impuesto">
+          <label for="u-impuesto">Tipo de impuesto</label>
+          <select id="u-impuesto">
             <option>IVA 19%</option>
             <option>IVA 5%</option>
             <option>Exento</option>
@@ -550,8 +582,8 @@
         <div class="field full">
           <label>Origen</label>
           <div class="radio-group">
-            <label class="radio-option"><input type="radio" name="e-origen" value="Comprado"> Comprado</label>
-            <label class="radio-option"><input type="radio" name="e-origen" value="Fabricado"> Fabricado</label>
+            <label class="radio-option"><input type="radio" name="u-origen" value="Comprado"> Comprado</label>
+            <label class="radio-option"><input type="radio" name="u-origen" value="Fabricado"> Fabricado</label>
           </div>
         </div>
 
@@ -559,41 +591,160 @@
           <div class="field">
             <label>Estado</label>
             <div class="radio-group">
-              <label class="radio-option"><input type="radio" name="e-estado" value="Activo"> Activo</label>
-              <label class="radio-option"><input type="radio" name="e-estado" value="Inactivo"> Inactivo</label>
+              <label class="radio-option"><input type="radio" name="u-estado" value="Activo"> Activo</label>
+              <label class="radio-option"><input type="radio" name="u-estado" value="Inactivo"> Inactivo</label>
             </div>
           </div>
           <div class="field">
-            <label for="e-fecha">Fecha de ingreso</label>
-            <input type="date" id="e-fecha">
+            <label for="u-fecha">Fecha de ingreso</label>
+            <input type="date" id="u-fecha">
           </div>
         </div>
 
         <div class="row">
           <div class="field">
-            <label for="e-responsable">Responsable de ingreso</label>
-            <input type="text" id="e-responsable">
+            <label for="u-responsable">Responsable de ingreso</label>
+            <input type="text" id="u-responsable">
           </div>
           <div class="field">
-            <label for="e-proveedor">Proveedor</label>
-            <input type="text" id="e-proveedor">
+            <label for="u-proveedor">Proveedor</label>
+            <input type="text" id="u-proveedor">
+          </div>
+        </div>
+
+        <div class="section-label">Trazabilidad de la actualización</div>
+
+        <div class="row">
+          <div class="field">
+            <label for="u-fecha-act">Fecha de actualización</label>
+            <input type="date" id="u-fecha-act" readonly>
+            <p class="hint">Se registra automáticamente con la fecha del día en que se guarda el cambio.</p>
+          </div>
+          <div class="field">
+            <label for="u-responsable-act">Responsable de la actualización</label>
+            <input type="text" id="u-responsable-act" placeholder="Nombre de quien edita el producto" required>
           </div>
         </div>
 
         <div class="actions">
           <button type="submit" class="btn-primary">Guardar cambios</button>
-          <button type="button" class="btn-ghost" id="btn-cancelar-edit">Cancelar</button>
+          <button type="button" class="btn-ghost" data-view="productos">Cancelar</button>
         </div>
 
-        <div id="edit-confirm"></div>
+        <div id="u-confirm"></div>
       </form>
     </div>
   </div>
 </div>
 
+<!-- ================= VIEW: STOCK Y BODEGA (LISTA) ================= -->
+<div class="view" id="view-stock-bodega">
+  <div class="wrap">
+    <a class="crumb" href="#inicio" data-view="inicio">← Inicio</a>
+    <p class="eyebrow">Módulo FTB-BOD</p>
+    <h1>Stock y bodega</h1>
+    <p class="sub">Ubicación y cantidad disponible de cada producto por bodega. Cada fila corresponde a un producto en una bodega específica.</p>
+
+    <div class="filter-bar">
+      <div class="field grow">
+        <label for="sb-buscar">Buscar por código FTB o nombre</label>
+        <input type="text" id="sb-buscar" placeholder="Ej: FTB-HER-0001 o martillo">
+      </div>
+      <div class="field">
+        <label for="sb-bodega">Bodega</label>
+        <select id="sb-bodega">
+          <option value="">Todas las bodegas</option>
+          <option>Bodega Principal</option>
+          <option>Bodega 2</option>
+        </select>
+      </div>
+    </div>
+
+    <p class="table-legend"><span class="badge-low">Bajo mínimo</span> cantidad disponible por debajo del mínimo definido para ese producto (demo: 10 unidades)</p>
+
+    <div class="table-wrap">
+      <table class="stock-table">
+        <thead>
+          <tr>
+            <th>Código FTB</th>
+            <th>Producto</th>
+            <th>Bodega</th>
+            <th>Cantidad disponible</th>
+            <th>Último movimiento</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="sb-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ================= VIEW: STOCK Y BODEGA (EDITAR) ================= -->
+<div class="view form-view" id="view-stock-editar">
+  <div class="wrap">
+    <a class="crumb" href="#stock-bodega" data-view="stock-bodega">← Stock y bodega</a>
+    <p class="eyebrow">Módulo FTB-BOD · Ajustar</p>
+    <h1>Editar ubicación / cantidad</h1>
+    <p class="sub">Este ajuste es manual. Lo normal es que la cantidad se mueva sola desde el módulo de Movimientos; usa esto solo para corregir la ubicación o hacer un conteo físico.</p>
+
+    <form id="stock-form">
+
+      <div class="section-label">Producto y bodega</div>
+
+      <div class="ftb-preview">
+        <span class="code" id="sb-ftb-code">FTB-···-····</span>
+        <span class="note" id="sb-producto-nombre">—</span>
+      </div>
+
+      <div class="field full">
+        <label for="sb-e-bodega">Bodega</label>
+        <select id="sb-e-bodega" required>
+          <option>Bodega Principal</option>
+          <option>Bodega 2</option>
+        </select>
+      </div>
+
+      <div class="section-label">Ubicación y cantidad</div>
+
+      <div class="field full">
+        <label for="sb-e-cantidad">Cantidad disponible</label>
+        <input type="number" id="sb-e-cantidad" min="0" step="1" required>
+        <p class="hint">Siempre expresada en la unidad de venta del producto.</p>
+      </div>
+
+      <div class="field full">
+        <label for="sb-e-motivo">Motivo del ajuste <span class="opt">(opcional)</span></label>
+        <input type="text" id="sb-e-motivo" placeholder="Ej: Conteo físico mensual">
+      </div>
+
+      <div class="section-label">Trazabilidad</div>
+
+      <div class="row">
+        <div class="field">
+          <label for="sb-e-fecha">Fecha del último movimiento</label>
+          <input type="date" id="sb-e-fecha" readonly>
+          <p class="hint">Se actualiza sola con la fecha de hoy al guardar el ajuste.</p>
+        </div>
+        <div class="field">
+          <label for="sb-e-responsable">Responsable del ajuste</label>
+          <input type="text" id="sb-e-responsable" placeholder="Nombre de quien ajusta" required>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn-primary">Guardar ajuste</button>
+        <button type="button" class="btn-ghost" data-view="stock-bodega">Cancelar</button>
+      </div>
+
+      <div id="sb-confirm"></div>
+    </form>
+  </div>
+</div>
+
 <script>
   /* ---------- router: switch views by hash, no page reload ---------- */
-  const views = ['inicio', 'productos', 'agregar', 'actualizar'];
+  const views = ['inicio', 'productos', 'agregar', 'actualizar', 'stock-bodega', 'stock-editar'];
 
   function showView(name){
     if(!views.includes(name)) name = 'inicio';
@@ -657,200 +808,217 @@
     };
     return map[cat] || '···';
   }
-  categoria.addEventListener('change', () => {
-    ftbCode.textContent = 'FTB-' + catPrefix(categoria.value) + '-····';
-  });
-
-  /* ---------- "base de datos" en memoria, compartida con Actualizar ---------- */
-  const catalogo = [
-    { codigo:'FTB-HMA-0001', nombre:'Martillo de uña 16oz - mango fibra – Truper', codBarras:'7501234567890', categoria:'Herramientas manuales', marca:'Truper', unidad:'Unidad', costo:18000, precio:29900, impuesto:'IVA 19%', origen:'Comprado', estado:'Activo', fecha:'2026-06-02', responsable:'Camila Ríos', proveedor:'Distribuidora Truper' },
-    { codigo:'FTB-ELE-0001', nombre:'Cable THHN 12 AWG x metro – Centelsa', codBarras:'7709876543210', categoria:'Eléctrico', marca:'Centelsa', unidad:'Metro', costo:1200, precio:2100, impuesto:'IVA 19%', origen:'Comprado', estado:'Activo', fecha:'2026-05-18', responsable:'Julián Pérez', proveedor:'Centelsa S.A.' }
-  ];
-  const codeCounters = {}; // ej: {HMA:1, ELE:1}
-  catalogo.forEach(p => {
-    const prefix = p.codigo.split('-')[1];
-    const num = parseInt(p.codigo.split('-')[2], 10);
-    codeCounters[prefix] = Math.max(codeCounters[prefix] || 0, num);
-  });
-
-  function nextCode(cat){
-    const prefix = catPrefix(cat);
-    codeCounters[prefix] = (codeCounters[prefix] || 0) + 1;
-    return 'FTB-' + prefix + '-' + String(codeCounters[prefix]).padStart(4, '0');
+  function siguienteNumeroCodigo(prefix){
+    let maxNum = 0;
+    STOCK_DATA.forEach(item => {
+      const partes = item.ftb.split('-');
+      if(partes[1] === prefix){
+        const n = parseInt(partes[2], 10);
+        if(!isNaN(n) && n > maxNum) maxNum = n;
+      }
+    });
+    return String(maxNum + 1).padStart(4, '0');
   }
+
+  categoria.addEventListener('change', () => {
+    const prefix = catPrefix(categoria.value);
+    const numero = siguienteNumeroCodigo(prefix);
+    ftbCode.textContent = 'FTB-' + prefix + '-' + numero;
+  });
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const origenEl = form.querySelector('input[name="origen"]:checked');
-    const estadoEl = form.querySelector('input[name="estado"]:checked');
     const nombre = document.getElementById('nombre').value || 'este producto';
-    const codigoAsignado = nextCode(categoria.value);
-
-    catalogo.push({
-      codigo: codigoAsignado,
-      nombre: nombre,
-      codBarras: document.getElementById('cod-barras').value,
-      categoria: categoria.value,
-      marca: document.getElementById('marca').value,
-      unidad: document.getElementById('unidad').value,
-      costo: parseFloat(costo.value) || 0,
-      precio: parseFloat(precio.value) || 0,
-      impuesto: document.getElementById('impuesto').value,
-      origen: origenEl ? origenEl.value : 'Comprado',
-      estado: estadoEl ? estadoEl.value : 'Activo',
-      fecha: fecha.value,
-      responsable: document.getElementById('responsable').value,
-      proveedor: document.getElementById('proveedor').value
-    });
-
-    confirmBox.textContent = 'Producto agregado: ' + nombre + '. Código ' + codigoAsignado + ' asignado y guardado en el catálogo. Ya puedes buscarlo en "Actualizar producto".';
+    const codigoAsignado = ftbCode.textContent;
+    confirmBox.textContent = 'Producto agregado: ' + nombre + '. Código ' + codigoAsignado + ' asignado al guardar en la base de datos.';
     confirmBox.classList.add('show');
-    form.reset();
-    fecha.value = new Date().toISOString().split('T')[0];
-    ftbCode.textContent = 'FTB-···-····';
-    rentabilidad.textContent = '—';
+    // Registrar el nuevo código para que el siguiente producto de la misma categoría continúe la numeración
+    STOCK_DATA.push({ ftb: codigoAsignado, nombre: nombre, bodega: '-', cantidad: 0, fecha: fecha.value });
   });
 
   /* ---------- actualizar-producto logic ---------- */
-  const buscarInput = document.getElementById('buscar-input');
+  const EJEMPLO_PRODUCTO = {
+    ftb: 'FTB-HER-0001',
+    codBarras: '7501234567890',
+    nombre: 'Martillo de uña 16 oz - Truper',
+    categoria: 'Herramientas manuales',
+    marca: 'Truper',
+    unidad: 'Unidad',
+    stock: 42,
+    costo: 18000,
+    precio: 25000,
+    impuesto: 'IVA 19%',
+    origen: 'Comprado',
+    estado: 'Activo',
+    fecha: '2026-03-10',
+    responsable: 'Carlos Pérez',
+    proveedor: 'Distribuidora Truper S.A.S.'
+  };
+
+  const buscarInput = document.getElementById('buscar-ftb');
   const btnBuscar = document.getElementById('btn-buscar');
-  const resultsBox = document.getElementById('results');
-  const searchStage = document.getElementById('search-stage');
-  const editStage = document.getElementById('edit-stage');
-  const editingCode = document.getElementById('editing-code');
-  const editForm = document.getElementById('edit-form');
-  const editConfirm = document.getElementById('edit-confirm');
-  const eCosto = document.getElementById('e-costo');
-  const ePrecio = document.getElementById('e-precio');
-  const eRentabilidad = document.getElementById('e-rentabilidad');
+  const notFound = document.getElementById('not-found');
+  const updateResult = document.getElementById('update-result');
+  const uCosto = document.getElementById('u-costo');
+  const uPrecio = document.getElementById('u-precio');
+  const uRentabilidad = document.getElementById('u-rentabilidad');
+  const updateForm = document.getElementById('update-form');
+  const uConfirm = document.getElementById('u-confirm');
 
-  let editingIndex = null;
+  function cargarProductoEjemplo(){
+    const d = EJEMPLO_PRODUCTO;
+    document.getElementById('u-ftb-code').textContent = d.ftb;
+    document.getElementById('u-cod-barras').value = d.codBarras;
+    document.getElementById('u-nombre').value = d.nombre;
+    document.getElementById('u-categoria').value = d.categoria;
+    document.getElementById('u-marca').value = d.marca;
+    document.getElementById('u-unidad').value = d.unidad;
+    document.getElementById('u-stock').value = d.stock;
+    uCosto.value = d.costo;
+    uPrecio.value = d.precio;
+    document.getElementById('u-impuesto').value = d.impuesto;
+    document.querySelector(`input[name="u-origen"][value="${d.origen}"]`).checked = true;
+    document.querySelector(`input[name="u-estado"][value="${d.estado}"]`).checked = true;
+    document.getElementById('u-fecha').value = d.fecha;
+    document.getElementById('u-responsable').value = d.responsable;
+    document.getElementById('u-proveedor').value = d.proveedor;
+    document.getElementById('u-fecha-act').value = new Date().toISOString().split('T')[0];
+    document.getElementById('u-responsable-act').value = '';
+    calcRentabilidadUpdate();
+    uConfirm.classList.remove('show');
+    uConfirm.textContent = '';
+  }
 
-  function renderResults(){
-    const q = buscarInput.value.trim().toLowerCase();
-    const matches = catalogo.filter(p =>
-      !q ||
-      p.codigo.toLowerCase().includes(q) ||
-      p.nombre.toLowerCase().includes(q) ||
-      p.marca.toLowerCase().includes(q)
-    );
+  function calcRentabilidadUpdate(){
+    const c = parseFloat(uCosto.value);
+    const p = parseFloat(uPrecio.value);
+    if(!isNaN(c) && !isNaN(p) && p > 0){
+      const r = ((p - c) / p) * 100;
+      uRentabilidad.textContent = r.toFixed(1) + '%';
+    } else {
+      uRentabilidad.textContent = '—';
+    }
+  }
+  uCosto.addEventListener('input', calcRentabilidadUpdate);
+  uPrecio.addEventListener('input', calcRentabilidadUpdate);
 
-    if(matches.length === 0){
-      resultsBox.innerHTML = '<div class="empty-state">No se encontró ningún producto con ese criterio.</div>';
+  function buscarProducto(){
+    const codigo = buscarInput.value.trim().toUpperCase();
+    if(codigo === EJEMPLO_PRODUCTO.ftb){
+      notFound.classList.remove('show');
+      updateResult.classList.add('show');
+      cargarProductoEjemplo();
+    } else {
+      updateResult.classList.remove('show');
+      notFound.classList.add('show');
+    }
+  }
+  btnBuscar.addEventListener('click', buscarProducto);
+  buscarInput.addEventListener('keydown', (e) => { if(e.key === 'Enter'){ e.preventDefault(); buscarProducto(); } });
+
+  updateForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const nombre = document.getElementById('u-nombre').value || 'este producto';
+    const respAct = document.getElementById('u-responsable-act').value || 'sin especificar';
+    const fechaAct = document.getElementById('u-fecha-act').value;
+    uConfirm.textContent = 'Cambios guardados en ' + document.getElementById('u-ftb-code').textContent + ' (' + nombre + '). Actualizado por ' + respAct + ' el ' + fechaAct + '. El sistema actualizaría este registro en la base de datos.';
+    uConfirm.classList.add('show');
+  });
+
+  // cargar el producto de ejemplo automáticamente al entrar a la vista, para que el cliente lo vea de inmediato
+  cargarProductoEjemplo();
+  updateResult.classList.add('show');
+
+  /* ---------- stock y bodega logic ---------- */
+  const STOCK_MINIMO_DEMO = 10;
+  let STOCK_DATA = [
+    { ftb:'FTB-HER-0001', nombre:'Martillo de uña 16 oz - Truper', bodega:'Bodega Principal', cantidad:42, fecha:'2026-08-10' },
+    { ftb:'FTB-PIN-2971', nombre:'Esmalte Azul - Esmaltín', bodega:'Bodega Principal', cantidad:8, fecha:'2026-08-15' },
+    { ftb:'FTB-ELE-0004', nombre:'Tablero Eléctrico Bifásico 12 Puestos con Tapa Metálica – Mercury', bodega:'Bodega 2', cantidad:15, fecha:'2026-08-05' },
+    { ftb:'FTB-HER-0002', nombre:'Broca SDS Plus - 3/8 x 6 pulg – Irwin', bodega:'Bodega Principal', cantidad:120, fecha:'2026-08-18' },
+    { ftb:'FTB-MAT-0010', nombre:'Cemento gris 50kg - Argos', bodega:'Bodega 2', cantidad:5, fecha:'2026-08-19' }
+  ];
+
+  const sbTbody = document.getElementById('sb-tbody');
+  const sbBuscar = document.getElementById('sb-buscar');
+  const sbBodegaFiltro = document.getElementById('sb-bodega');
+  let sbEditIndex = null;
+
+  function renderStockTable(){
+    const q = sbBuscar.value.trim().toLowerCase();
+    const bodega = sbBodegaFiltro.value;
+    const filtradas = STOCK_DATA.filter(r => {
+      const matchQ = !q || r.ftb.toLowerCase().includes(q) || r.nombre.toLowerCase().includes(q);
+      const matchB = !bodega || r.bodega === bodega;
+      return matchQ && matchB;
+    });
+
+    if(filtradas.length === 0){
+      sbTbody.innerHTML = '<tr class="empty-row"><td colspan="6">No hay registros con ese filtro.</td></tr>';
       return;
     }
 
-    resultsBox.innerHTML = '';
-    matches.forEach(p => {
-      const idx = catalogo.indexOf(p);
-      const item = document.createElement('button');
-      item.type = 'button';
-      item.className = 'result-item';
-      item.innerHTML =
-        '<span>' +
-          '<span class="r-code">' + p.codigo + '</span>' +
-          '<span class="r-name">' + p.nombre + '</span>' +
-          '<div class="r-meta">' + p.categoria + (p.marca ? ' · ' + p.marca : '') + '</div>' +
-        '</span>' +
-        '<span class="r-go">Editar →</span>';
-      item.addEventListener('click', () => openEdit(idx));
-      resultsBox.appendChild(item);
-    });
+    sbTbody.innerHTML = filtradas.map(r => {
+      const idx = STOCK_DATA.indexOf(r);
+      const low = r.cantidad < STOCK_MINIMO_DEMO;
+      return `<tr>
+        <td class="ftb-code-cell">${r.ftb}</td>
+        <td>${r.nombre}</td>
+        <td>${r.bodega}</td>
+        <td class="qty-cell">${r.cantidad}${low ? '<span class="badge-low">Bajo mínimo</span>' : ''}</td>
+        <td>${r.fecha}</td>
+        <td><button type="button" class="row-edit-btn" data-edit-idx="${idx}">Editar →</button></td>
+      </tr>`;
+    }).join('');
   }
 
-  buscarInput.addEventListener('input', renderResults);
-  btnBuscar.addEventListener('click', renderResults);
+  sbBuscar.addEventListener('input', renderStockTable);
+  sbBodegaFiltro.addEventListener('change', renderStockTable);
 
-  function calcRentabilidadEdit(){
-    const c = parseFloat(eCosto.value);
-    const p = parseFloat(ePrecio.value);
-    if(!isNaN(c) && !isNaN(p) && p > 0){
-      eRentabilidad.textContent = (((p - c) / p) * 100).toFixed(1) + '%';
-    } else {
-      eRentabilidad.textContent = '—';
-    }
-  }
-  eCosto.addEventListener('input', calcRentabilidadEdit);
-  ePrecio.addEventListener('input', calcRentabilidadEdit);
+  sbTbody.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-edit-idx]');
+    if(!btn) return;
+    sbEditIndex = parseInt(btn.getAttribute('data-edit-idx'), 10);
+    cargarStockEnFormulario(STOCK_DATA[sbEditIndex]);
+    navigate('stock-editar');
+  });
 
-  function openEdit(idx){
-    editingIndex = idx;
-    const p = catalogo[idx];
+  const sbFtbCode = document.getElementById('sb-ftb-code');
+  const sbProductoNombre = document.getElementById('sb-producto-nombre');
+  const sbEBodega = document.getElementById('sb-e-bodega');
+  const sbECantidad = document.getElementById('sb-e-cantidad');
+  const sbEFecha = document.getElementById('sb-e-fecha');
+  const sbEMotivo = document.getElementById('sb-e-motivo');
+  const sbEResponsable = document.getElementById('sb-e-responsable');
+  const stockForm = document.getElementById('stock-form');
+  const sbConfirm = document.getElementById('sb-confirm');
 
-    editingCode.textContent = p.codigo;
-    document.getElementById('e-cod-barras').value = p.codBarras || '';
-    document.getElementById('e-nombre').value = p.nombre || '';
-    document.getElementById('e-categoria').value = p.categoria || '';
-    document.getElementById('e-marca').value = p.marca || '';
-    document.getElementById('e-unidad').value = p.unidad || '';
-    eCosto.value = p.costo || '';
-    ePrecio.value = p.precio || '';
-    document.getElementById('e-impuesto').value = p.impuesto || 'IVA 19%';
-    document.getElementById('e-fecha').value = p.fecha || '';
-    document.getElementById('e-responsable').value = p.responsable || '';
-    document.getElementById('e-proveedor').value = p.proveedor || '';
-
-    const origenRadio = editForm.querySelector('input[name="e-origen"][value="' + (p.origen || 'Comprado') + '"]');
-    if(origenRadio) origenRadio.checked = true;
-    const estadoRadio = editForm.querySelector('input[name="e-estado"][value="' + (p.estado || 'Activo') + '"]');
-    if(estadoRadio) estadoRadio.checked = true;
-
-    calcRentabilidadEdit();
-    editConfirm.classList.remove('show');
-
-    searchStage.classList.remove('show');
-    editStage.classList.add('show');
+  function cargarStockEnFormulario(r){
+    sbFtbCode.textContent = r.ftb;
+    sbProductoNombre.textContent = r.nombre;
+    sbEBodega.value = r.bodega;
+    sbECantidad.value = r.cantidad;
+    sbEFecha.value = new Date().toISOString().split('T')[0];
+    sbEMotivo.value = '';
+    sbEResponsable.value = '';
+    sbConfirm.classList.remove('show');
+    sbConfirm.textContent = '';
   }
 
-  function backToSearch(){
-    editingIndex = null;
-    editStage.classList.remove('show');
-    searchStage.classList.add('show');
-  }
-
-  document.getElementById('btn-volver-buscar').addEventListener('click', backToSearch);
-  document.getElementById('btn-cancelar-edit').addEventListener('click', backToSearch);
-
-  editForm.addEventListener('submit', (e) => {
+  stockForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    if(editingIndex === null) return;
-
-    const origenEl = editForm.querySelector('input[name="e-origen"]:checked');
-    const estadoEl = editForm.querySelector('input[name="e-estado"]:checked');
-
-    catalogo[editingIndex] = {
-      ...catalogo[editingIndex],
-      codBarras: document.getElementById('e-cod-barras').value,
-      nombre: document.getElementById('e-nombre').value,
-      categoria: document.getElementById('e-categoria').value,
-      marca: document.getElementById('e-marca').value,
-      unidad: document.getElementById('e-unidad').value,
-      costo: parseFloat(eCosto.value) || 0,
-      precio: parseFloat(ePrecio.value) || 0,
-      impuesto: document.getElementById('e-impuesto').value,
-      origen: origenEl ? origenEl.value : catalogo[editingIndex].origen,
-      estado: estadoEl ? estadoEl.value : catalogo[editingIndex].estado,
-      fecha: document.getElementById('e-fecha').value,
-      responsable: document.getElementById('e-responsable').value,
-      proveedor: document.getElementById('e-proveedor').value
-    };
-
-    editConfirm.textContent = 'Cambios guardados en ' + catalogo[editingIndex].codigo + '.';
-    editConfirm.classList.add('show');
-    renderResults();
+    if(sbEditIndex === null) return;
+    const r = STOCK_DATA[sbEditIndex];
+    r.bodega = sbEBodega.value;
+    r.cantidad = parseInt(sbECantidad.value, 10) || 0;
+    r.fecha = sbEFecha.value;
+    const responsable = sbEResponsable.value || 'sin especificar';
+    sbConfirm.textContent = 'Ajuste guardado para ' + r.ftb + '. Cantidad actual: ' + r.cantidad + '. Registrado por ' + responsable + '. El sistema actualizaría este registro en la base de datos.';
+    sbConfirm.classList.add('show');
+    renderStockTable();
   });
 
-  // al entrar a la vista de actualizar, mostrar siempre la etapa de búsqueda con el catálogo completo
-  document.addEventListener('click', (e) => {
-    const el = e.target.closest('[data-view="actualizar"]');
-    if(el){
-      buscarInput.value = '';
-      renderResults();
-      searchStage.classList.add('show');
-      editStage.classList.remove('show');
-    }
-  });
-  if(location.hash.replace('#','') === 'actualizar') renderResults();
+  renderStockTable();
 </script>
 </body>
 </html>
